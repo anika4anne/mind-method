@@ -1,14 +1,14 @@
 import "~/styles/globals.css";
-
+import { SessionProvider } from "next-auth/react";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
-
-import { TRPCReactProvider } from "~/trpc/react";
+import TopBar from "../components/TopBar";
+import ReactQueryProvider from "../components/ReactQueryProvider"; // ⬅️ New
 
 export const metadata: Metadata = {
-  title: "Mind & Mindset",
-  description: "Developed by Anika",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  title: "Mind & Method",
+  description: "Developed by Anika Anne",
+  icons: [{ rel: "icon", url: "/scioly-logo-dark.png" }],
 };
 
 const geist = Geist({
@@ -20,12 +20,21 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
-      <body>
-        <TRPCReactProvider>{children}</TRPCReactProvider>
-        <footer className="fixed right-4 bottom-4 z-50 text-sm text-white/80">
-          © Copyright 2025 Anika Anne. All rights reserved.
-        </footer>
+    <html lang="en" className={`${geist.variable} w-full overflow-x-hidden`}>
+      <body className="min-h-full w-full overflow-x-hidden text-white">
+        <div
+          className="fixed inset-0 -z-50 h-[10000px] w-screen bg-gradient-to-b from-blue-950 to-purple-950"
+          aria-hidden="true"
+        />
+        <SessionProvider>
+          <ReactQueryProvider>
+            <TopBar className="sticky top-0 z-50" />
+            <main className="min-h-full w-full">{children}</main>
+            <footer className="fixed right-4 bottom-4 z-50 text-sm text-white/80">
+              © Copyright 2025 Anika Anne. All rights reserved.
+            </footer>
+          </ReactQueryProvider>
+        </SessionProvider>
       </body>
     </html>
   );

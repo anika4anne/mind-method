@@ -27,15 +27,13 @@ export default function TopBar({ className = "" }: { className?: string }) {
     >
       <div className="flex items-center gap-3">
         <Image
-          src="/scioly-logo.png"
-          alt="Scioly Logo"
+          src="/.png"
+          alt="Club Logo"
           width={48}
           height={48}
           className="rounded-full"
         />
-        <span className="text-xl font-bold text-white select-none">
-          Science Olympiad
-        </span>
+        <span className="text-xl font-bold text-white select-none">Mind &</span>
       </div>
       <nav className="flex items-center gap-8">
         {links.map(({ label, href }) => (
