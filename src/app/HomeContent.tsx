@@ -91,22 +91,6 @@ export default function HomeContent() {
           />
         ))}
 
-        {/* Floating emojis */}
-        <motion.div
-          animate={{
-            y: [0, 20, 0],
-            x: [0, 15, 0],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute top-1/3 right-1/4 text-3xl"
-        >
-          ⭐
-        </motion.div>
-
         {/* Sparkles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
