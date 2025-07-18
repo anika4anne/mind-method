@@ -1,191 +1,381 @@
+"use client";
 import Link from "next/link";
-// Remove: import { HydrateClient } from "~/trpc/server";
+import { motion } from "framer-motion";
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  hover: {
+    scale: 1.05,
+    y: -5,
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
+
+const confettiVariants = {
+  fall: {
+    y: [-100, 1000],
+    rotate: [0, 360],
+    transition: {
+      duration: 3,
+      repeat: Infinity,
+    },
+  },
+};
 
 export default function HomeContent() {
   return (
     <>
-      {/* Animated background shapes and psychology elements */}
+      {/* Font Awesome CSS */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      />
+
+      {/* Animated background with confetti and sparkles */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        {/* Animated brain SVG in hero area */}
-        <svg
-          className="animate-brain-float absolute top-10 left-1/2 h-[220px] w-[320px] -translate-x-1/2 opacity-60"
-          viewBox="0 0 320 220"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
+        {/* Gradient background */}
+        <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
+
+        {/* Confetti */}
+        {[...Array(20)].map((_, i) => (
+          <motion.div
+            key={i}
+            variants={confettiVariants}
+            animate="fall"
+            className="absolute h-2 w-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              backgroundColor: [
+                "#40e0d0",
+                "#48d1cc",
+                "#20b2aa",
+                "#00ced1",
+                "#7fffd4",
+                "#40e0d0",
+                "#00bfff",
+              ][Math.floor(Math.random() * 7)],
+              animationDelay: `${Math.random() * 3}s`,
+            }}
+          />
+        ))}
+
+        {/* Floating emojis */}
+        <motion.div
+          animate={{
+            y: [0, 20, 0],
+            x: [0, 15, 0],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/3 right-1/4 text-3xl"
         >
-          <ellipse
-            cx="160"
-            cy="110"
-            rx="120"
-            ry="90"
-            fill="url(#brainGradient)"
+          ⭐
+        </motion.div>
+
+        {/* Sparkles */}
+        {[...Array(15)].map((_, i) => (
+          <motion.div
+            key={`sparkle-${i}`}
+            animate={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+            className="absolute h-1 w-1 rounded-full bg-cyan-300"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
           />
-          <path
-            d="M80 110 Q100 60 160 80 Q220 100 240 60"
-            stroke="#7dd3fc"
-            strokeWidth="8"
-            fill="none"
-            opacity="0.7"
-          />
-          <path
-            d="M100 140 Q120 180 160 160 Q200 140 220 180"
-            stroke="#a5b4fc"
-            strokeWidth="8"
-            fill="none"
-            opacity="0.7"
-          />
-          <defs>
-            <radialGradient
-              id="brainGradient"
-              cx="0"
-              cy="0"
-              r="1"
-              gradientTransform="translate(160 110) scale(120 90)"
-              gradientUnits="userSpaceOnUse"
-            >
-              <stop stopColor="#a5b4fc" />
-              <stop offset="1" stopColor="#38bdf8" />
-            </radialGradient>
-          </defs>
-        </svg>
-        {/* Floating thought bubbles */}
-        <div className="animate-bubble-slow absolute top-1/4 left-1/3 h-24 w-24 rounded-full bg-cyan-200/30 blur-2xl" />
-        <div className="animate-bubble-medium absolute top-1/2 right-1/4 h-16 w-16 rounded-full bg-purple-300/30 blur-xl" />
-        <div className="animate-bubble-fast absolute bottom-10 left-1/2 h-20 w-20 rounded-full bg-teal-300/20 blur-2xl" />
-        {/* Existing blurred shapes for depth */}
-        <div className="animate-pulse-slow absolute top-0 left-1/4 h-96 w-96 rounded-full bg-cyan-400/30 blur-3xl" />
-        <div className="animate-pulse-slower absolute top-1/3 right-0 h-80 w-80 rounded-full bg-blue-500/20 blur-2xl" />
-        <div className="animate-pulse-slower absolute bottom-0 left-0 h-72 w-72 rounded-full bg-indigo-400/20 blur-2xl" />
+        ))}
       </div>
-      <main className="flex min-h-screen flex-col items-center justify-start bg-gradient-to-br from-[#a5b4fc] via-[#38bdf8] to-[#6366f1] px-6 text-white">
-        <div className="container mt-6 flex flex-col items-center gap-12 px-4 py-16">
-          <h1 className="animate-glow mt-32 text-5xl font-extrabold tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,112,209,0.7)] sm:text-[5rem]">
-            Mind{" "}
-            <span className="text-[hsl(201,45%,28%)] drop-shadow-[0_2px_12px_rgba(98,210,227,0.7)]">
-              &
-            </span>{" "}
-            Method
-          </h1>
-          <p className="max-w-2xl text-center text-xl text-blue-200">
-            Explore human behavior. Solve mysteries. Build empathy and
-            understanding. Mind & Method is a club dedicated to bringing
-            psychology and critical thinking into the heart of our school
-            community.
-          </p>
-          {/* Wavy divider below hero */}
-          <div className="mx-auto -mb-8 w-full max-w-4xl">
-            <svg
-              viewBox="0 0 1440 80"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-16 w-full"
+
+      <main className="flex min-h-screen flex-col items-center justify-start px-6 text-white">
+        <div className="container mt-6 flex flex-col items-center gap-16 px-4 py-16">
+          {/* Hero Section */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="text-center"
+          >
+            <motion.div
+              variants={itemVariants}
+              className="mb-8 flex justify-center"
             >
-              <path
-                d="M0 40 Q360 80 720 40 Q1080 0 1440 40 V80 H0 V40Z"
-                fill="url(#waveGradient)"
-              />
-              <defs>
-                <linearGradient
-                  id="waveGradient"
-                  x1="0"
-                  y1="0"
-                  x2="1440"
-                  y2="80"
-                  gradientUnits="userSpaceOnUse"
-                >
-                  <stop stopColor="#a5b4fc" />
-                  <stop offset="1" stopColor="#38bdf8" />
-                </linearGradient>
-              </defs>
-            </svg>
-          </div>
+              <div className="relative">
+                <motion.div
+                  animate={{
+                    rotate: [0, 360],
+                    scale: [1, 1.1, 1],
+                  }}
+                  transition={{
+                    duration: 15,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  className="to-turquoise-500 absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 opacity-70 blur-xl"
+                />
+                <div className="to-turquoise-500 relative rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 p-2">
+                  <div className="rounded-full bg-white p-8">
+                    <span className="text-6xl">🧠</span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
 
-          {/* About Section */}
-          <section className="w-full max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl">
-            <h2 className="mb-4 text-3xl font-bold text-white drop-shadow">
-              About Us
-            </h2>
-            <p className="text-lg leading-relaxed text-blue-100">
-              Psychology is often overlooked in schools — we're here to change
-              that. Mind & Method is a student-led club focused on making
-              psychology approachable, hands-on, and meaningful. Through
-              problem-solving activities, forensic challenges, and real-world
-              applications, we aim to create a space where students can explore
-              human behavior while building critical thinking, collaboration,
-              and communication skills.
-            </p>
-          </section>
+            <motion.h1
+              variants={itemVariants}
+              className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
+            >
+              Welcome to Mind & Method! 🎉
+            </motion.h1>
 
-          {/* What We Do */}
-          <section className="w-full max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl">
-            <h2 className="mb-4 text-3xl font-bold text-blue-300 drop-shadow">
-              What We Do
-            </h2>
-            <p className="text-lg leading-relaxed text-blue-100">
-              Our weekly sessions include engaging, hands-on experiences such
-              as:
-            </p>
-            <ul className="mt-4 list-inside list-disc space-y-2 text-blue-100">
-              <li>Solve psychological case studies and behavioral puzzles</li>
-              <li>
-                Explore forensic techniques through mystery-based challenges
-              </li>
-              <li>
-                Learn about topics like memory, bias, emotion, and
-                decision-making
-              </li>
-              <li>
-                Build practical skills in observation, deduction, and
-                communication
-              </li>
-              <li>
-                Engage in meaningful discussions around mental health and
-                well-being
-              </li>
-            </ul>
-          </section>
+            <motion.p
+              variants={itemVariants}
+              className="mx-auto max-w-3xl text-2xl font-semibold text-white"
+            >
+              <span className="text-cyan-300">
+                🎈 The COOLEST Psychology Club Ever! 🎈
+              </span>
+              <br />
+              <span className="mt-2 block text-lg text-white/90">
+                Join us for mind-blowing adventures, mystery solving, and the
+                most fun you'll ever have learning about psychology!
+              </span>
+            </motion.p>
 
-          {/* Our Mission */}
-          <section className="w-full max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl">
-            <h2 className="mb-4 text-3xl font-bold text-blue-300 drop-shadow">
-              Our Mission
-            </h2>
-            <p className="text-lg leading-relaxed text-blue-100">
-              Mind & Method isn't just about understanding the mind — it's about
-              supporting it. We partner with local mental health organizations
-              and invite guest speakers like clinicians and teen wellness
-              advocates to:
-            </p>
-            <ul className="mt-4 list-inside list-disc space-y-2 text-blue-100">
-              <li>Raise awareness around mental health in schools</li>
-              <li>Share tools and resources for student wellness</li>
-              <li>Advocate for better mental health education</li>
-              <li>Create a safe, supportive space for open conversation</li>
-            </ul>
-          </section>
-
-          {/* Get Involved */}
-          <section className="relative w-full max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl">
-            <h2 className="mb-4 text-3xl font-bold text-blue-300 drop-shadow">
-              Get Involved
-            </h2>
-            <p className="text-lg leading-relaxed text-blue-100">
-              Whether you're curious about psychology, passionate about
-              advocacy, or just love solving mysteries — Mind & Method is for
-              you. No prior experience needed. Just bring your curiosity and an
-              open mind.
-            </p>
-            <div className="mt-8 flex justify-center">
-              <Link
-                href="/about"
-                className="animate-glow relative inline-block rounded-full bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:scale-105 hover:from-cyan-400 hover:to-blue-700 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
-                style={{ boxShadow: "0 0 32px 8px rgba(64,112,209,0.25)" }}
+            <motion.div
+              variants={itemVariants}
+              className="mt-8 flex flex-wrap justify-center gap-6"
+            >
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 p-1 shadow-2xl"
               >
-                Learn More About the Club
-                <span className="absolute -inset-1 -z-10 rounded-full bg-cyan-400/20 opacity-60 blur-lg" />
-              </Link>
-            </div>
-          </section>
+                <Link
+                  href="/interest"
+                  className="block rounded-full bg-white px-8 py-4 font-bold text-teal-600 transition-colors hover:bg-teal-50"
+                >
+                  🚀 JOIN THE FUN!
+                </Link>
+              </motion.div>
+
+              <motion.div
+                whileHover={{ scale: 1.1, rotate: -5 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full border-4 border-white/80 p-1 shadow-2xl"
+              >
+                <Link
+                  href="/officers"
+                  className="block rounded-full bg-white/20 px-8 py-4 font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+                >
+                  <i className="fas fa-users mr-2"></i>
+                  Meet Our Awesome Team!
+                </Link>
+              </motion.div>
+            </motion.div>
+          </motion.div>
+
+          {/* What Makes Us Special */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="w-full max-w-6xl"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-12 text-center text-5xl font-bold text-white"
+            >
+              Why You'll <span className="text-cyan-300">LOVE</span> Mind &
+              Method! 💖
+            </motion.h2>
+
+            <motion.div
+              variants={containerVariants}
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {[
+                {
+                  icon: "🎭",
+                  title: "Mystery Adventures!",
+                  description:
+                    "Become a detective! Solve real psychological mysteries and use your brain like never before!",
+                  gradient: "from-teal-500 to-cyan-600",
+                },
+                {
+                  icon: "🎪",
+                  title: "Super Fun Activities!",
+                  description:
+                    "No boring stuff here! Every session is packed with games, experiments, and mind-blowing discoveries!",
+                  gradient: "from-cyan-500 to-turquoise-600",
+                },
+                {
+                  icon: "🌟",
+                  title: "Make Amazing Friends!",
+                  description:
+                    "Join a community of curious minds who love psychology just like you!",
+                  gradient: "from-turquoise-500 to-teal-600",
+                },
+                {
+                  icon: "🎯",
+                  title: "Learn Real Skills!",
+                  description:
+                    "Develop superpowers like reading people's minds (well, almost!) and understanding human behavior!",
+                  gradient: "from-cyan-400 to-teal-500",
+                },
+                {
+                  icon: "🎨",
+                  title: "Be Creative!",
+                  description:
+                    "Express yourself through psychology! Create experiments, design challenges, and think outside the box!",
+                  gradient: "from-teal-400 to-cyan-500",
+                },
+                {
+                  icon: "🏆",
+                  title: "Build Your Future!",
+                  description:
+                    "Gain skills that colleges and jobs love! Psychology knowledge is like a superpower in any career!",
+                  gradient: "from-turquoise-400 to-teal-500",
+                },
+              ].map((feature, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 p-8 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
+                >
+                  <div
+                    className={`mb-6 inline-block rounded-2xl bg-gradient-to-r ${feature.gradient} p-4 text-4xl shadow-lg`}
+                  >
+                    {feature.icon}
+                  </div>
+                  <h3 className="mb-4 text-2xl font-bold text-white group-hover:text-cyan-300">
+                    {feature.title}
+                  </h3>
+                  <p className="text-lg text-white/90">{feature.description}</p>
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+
+          {/* Call to Action */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="w-full max-w-4xl text-center"
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-12 shadow-2xl backdrop-blur-xl"
+            >
+              <motion.div
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+              />
+
+              <div className="relative z-10">
+                <h2 className="mb-6 text-5xl font-bold text-white">
+                  Ready to Have the{" "}
+                  <span className="text-cyan-300">BEST TIME EVER</span>? 🎉
+                </h2>
+                <p className="mb-8 text-2xl text-white/90">
+                  Don't miss out on the most exciting psychology club in school!
+                  <br />
+                  <span className="font-bold text-cyan-300">
+                    No experience needed—just bring your awesome self! 🌟
+                  </span>
+                </p>
+
+                <div className="flex flex-wrap justify-center gap-6">
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: 5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 p-1 shadow-2xl"
+                  >
+                    <Link
+                      href="/interest"
+                      className="block rounded-full bg-white px-10 py-5 text-xl font-bold text-teal-600 transition-colors hover:bg-teal-50"
+                    >
+                      🚀 START YOUR ADVENTURE!
+                    </Link>
+                  </motion.div>
+
+                  <motion.div
+                    whileHover={{ scale: 1.1, rotate: -5 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="rounded-full border-4 border-white/80 p-1 shadow-2xl"
+                  >
+                    <Link
+                      href="/officers"
+                      className="block rounded-full bg-white/20 px-10 py-5 text-xl font-bold text-white backdrop-blur-sm transition-colors hover:bg-white/30"
+                    >
+                      <i className="fas fa-users mr-2"></i>
+                      Meet Our Amazing Team!
+                    </Link>
+                  </motion.div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.section>
         </div>
       </main>
     </>
