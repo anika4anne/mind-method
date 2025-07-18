@@ -146,278 +146,381 @@ export default function InterestPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#a5b4fc] via-[#38bdf8] to-[#6366f1] px-6 py-16">
-      <div className="container mx-auto max-w-6xl">
-        {/* Hero Section */}
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="mb-16 text-center"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="mb-6 text-5xl font-extrabold text-white drop-shadow-[0_4px_32px_rgba(64,112,209,0.7)]"
-          >
-            Why Join Mind & Method?
-          </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="mx-auto max-w-3xl text-xl text-blue-200"
-          >
-            Discover the fascinating world of psychology while building skills
-            that will serve you for life.
-          </motion.p>
-        </motion.div>
+    <>
+      {/* Font Awesome CSS */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      />
 
-        {/* What We Do Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
-          >
-            What We Do
-          </motion.h2>
+      {/* Animated background with confetti and sparkles */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        {/* Gradient background */}
+        <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
+
+        {/* Confetti */}
+        {[...Array(15)].map((_, i) => (
           <motion.div
+            key={i}
+            animate={{
+              y: [-100, 1000],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+            className="absolute h-2 w-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              backgroundColor: [
+                "#40e0d0",
+                "#48d1cc",
+                "#20b2aa",
+                "#00ced1",
+                "#7fffd4",
+                "#40e0d0",
+                "#00bfff",
+              ][Math.floor(Math.random() * 7)],
+            }}
+          />
+        ))}
+
+        {/* Sparkles */}
+        {[...Array(10)].map((_, i) => (
+          <motion.div
+            key={`sparkle-${i}`}
+            animate={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+            className="absolute h-1 w-1 rounded-full bg-cyan-300"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="min-h-screen px-6 py-16">
+        <div className="container mx-auto max-w-6xl">
+          {/* Hero Section */}
+          <motion.div
+            initial="hidden"
+            animate="visible"
             variants={containerVariants}
-            className="grid gap-8 md:grid-cols-2"
+            className="mb-16 text-center"
           >
-            {[
-              {
-                title: "🧠 Psychology Exploration",
-                description:
-                  "Dive deep into human behavior, cognitive processes, and mental health. Learn about memory, decision-making, and the fascinating ways our minds work.",
-              },
-              {
-                title: "🔍 Forensic Challenges",
-                description:
-                  "Solve psychological mysteries and case studies. Develop critical thinking skills through hands-on problem-solving activities.",
-              },
-              {
-                title: "💡 Skill Building",
-                description:
-                  "Enhance your observation, communication, and analytical skills. Learn to understand people better and improve your relationships.",
-              },
-              {
-                title: "🤝 Mental Health Advocacy",
-                description:
-                  "Support mental health awareness in our school community. Learn about wellness strategies and help create a supportive environment.",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                className="rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl"
-              >
-                <h3 className="mb-4 text-2xl font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="leading-relaxed text-blue-100">
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
+            <motion.h1
+              variants={itemVariants}
+              className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
+            >
+              Why Join Mind & Method?
+            </motion.h1>
+            <motion.p
+              variants={itemVariants}
+              className="mx-auto max-w-3xl text-2xl font-semibold text-white"
+            >
+              Discover the fascinating world of psychology while building skills
+              that will serve you for life.
+            </motion.p>
           </motion.div>
-        </motion.section>
 
-        {/* Why Join Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
-          >
-            Why You Should Join
-          </motion.h2>
-          <motion.div
+          {/* What We Do Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
             variants={containerVariants}
-            className="grid gap-8 lg:grid-cols-3"
+            className="mb-20"
           >
-            {[
-              {
-                icon: "🎯",
-                title: "Real-World Applications",
-                description:
-                  "Apply psychology concepts to everyday situations. Learn skills that will help you in school, relationships, and future careers.",
-                gradient: "from-blue-400 to-purple-500",
-              },
-              {
-                icon: "🌟",
-                title: "Personal Growth",
-                description:
-                  "Develop self-awareness and emotional intelligence. Understand yourself better and learn strategies for managing stress and challenges.",
-                gradient: "from-green-400 to-blue-500",
-              },
-              {
-                icon: "🤝",
-                title: "Community Impact",
-                description:
-                  "Make a difference in your school community. Help promote mental health awareness and create a more supportive environment for everyone.",
-                gradient: "from-purple-400 to-pink-500",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                className="text-center"
-              >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              What We Do
+            </motion.h2>
+            <motion.div
+              variants={containerVariants}
+              className="grid gap-8 md:grid-cols-2"
+            >
+              {[
+                {
+                  title: "🧠 Psychology Exploration",
+                  description:
+                    "Dive deep into human behavior, cognitive processes, and mental health. Learn about memory, decision-making, and the fascinating ways our minds work.",
+                },
+                {
+                  title: "🔍 Forensic Challenges",
+                  description:
+                    "Solve psychological mysteries and case studies. Develop critical thinking skills through hands-on problem-solving activities.",
+                },
+                {
+                  title: "💡 Skill Building",
+                  description:
+                    "Enhance your observation, communication, and analytical skills. Learn to understand people better and improve your relationships.",
+                },
+                {
+                  title: "🤝 Mental Health Advocacy",
+                  description:
+                    "Support mental health awareness in our school community. Learn about wellness strategies and help create a supportive environment.",
+                },
+              ].map((item, index) => (
                 <motion.div
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                  className={`mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br ${item.gradient} text-4xl`}
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 p-8 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
                 >
-                  {item.icon}
+                  <h3 className="mb-4 text-2xl font-bold text-white group-hover:text-cyan-300">
+                    {item.title}
+                  </h3>
+                  <p className="leading-relaxed text-white/90">
+                    {item.description}
+                  </p>
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
                 </motion.div>
-                <h3 className="mb-4 text-2xl font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="text-blue-100">{item.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
+              ))}
+            </motion.div>
+          </motion.section>
 
-        {/* Interactive Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
+          {/* Why Join Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
           >
-            Interactive Experience
-          </motion.h2>
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Why You Should Join
+            </motion.h2>
+            <motion.div
+              variants={containerVariants}
+              className="grid gap-8 lg:grid-cols-3"
+            >
+              {[
+                {
+                  icon: "🎯",
+                  title: "Real-World Applications",
+                  description:
+                    "Apply psychology concepts to everyday situations. Learn skills that will help you in school, relationships, and future careers.",
+                  gradient: "from-cyan-400 to-teal-500",
+                },
+                {
+                  icon: "🌟",
+                  title: "Personal Growth",
+                  description:
+                    "Develop self-awareness and emotional intelligence. Understand yourself better and learn strategies for managing stress and challenges.",
+                  gradient: "from-teal-400 to-cyan-500",
+                },
+                {
+                  icon: "🤝",
+                  title: "Community Impact",
+                  description:
+                    "Make a difference in your school community. Help promote mental health awareness and create a more supportive environment for everyone.",
+                  gradient: "from-cyan-500 to-teal-600",
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="text-center"
+                >
+                  <motion.div
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.6 }}
+                    className={`mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br ${item.gradient} text-4xl`}
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <h3 className="mb-4 text-2xl font-bold text-white">
+                    {item.title}
+                  </h3>
+                  <p className="text-white/90">{item.description}</p>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+
+          {/* Interactive Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Interactive Experience
+            </motion.h2>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="text-center"
+            >
+              <div className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+                />
+                <div className="relative z-10">
+                  <h3 className="mb-4 text-2xl font-bold text-white">
+                    🧠 Quick Anxiety Assessment
+                  </h3>
+                  <p className="mb-6 text-white/90">
+                    Take a quick quiz to understand your stress levels and get
+                    personalized insights.
+                  </p>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowQuiz(true)}
+                    className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 font-bold text-white transition-transform"
+                  >
+                    Take the Quiz
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.section>
+
+          {/* Gallery Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Club Activities
+            </motion.h2>
+            <motion.div
+              variants={containerVariants}
+              className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {[
+                {
+                  icon: "🧩",
+                  title: "Case Studies",
+                  description: "Solve real psychological mysteries",
+                  gradient: "from-cyan-400/30 to-teal-400/30",
+                },
+                {
+                  icon: "🎭",
+                  title: "Role-Playing",
+                  description: "Practice real-world scenarios",
+                  gradient: "from-teal-400/30 to-cyan-400/30",
+                },
+                {
+                  icon: "🧠",
+                  title: "Brain Games",
+                  description: "Test your cognitive abilities",
+                  gradient: "from-cyan-500/30 to-teal-500/30",
+                },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
+                >
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    transition={{ duration: 0.3 }}
+                    className={`mb-4 flex h-48 w-full items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-4xl`}
+                  >
+                    {item.icon}
+                  </motion.div>
+                  <h3 className="mb-2 text-xl font-bold text-white group-hover:text-cyan-300">
+                    {item.title}
+                  </h3>
+                  <p className="text-sm text-white/90">{item.description}</p>
+                  <motion.div
+                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.section>
+
+          {/* CTA Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
             className="text-center"
           >
-            <div className="mx-auto max-w-2xl rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl">
-              <h3 className="mb-4 text-2xl font-bold text-white">
-                🧠 Quick Anxiety Assessment
-              </h3>
-              <p className="mb-6 text-blue-100">
-                Take a quick quiz to understand your stress levels and get
-                personalized insights.
-              </p>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setShowQuiz(true)}
-                className="rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-8 py-4 font-bold text-white transition-transform"
-              >
-                Take the Quiz
-              </motion.button>
-            </div>
-          </motion.div>
-        </motion.section>
-
-        {/* Gallery Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
-          >
-            Club Activities
-          </motion.h2>
-          <motion.div
-            variants={containerVariants}
-            className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {[
-              {
-                icon: "🧩",
-                title: "Case Studies",
-                description: "Solve real psychological mysteries",
-                gradient: "from-blue-400/30 to-purple-400/30",
-              },
-              {
-                icon: "🎭",
-                title: "Role-Playing",
-                description: "Practice real-world scenarios",
-                gradient: "from-green-400/30 to-blue-400/30",
-              },
-              {
-                icon: "🧠",
-                title: "Brain Games",
-                description: "Test your cognitive abilities",
-                gradient: "from-purple-400/30 to-pink-400/30",
-              },
-            ].map((item, index) => (
-              <motion.div
-                key={index}
-                variants={cardVariants}
-                whileHover="hover"
-                className="rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                  className={`mb-4 flex h-48 w-full items-center justify-center rounded-xl bg-gradient-to-br ${item.gradient} text-4xl`}
-                >
-                  {item.icon}
-                </motion.div>
-                <h3 className="mb-2 text-xl font-bold text-white">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-blue-100">{item.description}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.section>
-
-        {/* CTA Section */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="text-center"
-        >
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-            className="mx-auto max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl"
-          >
-            <h2 className="mb-4 text-3xl font-bold text-white">
-              Ready to Join?
-            </h2>
-            <p className="mb-6 text-lg text-blue-100">
-              Take the first step toward understanding the human mind and making
-              a difference in your community.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-full bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 px-8 py-4 text-lg font-bold text-white shadow-xl transition-transform"
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-12 shadow-2xl backdrop-blur-xl"
             >
-              Join Mind & Method
-            </motion.button>
-          </motion.div>
-        </motion.section>
+              <motion.div
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+              />
+
+              <div className="relative z-10">
+                <h2 className="mb-4 text-4xl font-bold text-white">
+                  Ready to Join?
+                </h2>
+                <p className="mb-6 text-xl text-white/90">
+                  Take the first step toward understanding the human mind and
+                  making a difference in your community.
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-transform"
+                >
+                  Join Mind & Method
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.section>
+        </div>
       </div>
 
       {/* Quiz Modal */}
@@ -451,7 +554,7 @@ export default function InterestPage() {
                         whileHover={{ scale: 1.02, x: 5 }}
                         whileTap={{ scale: 0.98 }}
                         onClick={() => handleQuizAnswer(option.score)}
-                        className="w-full rounded-lg bg-blue-100 p-3 text-left transition-colors hover:bg-blue-200"
+                        className="w-full rounded-lg bg-cyan-100 p-3 text-left transition-colors hover:bg-cyan-200"
                       >
                         {option.text}
                       </motion.button>
@@ -481,7 +584,7 @@ export default function InterestPage() {
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         onClick={resetQuiz}
-                        className="rounded-lg bg-blue-600 px-6 py-2 text-white hover:bg-blue-700"
+                        className="rounded-lg bg-cyan-600 px-6 py-2 text-white hover:bg-cyan-700"
                       >
                         Take Quiz Again
                       </motion.button>
@@ -501,6 +604,6 @@ export default function InterestPage() {
           </motion.div>
         </motion.div>
       )}
-    </div>
+    </>
   );
 }

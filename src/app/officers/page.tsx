@@ -96,13 +96,9 @@ const cardVariants = {
   },
 };
 
-const imageVariants = {
-  hover: {
-    scale: 1.1,
-    transition: {
-      duration: 0.3,
-    },
-  },
+const flipVariants = {
+  front: { rotateY: 0 },
+  back: { rotateY: 180 },
 };
 
 export default function OfficersPage() {
@@ -114,186 +110,279 @@ export default function OfficersPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#a5b4fc] via-[#38bdf8] to-[#6366f1] px-6 py-16">
-      <div className="container mx-auto max-w-7xl">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
-          className="mb-16 text-center"
-        >
-          <motion.h1
-            variants={itemVariants}
-            className="mb-6 text-5xl font-extrabold text-white drop-shadow-[0_4px_32px_rgba(64,112,209,0.7)]"
-          >
-            Our Team
-          </motion.h1>
-          <motion.p
-            variants={itemVariants}
-            className="mx-auto max-w-3xl text-xl text-blue-200"
-          >
-            Meet the dedicated students who make Mind & Method possible. Each
-            member brings unique expertise and passion to our psychology
-            community.
-          </motion.p>
-        </motion.div>
+    <>
+      {/* Font Awesome CSS */}
+      <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      />
 
-        {/* Leadership Team Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
-          >
-            Leadership Team
-          </motion.h2>
+      {/* Animated background with confetti and sparkles */}
+      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
+        {/* Gradient background */}
+        <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
+
+        {/* Confetti */}
+        {[...Array(15)].map((_, i) => (
           <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 gap-8 md:grid-cols-3"
-          >
-            {leadershipTeam.map((officer, index) => (
-              <motion.div
-                key={officer.name}
-                variants={cardVariants}
-                whileHover="hover"
-                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300"
-              >
-                {/* Officer Image */}
-                <div className="mb-6 h-48 w-48">
-                  <motion.div
-                    variants={imageVariants}
-                    className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl"
-                  >
-                    <Image
-                      src={officer.image}
-                      alt={`${officer.name} - ${officer.position}`}
-                      fill
-                      className="relative z-10 object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {/* Fallback if image fails to load */}
-                    <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-blue-400/20 to-purple-400/20 text-sm text-white/60">
-                      {officer.name}
-                    </div>
-                  </motion.div>
-                </div>
+            key={i}
+            animate={{
+              y: [-100, 1000],
+              rotate: [0, 360],
+            }}
+            transition={{
+              duration: 3,
+              repeat: Infinity,
+              delay: i * 0.2,
+            }}
+            className="absolute h-2 w-2 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              backgroundColor: [
+                "#40e0d0",
+                "#48d1cc",
+                "#20b2aa",
+                "#00ced1",
+                "#7fffd4",
+                "#40e0d0",
+                "#00bfff",
+              ][Math.floor(Math.random() * 7)],
+            }}
+          />
+        ))}
 
-                {/* Officer Info */}
-                <div className="text-center">
-                  <h3 className="mb-2 text-2xl font-bold text-white drop-shadow">
-                    {officer.name}
-                  </h3>
-                  <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-xs font-semibold text-white">
-                    {officer.position}
-                  </span>
-                  <p className="text-sm leading-relaxed text-blue-100">
-                    {officer.bio}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Legendary Members Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mb-20"
-        >
-          <motion.h2
-            variants={itemVariants}
-            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
-          >
-            Legendary Members
-          </motion.h2>
+        {/* Sparkles */}
+        {[...Array(10)].map((_, i) => (
           <motion.div
-            variants={containerVariants}
-            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
-          >
-            {legendaryMembers.map((officer, index) => (
-              <motion.div
-                key={officer.name}
-                variants={cardVariants}
-                whileHover="hover"
-                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300"
-              >
-                {/* Officer Image */}
-                <div className="mb-6 h-48 w-48">
-                  <motion.div
-                    variants={imageVariants}
-                    className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl"
-                  >
-                    <Image
-                      src={officer.image}
-                      alt={`${officer.name} - ${officer.position}`}
-                      fill
-                      className="relative z-10 object-cover"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
-                    {/* Fallback if image fails to load */}
-                    <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-blue-400/20 to-purple-400/20 text-sm text-white/60">
-                      {officer.name}
-                    </div>
-                  </motion.div>
-                </div>
-
-                {/* Officer Info */}
-                <div className="text-center">
-                  <h3 className="mb-2 text-2xl font-bold text-white drop-shadow">
-                    {officer.name}
-                  </h3>
-                  <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-blue-600 to-purple-600 px-3 py-1 text-xs font-semibold text-white">
-                    {officer.position}
-                  </span>
-                  <p className="text-sm leading-relaxed text-blue-100">
-                    {officer.bio}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Join the Team Section */}
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          variants={containerVariants}
-          className="mt-20 text-center"
-        >
-          <motion.div
-            variants={cardVariants}
-            whileHover="hover"
-            className="mx-auto max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl"
-          >
-            <h2 className="mb-4 text-3xl font-bold text-white drop-shadow">
-              Interested in Leadership?
-            </h2>
-            <p className="mb-6 text-lg text-blue-100">
-              We're always looking for passionate students to join our
-              leadership team. If you're interested in psychology, leadership,
-              or making a difference in our school community, we'd love to hear
-              from you.
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="inline-block rounded-full bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-blue-700 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
-            >
-              Contact Us About Leadership
-            </motion.button>
-          </motion.div>
-        </motion.div>
+            key={`sparkle-${i}`}
+            animate={{
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+            }}
+            transition={{
+              duration: 2,
+              repeat: Infinity,
+              delay: i * 0.3,
+            }}
+            className="absolute h-1 w-1 rounded-full bg-cyan-300"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
       </div>
-    </div>
+
+      <div className="min-h-screen px-6 py-16">
+        <div className="container mx-auto max-w-7xl">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            className="mb-16 text-center"
+          >
+            <motion.h1
+              variants={itemVariants}
+              className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
+            >
+              Our Amazing Team! 🎉
+            </motion.h1>
+            <motion.p
+              variants={itemVariants}
+              className="mx-auto max-w-3xl text-2xl font-semibold text-white"
+            >
+              Meet the dedicated students who make Mind & Method possible. Each
+              member brings unique expertise and passion to our psychology
+              community.
+            </motion.p>
+          </motion.div>
+
+          {/* Leadership Team Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Leadership Team
+            </motion.h2>
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 gap-8 md:grid-cols-3"
+            >
+              {leadershipTeam.map((officer, index) => (
+                <motion.div
+                  key={officer.name}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group perspective-1000 h-96 w-full"
+                >
+                  <motion.div
+                    className="preserve-3d relative h-full w-full"
+                    whileHover={{ rotateY: 180 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    {/* Front of card - Image */}
+                    <div className="absolute inset-0 backface-hidden">
+                      <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 shadow-2xl backdrop-blur-sm">
+                        <Image
+                          src={officer.image}
+                          alt={`${officer.name} - ${officer.position}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        {/* Fallback if image fails to load */}
+                        <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-cyan-400/20 to-teal-400/20 text-sm text-white/60">
+                          {officer.name}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Back of card - Bio */}
+                    <div className="absolute inset-0 rotate-y-180 backface-hidden">
+                      <div className="flex h-full w-full flex-col justify-center rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm">
+                        <div className="text-center">
+                          <h3 className="mb-4 text-2xl font-bold text-white drop-shadow">
+                            {officer.name}
+                          </h3>
+                          <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
+                            {officer.position}
+                          </span>
+                          <p className="text-sm leading-relaxed text-white/90">
+                            {officer.bio}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Legendary Members Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Legendary Members
+            </motion.h2>
+            <motion.div
+              variants={containerVariants}
+              className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+            >
+              {legendaryMembers.map((officer, index) => (
+                <motion.div
+                  key={officer.name}
+                  variants={cardVariants}
+                  whileHover="hover"
+                  className="group perspective-1000 h-96 w-full"
+                >
+                  <motion.div
+                    className="preserve-3d relative h-full w-full"
+                    whileHover={{ rotateY: 180 }}
+                    transition={{ duration: 0.6 }}
+                  >
+                    {/* Front of card - Image */}
+                    <div className="absolute inset-0 backface-hidden">
+                      <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 shadow-2xl backdrop-blur-sm">
+                        <Image
+                          src={officer.image}
+                          alt={`${officer.name} - ${officer.position}`}
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        />
+                        {/* Fallback if image fails to load */}
+                        <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-cyan-400/20 to-teal-400/20 text-sm text-white/60">
+                          {officer.name}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Back of card - Bio */}
+                    <div className="absolute inset-0 rotate-y-180 backface-hidden">
+                      <div className="flex h-full w-full flex-col justify-center rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm">
+                        <div className="text-center">
+                          <h3 className="mb-4 text-2xl font-bold text-white drop-shadow">
+                            {officer.name}
+                          </h3>
+                          <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
+                            {officer.position}
+                          </span>
+                          <p className="text-sm leading-relaxed text-white/90">
+                            {officer.bio}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              ))}
+            </motion.div>
+          </motion.div>
+
+          {/* Join the Team Section */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mt-20 text-center"
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-12 shadow-2xl backdrop-blur-xl"
+            >
+              <motion.div
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0.3, 0.6, 0.3],
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+              />
+
+              <div className="relative z-10">
+                <h2 className="mb-4 text-4xl font-bold text-white drop-shadow">
+                  Interested in Leadership?
+                </h2>
+                <p className="mb-6 text-xl text-white/90">
+                  We're always looking for passionate students to join our
+                  leadership team. If you're interested in psychology,
+                  leadership, or making a difference in our school community,
+                  we'd love to hear from you.
+                </p>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                >
+                  Contact Us About Leadership
+                </motion.button>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </>
   );
 }
