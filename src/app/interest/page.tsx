@@ -448,77 +448,89 @@ export default function InterestPage() {
           exit={{ opacity: 0 }}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
         >
-          <motion.div
-            variants={modalVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="w-full max-w-md rounded-2xl bg-white/95 p-8 shadow-2xl"
+          <div
+            className="animate-gradient-x rounded-3xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400 bg-[length:200%_200%] p-4 shadow-2xl"
+            style={{ backgroundSize: "400% 400%" }}
           >
-            {!showResults ? (
-              <>
-                <h3 className="mb-6 text-2xl font-bold text-gray-800">
-                  Question {currentQuestion + 1} of {quizQuestions.length}
-                </h3>
-                <p className="mb-6 text-gray-700">
-                  {quizQuestions[currentQuestion]?.question}
-                </p>
-                <div className="space-y-3">
-                  {quizQuestions[currentQuestion]?.options.map(
-                    (option, index) => (
-                      <motion.button
-                        key={index}
-                        whileHover={{ scale: 1.02, x: 5 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleQuizAnswer(option.score)}
-                        className="w-full rounded-lg bg-cyan-100 p-3 text-left transition-colors hover:bg-cyan-200"
-                      >
-                        {option.text}
-                      </motion.button>
-                    ),
-                  )}
-                </div>
-              </>
-            ) : (
-              <>
-                <h3 className="mb-6 text-2xl font-bold text-gray-800">
-                  Your Results
-                </h3>
-                {(() => {
-                  const totalScore = scores.reduce((a, b) => a + b, 0);
-                  const result = getAnxietyLevel(totalScore);
-                  return (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-center"
-                    >
-                      <p className={`mb-2 text-2xl font-bold ${result.color}`}>
-                        {result.level} Anxiety Level
-                      </p>
-                      <p className="mb-6 text-gray-700">{result.message}</p>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={resetQuiz}
-                        className="rounded-lg bg-cyan-600 px-6 py-2 text-white hover:bg-cyan-700"
-                      >
-                        Take Quiz Again
-                      </motion.button>
-                    </motion.div>
-                  );
-                })()}
-              </>
-            )}
-            <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={resetQuiz}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700"
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative w-full max-w-md rounded-2xl bg-white/95 p-8 shadow-2xl"
             >
-              ✕
-            </motion.button>
-          </motion.div>
+              {!showResults ? (
+                <>
+                  <h3 className="mb-6 bg-gradient-to-r from-cyan-400 to-teal-500 bg-clip-text text-2xl font-extrabold text-transparent">
+                    Question {currentQuestion + 1} of {quizQuestions.length}
+                  </h3>
+                  <p className="mb-6 text-lg font-semibold text-cyan-700 dark:text-cyan-300">
+                    {quizQuestions[currentQuestion]?.question}
+                  </p>
+                  <div className="space-y-4">
+                    {quizQuestions[currentQuestion]?.options.map(
+                      (option, index) => (
+                        <motion.button
+                          key={index}
+                          whileHover={{
+                            scale: 1.03,
+                            x: 8,
+                            boxShadow:
+                              "0 0 0 4px #67e8f9, 0 8px 32px rgba(34,211,238,0.15)",
+                          }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => handleQuizAnswer(option.score)}
+                          className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-5 py-3 text-left font-bold text-white shadow-md transition-all duration-200 hover:from-cyan-400 hover:to-teal-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                        >
+                          {option.text}
+                        </motion.button>
+                      ),
+                    )}
+                  </div>
+                </>
+              ) : (
+                <>
+                  <h3 className="mb-6 text-2xl font-bold text-gray-800">
+                    Your Results
+                  </h3>
+                  {(() => {
+                    const totalScore = scores.reduce((a, b) => a + b, 0);
+                    const result = getAnxietyLevel(totalScore);
+                    return (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center"
+                      >
+                        <p
+                          className={`mb-2 text-2xl font-bold ${result.color}`}
+                        >
+                          {result.level} Anxiety Level
+                        </p>
+                        <p className="mb-6 text-gray-700">{result.message}</p>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={resetQuiz}
+                          className="rounded-lg bg-cyan-600 px-6 py-2 text-white hover:bg-cyan-700"
+                        >
+                          Take Quiz Again
+                        </motion.button>
+                      </motion.div>
+                    );
+                  })()}
+                </>
+              )}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={resetQuiz}
+                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors hover:bg-gray-300 hover:text-gray-800"
+              >
+                ✕
+              </motion.button>
+            </motion.div>
+          </div>
         </motion.div>
       )}
     </>
