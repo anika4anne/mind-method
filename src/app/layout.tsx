@@ -28,8 +28,8 @@ export default function RootLayout({
         />
         <SessionProvider>
           <ReactQueryProvider>
-            <TopBar className="sticky top-0 z-50" />
-            <main className="min-h-full w-full">{children}</main>
+            <TopBar />
+            <main className="min-h-full w-full pt-16">{children}</main>
             <footer className="fixed right-4 bottom-4 z-50 text-sm text-white/80">
               © Copyright 2025 Anika Anne. All rights reserved.
             </footer>

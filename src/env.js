@@ -13,7 +13,24 @@ export const env = createEnv({
         : z.string().optional(),
     AUTH_DISCORD_ID: z.string().optional(),
     AUTH_DISCORD_SECRET: z.string().optional(),
-    DATABASE_URL: z.string().url().optional(),
+    DATABASE_URL: z
+      .string()
+      .optional()
+      .refine(
+        (val) => {
+          if (!val) return true; // Allow undefined/empty
+          // Allow SQLite file URLs (file:./db.sqlite) and regular URLs
+          return (
+            val.startsWith("file:") ||
+            val.startsWith("http") ||
+            val.startsWith("postgresql://")
+          );
+        },
+        {
+          message:
+            "DATABASE_URL must be a valid URL or SQLite file path (file:./db.sqlite)",
+        },
+      ),
     NODE_ENV: z
       .enum(["development", "test", "production"])
       .default("development"),
