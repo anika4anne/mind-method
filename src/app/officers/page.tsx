@@ -22,7 +22,7 @@ const officers: Officer[] = [
     name: "unknown",
     position: "Vice President",
     bio: "bio goes here",
-    image: "/officers/marcus-chen.jpg",
+    image: "/officers/unknown.jpg",
     section: "Leadership Team",
   },
   {
@@ -33,24 +33,24 @@ const officers: Officer[] = [
     section: "Leadership Team",
   },
   {
-    name: "Jordan Kim",
+    name: "unknown",
     position: "Treasurer",
-    bio: "Jordan handles our club finances and resource management. Their analytical mindset and attention to detail ensure we can provide quality materials and experiences for all our members.",
-    image: "/officers/jordan-kim.jpg",
+    bio: "bio goes here",
+    image: "/officers/unknown.jpg",
     section: "Legendary Members",
   },
   {
-    name: "Emma Thompson",
+    name: "unknown",
     position: "Event Coordinator",
-    bio: "Emma plans and organizes our special events and workshops. Her creativity and attention to detail make our psychology sessions engaging and memorable for everyone.",
-    image: "/officers/emma-thompson.jpg",
+    bio: "bio goes here",
+    image: "/officers/unknown.jpg",
     section: "Legendary Members",
   },
   {
-    name: "Alex Rivera",
+    name: "unknown",
     position: "Outreach Director",
-    bio: "Alex connects with other clubs and organizations to build partnerships and expand our impact. Their networking skills help us reach more students interested in psychology.",
-    image: "/officers/alex-rivera.jpg",
+    bio: "bio goes here",
+    image: "/officers/unknown.jpg",
     section: "Legendary Members",
   },
 ];
@@ -62,6 +62,17 @@ const containerVariants = {
     transition: {
       staggerChildren: 0.2,
       delayChildren: 0.1,
+    },
+  },
+};
+
+const bioContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.8, // Delay to start after title animation
     },
   },
 };
@@ -122,35 +133,6 @@ export default function OfficersPage() {
         {/* Gradient background */}
         <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
 
-        {/* Confetti */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [-100, 1000],
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-            className="absolute h-2 w-2 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              backgroundColor: [
-                "#40e0d0",
-                "#48d1cc",
-                "#20b2aa",
-                "#00ced1",
-                "#7fffd4",
-                "#40e0d0",
-                "#00bfff",
-              ][Math.floor(Math.random() * 7)],
-            }}
-          />
-        ))}
-
         {/* Sparkles */}
         {[...Array(10)].map((_, i) => (
           <motion.div
@@ -200,9 +182,8 @@ export default function OfficersPage() {
           {/* Leadership Team Section */}
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
+            animate="visible"
+            variants={bioContainerVariants}
             className="mb-20"
           >
             <motion.h2
@@ -275,9 +256,8 @@ export default function OfficersPage() {
           {/* Legendary Members Section */}
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
+            animate="visible"
+            variants={bioContainerVariants}
             className="mb-20"
           >
             <motion.h2
@@ -350,9 +330,8 @@ export default function OfficersPage() {
           {/* Join the Team Section */}
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
+            animate="visible"
+            variants={bioContainerVariants}
             className="mt-20 text-center"
           >
             <motion.div

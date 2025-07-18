@@ -158,35 +158,6 @@ export default function InterestPage() {
         {/* Gradient background */}
         <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
 
-        {/* Confetti */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={i}
-            animate={{
-              y: [-100, 1000],
-              rotate: [0, 360],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-            className="absolute h-2 w-2 rounded-full"
-            style={{
-              left: `${Math.random() * 100}%`,
-              backgroundColor: [
-                "#40e0d0",
-                "#48d1cc",
-                "#20b2aa",
-                "#00ced1",
-                "#7fffd4",
-                "#40e0d0",
-                "#00bfff",
-              ][Math.floor(Math.random() * 7)],
-            }}
-          />
-        ))}
-
         {/* Sparkles */}
         {[...Array(10)].map((_, i) => (
           <motion.div
