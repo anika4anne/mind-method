@@ -29,7 +29,7 @@ const officers: Officer[] = [
     name: "Anika Anne",
     position: "CTO",
     bio: "Anika's Bio here",
-    image: "/officers/sophia-rodriguez.jpg",
+    image: "/officers/anika1.webp",
     section: "Leadership Team",
   },
   {
@@ -237,9 +237,15 @@ export default function OfficersPage() {
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        {/* Fallback if image fails to load */}
-                        <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-cyan-400/20 to-teal-400/20 text-sm text-white/60">
-                          {officer.name}
+                        {/* Overlay with name and position */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute right-0 bottom-0 left-0 p-6 text-white">
+                          <h3 className="mb-2 text-2xl font-bold drop-shadow">
+                            {officer.name}
+                          </h3>
+                          <span className="inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
+                            {officer.position}
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -306,9 +312,15 @@ export default function OfficersPage() {
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        {/* Fallback if image fails to load */}
-                        <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-cyan-400/20 to-teal-400/20 text-sm text-white/60">
-                          {officer.name}
+                        {/* Overlay with name and position */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                        <div className="absolute right-0 bottom-0 left-0 p-6 text-white">
+                          <h3 className="mb-2 text-2xl font-bold drop-shadow">
+                            {officer.name}
+                          </h3>
+                          <span className="inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
+                            {officer.position}
+                          </span>
                         </div>
                       </div>
                     </div>
