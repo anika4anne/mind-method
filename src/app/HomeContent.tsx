@@ -1,6 +1,58 @@
 "use client";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+
+const TypewriterText = ({
+  text,
+  delay = 0,
+}: {
+  text: string;
+  delay?: number;
+}) => {
+  const [displayText, setDisplayText] = useState("");
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (currentIndex < text.length) {
+        setDisplayText(text.slice(0, currentIndex + 1));
+        setCurrentIndex(currentIndex + 1);
+      } else {
+        setIsTypingComplete(true);
+      }
+    }, 150); // Speed of typing
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, text]);
+
+  useEffect(() => {
+    const startTimer = setTimeout(() => {
+      setCurrentIndex(0);
+      setIsTypingComplete(false);
+    }, delay * 1000);
+
+    return () => clearTimeout(startTimer);
+  }, [delay]);
+
+  return (
+    <span className="inline-block">
+      <span className="animate-pulse bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent">
+        {displayText}
+      </span>
+      {!isTypingComplete && (
+        <motion.span
+          animate={{ opacity: [1, 0, 1] }}
+          transition={{ duration: 0.8, repeat: Infinity }}
+          className="bg-gradient-to-r from-pink-400 to-purple-500 bg-clip-text text-transparent"
+        >
+          |
+        </motion.span>
+      )}
+    </span>
+  );
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -9,6 +61,17 @@ const containerVariants = {
     transition: {
       staggerChildren: 0.2,
       delayChildren: 0.1,
+    },
+  },
+};
+
+const delayedContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.8, // Delay to start after hero animation
     },
   },
 };
@@ -117,7 +180,7 @@ export default function HomeContent() {
               variants={itemVariants}
               className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
             >
-              Welcome to Mind & Method! 🎉
+              Welcome to <TypewriterText text="Mind & Method" delay={0.5} />! 🎉
             </motion.h1>
 
             <motion.p
@@ -167,90 +230,55 @@ export default function HomeContent() {
             </motion.div>
           </motion.div>
 
-          {/* What Makes Us Special */}
+          {/* Quick Highlights */}
           <motion.section
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="w-full max-w-6xl"
+            animate="visible"
+            variants={delayedContainerVariants}
+            className="w-full max-w-4xl"
           >
             <motion.h2
               variants={itemVariants}
-              className="mb-12 text-center text-5xl font-bold text-white"
+              className="mb-8 text-center text-4xl font-bold text-white"
             >
-              Why You'll <span className="text-cyan-300">LOVE</span> Mind &
-              Method! 💖
+              What We Do 🧠
             </motion.h2>
 
             <motion.div
               variants={containerVariants}
-              className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
+              className="grid gap-6 md:grid-cols-3"
             >
               {[
                 {
                   icon: "🎭",
-                  title: "Mystery Adventures!",
-                  description:
-                    "Become a detective! Solve real psychological mysteries and use your brain like never before!",
-                  gradient: "from-teal-500 to-cyan-600",
+                  title: "Mystery Adventures",
+                  description: "Solve psychological mysteries and case studies",
                 },
                 {
                   icon: "🎪",
-                  title: "Super Fun Activities!",
+                  title: "Fun Activities",
                   description:
-                    "No boring stuff here! Every session is packed with games, experiments, and mind-blowing discoveries!",
-                  gradient: "from-cyan-500 to-turquoise-600",
+                    "Games, experiments, and mind-blowing discoveries",
                 },
                 {
                   icon: "🌟",
-                  title: "Make Amazing Friends!",
-                  description:
-                    "Join a community of curious minds who love psychology just like you!",
-                  gradient: "from-turquoise-500 to-teal-600",
-                },
-                {
-                  icon: "🎯",
-                  title: "Learn Real Skills!",
-                  description:
-                    "Develop superpowers like reading people's minds (well, almost!) and understanding human behavior!",
-                  gradient: "from-cyan-400 to-teal-500",
-                },
-                {
-                  icon: "🎨",
-                  title: "Be Creative!",
-                  description:
-                    "Express yourself through psychology! Create experiments, design challenges, and think outside the box!",
-                  gradient: "from-teal-400 to-cyan-500",
-                },
-                {
-                  icon: "🏆",
-                  title: "Build Your Future!",
-                  description:
-                    "Gain skills that colleges and jobs love! Psychology knowledge is like a superpower in any career!",
-                  gradient: "from-turquoise-400 to-teal-500",
+                  title: "Make Friends",
+                  description: "Join a community of curious minds",
                 },
               ].map((feature, index) => (
                 <motion.div
                   key={index}
                   variants={cardVariants}
                   whileHover="hover"
-                  className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 p-8 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
+                  className="group relative overflow-hidden rounded-2xl border-2 border-white/30 bg-white/20 p-6 shadow-xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
                 >
-                  <div
-                    className={`mb-6 inline-block rounded-2xl bg-gradient-to-r ${feature.gradient} p-4 text-4xl shadow-lg`}
-                  >
+                  <div className="mb-4 inline-block rounded-xl bg-gradient-to-r from-cyan-500 to-teal-600 p-3 text-3xl shadow-lg">
                     {feature.icon}
                   </div>
-                  <h3 className="mb-4 text-2xl font-bold text-white group-hover:text-cyan-300">
+                  <h3 className="mb-2 text-xl font-bold text-white group-hover:text-cyan-300">
                     {feature.title}
                   </h3>
-                  <p className="text-lg text-white/90">{feature.description}</p>
-                  <motion.div
-                    className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                  />
+                  <p className="text-sm text-white/90">{feature.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -259,9 +287,8 @@ export default function HomeContent() {
           {/* Call to Action */}
           <motion.section
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
+            animate="visible"
+            variants={delayedContainerVariants}
             className="w-full max-w-4xl text-center"
           >
             <motion.div

@@ -202,6 +202,60 @@ export default function InterestPage() {
               Discover the fascinating world of psychology while building skills
               that will serve you for life.
             </motion.p>
+
+            {/* Prominent Interest Form Section */}
+            <motion.div
+              variants={itemVariants}
+              className="mt-12 flex flex-col items-center"
+            >
+              <motion.div
+                animate={{
+                  scale: [1, 1.02, 1],
+                  y: [0, -2, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
+                className="mb-4 text-center"
+              >
+                <span className="text-3xl">✨</span>
+                <p className="mt-2 text-lg font-medium text-cyan-300">
+                  Wanna sign up? Click here!
+                </p>
+              </motion.div>
+
+              <motion.a
+                href="https://forms.gle/6CfjQwtKRJtuhyQX7"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{
+                  scale: 1.08,
+                  y: -3,
+                  boxShadow: "0 20px 40px rgba(255, 255, 255, 0.6)",
+                }}
+                whileTap={{ scale: 0.95 }}
+                className="group hover:shadow-3xl relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-10 py-5 text-xl font-bold text-white shadow-2xl transition-all duration-300"
+              >
+                {/* White glowing border */}
+                <div className="absolute inset-0 rounded-full bg-white/30 blur-sm" />
+                <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600" />
+
+                <span className="relative z-10 flex items-center gap-3">
+                  📝 Interest Form
+                  <motion.span
+                    animate={{ x: [0, 5, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="text-lg"
+                  >
+                    →
+                  </motion.span>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-700 to-pink-700 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
+              </motion.a>
+            </motion.div>
           </motion.div>
 
           {/* What We Do Section */}
@@ -261,69 +315,6 @@ export default function InterestPage() {
                     initial={{ opacity: 0 }}
                     whileHover={{ opacity: 1 }}
                   />
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.section>
-
-          {/* Why Join Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
-            >
-              Why You Should Join
-            </motion.h2>
-            <motion.div
-              variants={containerVariants}
-              className="grid gap-8 lg:grid-cols-3"
-            >
-              {[
-                {
-                  icon: "🎯",
-                  title: "Real-World Applications",
-                  description:
-                    "Apply psychology concepts to everyday situations. Learn skills that will help you in school, relationships, and future careers.",
-                  gradient: "from-cyan-400 to-teal-500",
-                },
-                {
-                  icon: "🌟",
-                  title: "Personal Growth",
-                  description:
-                    "Develop self-awareness and emotional intelligence. Understand yourself better and learn strategies for managing stress and challenges.",
-                  gradient: "from-teal-400 to-cyan-500",
-                },
-                {
-                  icon: "🤝",
-                  title: "Community Impact",
-                  description:
-                    "Make a difference in your school community. Help promote mental health awareness and create a more supportive environment for everyone.",
-                  gradient: "from-cyan-500 to-teal-600",
-                },
-              ].map((item, index) => (
-                <motion.div
-                  key={index}
-                  variants={cardVariants}
-                  whileHover="hover"
-                  className="text-center"
-                >
-                  <motion.div
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                    className={`mx-auto mb-6 flex h-32 w-32 items-center justify-center rounded-full bg-gradient-to-br ${item.gradient} text-4xl`}
-                  >
-                    {item.icon}
-                  </motion.div>
-                  <h3 className="mb-4 text-2xl font-bold text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-white/90">{item.description}</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -444,51 +435,6 @@ export default function InterestPage() {
                   />
                 </motion.div>
               ))}
-            </motion.div>
-          </motion.section>
-
-          {/* CTA Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="text-center"
-          >
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-12 shadow-2xl backdrop-blur-xl"
-            >
-              <motion.div
-                animate={{
-                  scale: [1, 1.1, 1],
-                  opacity: [0.3, 0.6, 0.3],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
-              />
-
-              <div className="relative z-10">
-                <h2 className="mb-4 text-4xl font-bold text-white">
-                  Ready to Join?
-                </h2>
-                <p className="mb-6 text-xl text-white/90">
-                  Take the first step toward understanding the human mind and
-                  making a difference in your community.
-                </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-transform"
-                >
-                  Join Mind & Method
-                </motion.button>
-              </div>
             </motion.div>
           </motion.section>
         </div>
