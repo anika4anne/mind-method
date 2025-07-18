@@ -1,4 +1,6 @@
+"use client";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 interface Officer {
   name: string;
@@ -53,6 +55,56 @@ const officers: Officer[] = [
   },
 ];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  hover: {
+    scale: 1.05,
+    y: -5,
+    transition: {
+      duration: 0.2,
+    },
+  },
+};
+
+const imageVariants = {
+  hover: {
+    scale: 1.1,
+    transition: {
+      duration: 0.3,
+    },
+  },
+};
+
 export default function OfficersPage() {
   const leadershipTeam = officers.filter(
     (o) => o.section === "Leadership Team",
@@ -64,31 +116,59 @@ export default function OfficersPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#a5b4fc] via-[#38bdf8] to-[#6366f1] px-6 py-16">
       <div className="container mx-auto max-w-7xl">
-        <div className="mb-16 text-center">
-          <h1 className="mb-6 text-5xl font-extrabold text-white drop-shadow-[0_4px_32px_rgba(64,112,209,0.7)]">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={containerVariants}
+          className="mb-16 text-center"
+        >
+          <motion.h1
+            variants={itemVariants}
+            className="mb-6 text-5xl font-extrabold text-white drop-shadow-[0_4px_32px_rgba(64,112,209,0.7)]"
+          >
             Our Team
-          </h1>
-          <p className="mx-auto max-w-3xl text-xl text-blue-200">
+          </motion.h1>
+          <motion.p
+            variants={itemVariants}
+            className="mx-auto max-w-3xl text-xl text-blue-200"
+          >
             Meet the dedicated students who make Mind & Method possible. Each
             member brings unique expertise and passion to our psychology
             community.
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         {/* Leadership Team Section */}
-        <div className="mb-20">
-          <h2 className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+          className="mb-20"
+        >
+          <motion.h2
+            variants={itemVariants}
+            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
+          >
             Leadership Team
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            {leadershipTeam.map((officer) => (
-              <div
+          </motion.h2>
+          <motion.div
+            variants={containerVariants}
+            className="grid grid-cols-1 gap-8 md:grid-cols-3"
+          >
+            {leadershipTeam.map((officer, index) => (
+              <motion.div
                 key={officer.name}
-                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300 hover:scale-105"
+                variants={cardVariants}
+                whileHover="hover"
+                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300"
               >
                 {/* Officer Image */}
                 <div className="mb-6 h-48 w-48">
-                  <div className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl">
+                  <motion.div
+                    variants={imageVariants}
+                    className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl"
+                  >
                     <Image
                       src={officer.image}
                       alt={`${officer.name} - ${officer.position}`}
@@ -100,7 +180,7 @@ export default function OfficersPage() {
                     <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-blue-400/20 to-purple-400/20 text-sm text-white/60">
                       {officer.name}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Officer Info */}
@@ -115,25 +195,42 @@ export default function OfficersPage() {
                     {officer.bio}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Legendary Members Section */}
-        <div className="mb-20">
-          <h2 className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+          className="mb-20"
+        >
+          <motion.h2
+            variants={itemVariants}
+            className="mb-8 text-center text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,112,209,0.5)]"
+          >
             Legendary Members
-          </h2>
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {legendaryMembers.map((officer) => (
-              <div
+          </motion.h2>
+          <motion.div
+            variants={containerVariants}
+            className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          >
+            {legendaryMembers.map((officer, index) => (
+              <motion.div
                 key={officer.name}
-                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300 hover:scale-105"
+                variants={cardVariants}
+                whileHover="hover"
+                className="flex flex-col items-center rounded-2xl border border-white/20 bg-white/20 p-6 shadow-2xl backdrop-blur-xl transition-transform duration-300"
               >
                 {/* Officer Image */}
                 <div className="mb-6 h-48 w-48">
-                  <div className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl">
+                  <motion.div
+                    variants={imageVariants}
+                    className="relative h-full w-full overflow-hidden rounded-2xl border-4 border-white/30 shadow-xl"
+                  >
                     <Image
                       src={officer.image}
                       alt={`${officer.name} - ${officer.position}`}
@@ -145,7 +242,7 @@ export default function OfficersPage() {
                     <div className="absolute inset-0 z-0 flex items-center justify-center bg-gradient-to-br from-blue-400/20 to-purple-400/20 text-sm text-white/60">
                       {officer.name}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Officer Info */}
@@ -160,14 +257,24 @@ export default function OfficersPage() {
                     {officer.bio}
                   </p>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Join the Team Section */}
-        <div className="mt-20 text-center">
-          <div className="mx-auto max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={containerVariants}
+          className="mt-20 text-center"
+        >
+          <motion.div
+            variants={cardVariants}
+            whileHover="hover"
+            className="mx-auto max-w-4xl rounded-2xl border border-white/20 bg-white/20 p-8 shadow-2xl backdrop-blur-xl"
+          >
             <h2 className="mb-4 text-3xl font-bold text-white drop-shadow">
               Interested in Leadership?
             </h2>
@@ -177,11 +284,15 @@ export default function OfficersPage() {
               or making a difference in our school community, we'd love to hear
               from you.
             </p>
-            <button className="inline-block rounded-full bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:scale-105 hover:from-cyan-400 hover:to-blue-700 focus:ring-2 focus:ring-cyan-300 focus:outline-none">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="inline-block rounded-full bg-gradient-to-r from-blue-700 via-cyan-500 to-blue-700 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-blue-700 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+            >
               Contact Us About Leadership
-            </button>
-          </div>
-        </div>
+            </motion.button>
+          </motion.div>
+        </motion.div>
       </div>
     </div>
   );
