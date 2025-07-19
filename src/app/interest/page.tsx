@@ -147,38 +147,8 @@ export default function InterestPage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
-      <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      />
-
       {/* Animated background with confetti and sparkles */}
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        {/* Gradient background */}
-        <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
-
-        {/* Sparkles */}
-        {[...Array(10)].map((_, i) => (
-          <motion.div
-            key={`sparkle-${i}`}
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: i * 0.3,
-            }}
-            className="absolute h-1 w-1 rounded-full bg-cyan-300"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
@@ -278,9 +248,9 @@ export default function InterestPage() {
             >
               {[
                 {
-                  title: "🧠 Psychology Exploration",
+                  title: "🧠 Explore The Field of Pyscology",
                   description:
-                    "Dive deep into human behavior, cognitive processes, and mental health. Learn about memory, decision-making, and the fascinating ways our minds work.",
+                    "Learn more about human behavior, mental health, and more! ",
                 },
                 {
                   title: "🔍 Forensic Challenges",
@@ -368,6 +338,63 @@ export default function InterestPage() {
                   >
                     Take the Quiz
                   </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          </motion.section>
+
+          {/* Meeting Information Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Meeting Information 📅
+            </motion.h2>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="text-center"
+            >
+              <div className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+                />
+                <div className="relative z-10">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="text-center">
+                      <h3 className="mb-4 text-3xl font-bold text-white">
+                        📍 Room 171
+                      </h3>
+                      <p className="text-lg text-white/90">
+                        Join us in Room 171 for all our exciting psychology
+                        activities!
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="mb-4 text-3xl font-bold text-white">
+                        ⏰ Every Thursday
+                      </h3>
+                      <p className="text-lg text-white/90">
+                        Meetings held every Thursday after school
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>

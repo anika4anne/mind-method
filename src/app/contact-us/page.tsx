@@ -122,31 +122,7 @@ ${formData.message}
       />
 
       {/* Animated background with confetti and sparkles */}
-      <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        {/* Gradient background */}
-        <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
-
-        {/* Sparkles */}
-        {[...Array(15)].map((_, i) => (
-          <motion.div
-            key={`sparkle-${i}`}
-            animate={{
-              scale: [0, 1, 0],
-              opacity: [0, 1, 0],
-            }}
-            transition={{
-              duration: 2,
-              repeat: Infinity,
-              delay: i * 0.2,
-            }}
-            className="absolute h-1 w-1 rounded-full bg-cyan-300"
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-          />
-        ))}
-      </div>
+      <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
@@ -161,13 +137,13 @@ ${formData.message}
               variants={itemVariants}
               className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
             >
-              Get in Touch! 📞
+              Contact Us
             </motion.h1>
             <motion.p
               variants={itemVariants}
               className="mx-auto max-w-3xl text-2xl font-semibold text-white"
             >
-              Have questions about Mind & Method? Let us know! tststststs
+              Have questions about Mind & Method? Let us know!
             </motion.p>
           </motion.div>
 
