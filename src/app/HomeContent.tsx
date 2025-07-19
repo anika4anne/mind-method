@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 const TypewriterText = ({
   text,
@@ -170,7 +171,13 @@ export default function HomeContent() {
                 />
                 <div className="to-turquoise-500 relative rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 p-2">
                   <div className="rounded-full bg-white p-8">
-                    <span className="text-6xl">🧠</span>
+                    <Image
+                      src="/trans.png"
+                      alt="Mind & Method Logo"
+                      width={96}
+                      height={96}
+                      className="h-24 w-24 object-contain"
+                    />
                   </div>
                 </div>
               </div>

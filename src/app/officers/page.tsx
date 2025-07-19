@@ -8,6 +8,12 @@ interface Officer {
   bio: string;
   image: string;
   section: string;
+  socials?: {
+    instagram?: string;
+    linkedin?: string;
+    email?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 const officers: Officer[] = [
@@ -17,6 +23,11 @@ const officers: Officer[] = [
     bio: "Ava is passionate about making psychology accessible to all students. She leads the club with enthusiasm and creativity, ensuring every member feels welcome and engaged.",
     image: "/officers/ava2.png",
     section: "Leadership Team",
+    socials: {
+      instagram: "https://www.instagram.com/bestfriend_of_kasia/",
+      //linkedin: "https://linkedin.com/in/avadavis",
+      email: "mailto:ava.davis@k12.wcsdny.org",
+    },
   },
   {
     name: "unknown",
@@ -24,13 +35,19 @@ const officers: Officer[] = [
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Leadership Team",
+    socials: {},
   },
   {
     name: "Anika Anne",
-    position: "CTO",
-    bio: "Anika's Bio here",
+    position: "Chief Technology Officer",
+    bio: "Anika is a rising sophmore who loves coding & technology, she recently found an interest in psycology. She plays for the JV volleyball team, and is part of the Robotics and Scioly club",
     image: "/officers/anika1.webp",
     section: "Leadership Team",
+    socials: {
+      instagram: "https://www.instagram.com/anika.anne28/",
+      //linkedin: "https://linkedin.com/in/anikaanne",
+      email: "mailto:anika.anne@k12.wcsdny.org",
+    },
   },
   {
     name: "unknown",
@@ -38,6 +55,7 @@ const officers: Officer[] = [
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Legendary Members",
+    socials: {},
   },
   {
     name: "unknown",
@@ -45,6 +63,7 @@ const officers: Officer[] = [
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Legendary Members",
+    socials: {},
   },
   {
     name: "unknown",
@@ -52,6 +71,7 @@ const officers: Officer[] = [
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Legendary Members",
+    socials: {},
   },
 ];
 
@@ -111,6 +131,14 @@ const flipVariants = {
   front: { rotateY: 0 },
   back: { rotateY: 180 },
 };
+
+// Social icon base class for white icons, with brand color on hover
+const instagramIconClass =
+  "text-white hover:text-[#E1306C] text-2xl transition-colors";
+const linkedinIconClass =
+  "text-white hover:text-[#0077B5] text-2xl transition-colors";
+const emailIconClass =
+  "text-white hover:text-[#06b6d4] text-2xl transition-colors";
 
 export default function OfficersPage() {
   const leadershipTeam = officers.filter(
@@ -174,7 +202,7 @@ export default function OfficersPage() {
               className="mx-auto max-w-3xl text-2xl font-semibold text-white"
             >
               Meet the dedicated students who make Mind & Method possible. Each
-              member brings unique expertise and passion to our psychology
+              member brings unique skills and passion to our psychology
               community.
             </motion.p>
           </motion.div>
@@ -190,7 +218,7 @@ export default function OfficersPage() {
               variants={itemVariants}
               className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
             >
-              Leadership Team
+              Outstanding Officers
             </motion.h2>
             <motion.div
               variants={containerVariants}
@@ -241,9 +269,42 @@ export default function OfficersPage() {
                           <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
                             {officer.position}
                           </span>
-                          <p className="text-sm leading-relaxed text-white/90">
+                          <p className="mb-4 text-sm leading-relaxed text-white/90">
                             {officer.bio}
                           </p>
+                          {officer.socials &&
+                            Object.keys(officer.socials).length > 0 && (
+                              <div className="mt-2 flex justify-center gap-4">
+                                {officer.socials.instagram && (
+                                  <a
+                                    href={officer.socials.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={instagramIconClass}
+                                  >
+                                    <i className="fab fa-instagram"></i>
+                                  </a>
+                                )}
+                                {officer.socials.linkedin && (
+                                  <a
+                                    href={officer.socials.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={linkedinIconClass}
+                                  >
+                                    <i className="fab fa-linkedin"></i>
+                                  </a>
+                                )}
+                                {officer.socials.email && (
+                                  <a
+                                    href={officer.socials.email}
+                                    className={emailIconClass}
+                                  >
+                                    <i className="fas fa-envelope"></i>
+                                  </a>
+                                )}
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -315,9 +376,42 @@ export default function OfficersPage() {
                           <span className="mb-4 inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-3 py-1 text-xs font-semibold text-white">
                             {officer.position}
                           </span>
-                          <p className="text-sm leading-relaxed text-white/90">
+                          <p className="mb-4 text-sm leading-relaxed text-white/90">
                             {officer.bio}
                           </p>
+                          {officer.socials &&
+                            Object.keys(officer.socials).length > 0 && (
+                              <div className="mt-2 flex justify-center gap-4">
+                                {officer.socials.instagram && (
+                                  <a
+                                    href={officer.socials.instagram}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={instagramIconClass}
+                                  >
+                                    <i className="fab fa-instagram"></i>
+                                  </a>
+                                )}
+                                {officer.socials.linkedin && (
+                                  <a
+                                    href={officer.socials.linkedin}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={linkedinIconClass}
+                                  >
+                                    <i className="fab fa-linkedin"></i>
+                                  </a>
+                                )}
+                                {officer.socials.email && (
+                                  <a
+                                    href={officer.socials.email}
+                                    className={emailIconClass}
+                                  >
+                                    <i className="fas fa-envelope"></i>
+                                  </a>
+                                )}
+                              </div>
+                            )}
                         </div>
                       </div>
                     </div>
@@ -354,13 +448,13 @@ export default function OfficersPage() {
 
               <div className="relative z-10">
                 <h2 className="mb-4 text-4xl font-bold text-white drop-shadow">
-                  Interested in Leadership?
+                  Want to become an Officer?
                 </h2>
                 <p className="mb-6 text-xl text-white/90">
-                  We're always looking for passionate students to join our
-                  leadership team. If you're interested in psychology,
-                  leadership, or making a difference in our school community,
-                  we'd love to hear from you.
+                  We're always looking for passionate students to join our team.
+                  If you're interested in psychology, leadership, or making a
+                  difference in our school community, we'd love to hear from
+                  you.
                 </p>
                 <motion.button
                   whileHover={{ scale: 1.05 }}
