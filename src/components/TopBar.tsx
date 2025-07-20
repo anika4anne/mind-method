@@ -47,7 +47,7 @@ export default function TopBar({ className = "" }: { className?: string }) {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-center">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
+            <div className="-ml-4 flex items-center space-x-3">
               <div className="relative">
                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 p-0.5">
                   <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-black/90">
