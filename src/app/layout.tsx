@@ -8,7 +8,7 @@ import ReactQueryProvider from "../components/ReactQueryProvider"; // ⬅️ New
 export const metadata: Metadata = {
   title: "Mind & Method",
   description: "Developed by Anika Anne",
-  icons: [{ rel: "icon", url: "/scioly-logo-dark.png" }],
+  icons: [{ rel: "icon", url: "/trans.png" }],
 };
 
 const geist = Geist({

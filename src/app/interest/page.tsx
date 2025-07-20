@@ -228,6 +228,63 @@ export default function InterestPage() {
             </motion.div>
           </motion.div>
 
+          {/* Meeting Information Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-20"
+          >
+            <motion.h2
+              variants={itemVariants}
+              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
+            >
+              Meeting Information 📅
+            </motion.h2>
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="text-center"
+            >
+              <div className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl">
+                <motion.div
+                  animate={{
+                    scale: [1, 1.1, 1],
+                    opacity: [0.3, 0.6, 0.3],
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
+                />
+                <div className="relative z-10">
+                  <div className="grid gap-6 md:grid-cols-2">
+                    <div className="text-center">
+                      <h3 className="mb-4 text-3xl font-bold text-white">
+                        📍 Room 171
+                      </h3>
+                      <p className="text-lg text-white/90">
+                        Join us in Room 171 for all our exciting psychology
+                        activities!
+                      </p>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="mb-4 text-3xl font-bold text-white">
+                        ⏰ Every Thursday
+                      </h3>
+                      <p className="text-lg text-white/90">
+                        Meetings held every Thursday after school
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.section>
+
           {/* What We Do Section */}
           <motion.section
             initial="hidden"
@@ -287,116 +344,6 @@ export default function InterestPage() {
                   />
                 </motion.div>
               ))}
-            </motion.div>
-          </motion.section>
-
-          {/* Interactive Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
-            >
-              Interactive Experience
-            </motion.h2>
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="text-center"
-            >
-              <div className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
-                />
-                <div className="relative z-10">
-                  <h3 className="mb-4 text-2xl font-bold text-white">
-                    🧠 Quick Anxiety Assessment
-                  </h3>
-                  <p className="mb-6 text-white/90">
-                    Take a quick quiz to understand your stress levels and get
-                    personalized insights.
-                  </p>
-                  <motion.button
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setShowQuiz(true)}
-                    className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 font-bold text-white transition-transform"
-                  >
-                    Take the Quiz
-                  </motion.button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.section>
-
-          {/* Meeting Information Section */}
-          <motion.section
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.h2
-              variants={itemVariants}
-              className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
-            >
-              Meeting Information 📅
-            </motion.h2>
-            <motion.div
-              variants={cardVariants}
-              whileHover="hover"
-              className="text-center"
-            >
-              <div className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl">
-                <motion.div
-                  animate={{
-                    scale: [1, 1.1, 1],
-                    opacity: [0.3, 0.6, 0.3],
-                  }}
-                  transition={{
-                    duration: 3,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                  className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
-                />
-                <div className="relative z-10">
-                  <div className="grid gap-6 md:grid-cols-2">
-                    <div className="text-center">
-                      <h3 className="mb-4 text-3xl font-bold text-white">
-                        📍 Room 171
-                      </h3>
-                      <p className="text-lg text-white/90">
-                        Join us in Room 171 for all our exciting psychology
-                        activities!
-                      </p>
-                    </div>
-                    <div className="text-center">
-                      <h3 className="mb-4 text-3xl font-bold text-white">
-                        ⏰ Every Thursday
-                      </h3>
-                      <p className="text-lg text-white/90">
-                        Meetings held every Thursday after school
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </motion.div>
           </motion.section>
 

@@ -61,45 +61,38 @@ const officers = [
 export default function ContactUsPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    grade: "",
     subject: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log("Form submitted:", formData);
 
-    // Create email content
-    const emailSubject = encodeURIComponent(
-      `Mind & Method Contact: ${formData.subject}`,
-    );
-    const emailBody = encodeURIComponent(`
-Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          grade: formData.grade,
+          subject: formData.subject,
+          message: formData.message,
+        }),
+      });
 
-Message:
-${formData.message}
-    `);
-
-    // Send to both email addresses
-    const primaryEmail = `mailto:anika.anne@k12.wcsdny.org?subject=${emailSubject}&body=${emailBody}`;
-    const secondaryEmail = `mailto:anikaanne2010pal@gmail.com?subject=${emailSubject}&body=${emailBody}`;
-
-    // Open primary email client
-    window.open(primaryEmail);
-
-    // Also open secondary email (user can choose which to send from)
-    setTimeout(() => {
-      window.open(secondaryEmail);
-    }, 100);
-
-    alert(
-      "Thank you for your message! Your email client will open with the message ready to send.",
-    );
-    setFormData({ name: "", email: "", subject: "", message: "" });
+      if (response.ok) {
+        alert("Thank you for your message! We'll get back to you soon.");
+        setFormData({ name: "", grade: "", subject: "", message: "" });
+      } else {
+        alert("There was an error sending your message. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error sending message:", error);
+      alert("There was an error sending your message. Please try again.");
+    }
   };
 
   const handleChange = (
@@ -205,21 +198,25 @@ ${formData.message}
                     </div>
                     <div>
                       <label
-                        htmlFor="email"
+                        htmlFor="grade"
                         className="mb-2 block text-sm font-semibold text-white"
                       >
-                        Email *
+                        Grade *
                       </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
+                      <select
+                        id="grade"
+                        name="grade"
+                        value={formData.grade}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-xl border-2 border-white/30 bg-white/20 px-4 py-3 text-white placeholder-white/60 backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
-                        placeholder="your.email@example.com"
-                      />
+                        className="w-full rounded-xl border-2 border-white/30 bg-white/20 px-4 py-3 text-white backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                      >
+                        <option value="">Select your grade</option>
+                        <option value="9">Grade 9</option>
+                        <option value="10">Grade 10</option>
+                        <option value="11">Grade 11</option>
+                        <option value="12">Grade 12</option>
+                      </select>
                     </div>
                   </div>
 

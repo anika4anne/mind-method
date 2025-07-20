@@ -29,14 +29,14 @@ const officers: Officer[] = [
       email: "mailto:ava.davis@k12.wcsdny.org",
     },
   },
-  {
+  /*{
     name: "unknown",
     position: "Vice President",
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Leadership Team",
     socials: {},
-  },
+  },*/
   {
     name: "Anika Anne",
     position: "Chief Technology Officer",
@@ -49,15 +49,15 @@ const officers: Officer[] = [
       email: "mailto:anika.anne@k12.wcsdny.org",
     },
   },
-  {
+  /* {
     name: "unknown",
     position: "Treasurer",
     bio: "bio goes here",
     image: "/officers/unknown.jpg",
     section: "Legendary Members",
     socials: {},
-  },
-  {
+  },*/
+  /*{
     name: "unknown",
     position: "Event Coordinator",
     bio: "bio goes here",
@@ -72,7 +72,7 @@ const officers: Officer[] = [
     image: "/officers/unknown.jpg",
     section: "Legendary Members",
     socials: {},
-  },
+  },*/
 ];
 
 const containerVariants = {
