@@ -194,7 +194,7 @@ export default function OfficersPage() {
               variants={itemVariants}
               className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
             >
-              Outstanding Officers
+              Main Officers
             </motion.h2>
             <motion.div
               variants={containerVariants}

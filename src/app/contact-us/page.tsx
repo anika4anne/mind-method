@@ -348,7 +348,7 @@ export default function ContactUsPage() {
                   </p>
                   <p className="flex items-center gap-2">
                     <i className="fas fa-clock text-cyan-400"></i>
-                    <span>Meetings: Thursdays after school</span>
+                    <span>Meetings: Every alternate Monday after school</span>
                   </p>
                   <p className="flex items-center gap-2">
                     <i className="fas fa-users text-cyan-400"></i>

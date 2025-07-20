@@ -254,10 +254,10 @@ export default function HomeContent() {
                   </div>
                   <div className="text-center">
                     <h3 className="mb-2 text-2xl font-bold text-white">
-                      ⏰ Every Thursday
+                      ⏰ Every Alternate Monday
                     </h3>
                     <p className="text-white/90">
-                      Meetings held every Thursday after school
+                      Meetings held every alternate Monday after school
                     </p>
                   </div>
                 </div>

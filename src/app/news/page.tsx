@@ -49,7 +49,7 @@ const announcements = [
     date: "December 15, 2024",
     title: "🎉 Welcome to Mind & Method!",
     content:
-      "We're excited to announce the launch of our psychology club! Join us for our first meeting this Thursday in Room 171. Come explore the fascinating world of psychology with us!",
+      "We're excited to announce the launch of our psychology club! Join us for our first meeting this Monday in Room 171. Come explore the fascinating world of psychology with us!",
     category: "Announcement",
     priority: "high",
   },

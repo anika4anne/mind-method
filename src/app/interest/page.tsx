@@ -273,10 +273,10 @@ export default function InterestPage() {
                     </div>
                     <div className="text-center">
                       <h3 className="mb-4 text-3xl font-bold text-white">
-                        ⏰ Every Thursday
+                        ⏰ Every Alternate Monday
                       </h3>
                       <p className="text-lg text-white/90">
-                        Meetings held every Thursday after school
+                        Meetings held every alternate Monday after school
                       </p>
                     </div>
                   </div>

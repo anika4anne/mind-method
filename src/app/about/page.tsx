@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -124,12 +125,12 @@ export default function EventsPage() {
                 Regular Meetings
               </h3>
               <p className="mb-4 text-sm leading-relaxed text-white/90">
-                Join us every Thursday at 3:30 PM in Room 171 for our weekly
-                club meetings.
+                Join us every alternate Monday at 3:30 PM in Room 171 for our
+                weekly club meetings.
               </p>
               <div className="flex items-center text-cyan-300">
                 <i className="fas fa-clock mr-2"></i>
-                <span className="text-sm">Thursdays, 3:30 PM</span>
+                <span className="text-sm">Every alternate Monday, 3:30 PM</span>
               </div>
             </motion.div>
 
@@ -211,13 +212,16 @@ export default function EventsPage() {
                   Have questions about upcoming events or want to suggest new
                   activities?
                 </p>
-                <motion.button
+                <motion.div
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
                 >
-                  Contact Us <i className="fas fa-arrow-right ml-2"></i>
-                </motion.button>
+                  <Link href="/contact-us">
+                    <button className="cursor-pointer rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none">
+                      Contact Us <i className="fas fa-arrow-right ml-2"></i>
+                    </button>
+                  </Link>
+                </motion.div>
               </div>
             </motion.div>
           </motion.div>

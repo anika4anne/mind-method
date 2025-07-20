@@ -50,7 +50,7 @@ const articles = [
       
       <h2 class="mb-4 text-2xl font-bold text-cyan-300">First Meeting Details</h2>
       <p class="mb-6 text-lg leading-relaxed text-white/90">
-        Join us for our first meeting on this Thursday in Room 171 at 3:30 PM. 
+        Join us for our first meeting on this Monday in Room 171 at 3:30 PM. 
         We'll be introducing our officers, discussing upcoming events, and getting to know each other.
       </p>
       
