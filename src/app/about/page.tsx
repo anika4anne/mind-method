@@ -91,64 +91,15 @@ export default function EventsPage() {
               whileHover="hover"
               className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
             >
-              <div className="mb-6 text-center">
-                <h2 className="mb-4 text-3xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]">
-                  <i className="fas fa-calendar-check mr-3"></i>
-                  Club Calendar
-                </h2>
-                <p className="text-white/90">
-                  View all upcoming events, meetings, and activities in our
-                  interactive calendar.
-                </p>
-              </div>
-
-              {/* Google Calendar Embed Placeholder */}
-              <div className="relative overflow-hidden rounded-2xl border-2 border-cyan-400/30 bg-gradient-to-br from-cyan-400/10 to-teal-500/10 p-6">
-                <div className="mb-4 flex items-center justify-center space-x-4">
-                  <i className="fas fa-calendar-plus text-2xl text-cyan-300"></i>
-                  <h3 className="text-xl font-semibold text-white">
-                    Google Calendar
-                  </h3>
-                </div>
-
-                {/* Calendar Embed Instructions */}
-                <div className="text-center">
-                  <div className="mb-4 rounded-xl border border-cyan-400/30 bg-white/10 p-4">
-                    <h4 className="mb-2 text-lg font-semibold text-cyan-300">
-                      <i className="fas fa-info-circle mr-2"></i>
-                      Embed Your Calendar
-                    </h4>
-                    <p className="mb-3 text-white/90">
-                      To embed your Google Calendar here:
-                    </p>
-                    <ol className="space-y-2 text-left text-sm text-white/90">
-                      <li>1. Go to your Google Calendar</li>
-                      <li>
-                        2. Click the three dots next to your calendar name
-                      </li>
-                      <li>3. Select "Settings and sharing"</li>
-                      <li>4. Scroll down to "Integrate calendar"</li>
-                      <li>5. Copy the "Embed code"</li>
-                      <li>
-                        6. Replace the placeholder below with your embed code
-                      </li>
-                    </ol>
-                  </div>
-
-                  {/* Placeholder for Google Calendar Embed */}
-                  <div className="rounded-xl border-2 border-dashed border-cyan-400/30 bg-white/5 p-8">
-                    <i className="fas fa-calendar-plus mb-4 text-4xl text-cyan-300"></i>
-                    <p className="mb-4 text-white/70">
-                      Your Google Calendar will appear here
-                    </p>
-                    <div className="rounded-lg bg-white/10 p-4 text-left">
-                      <code className="text-xs text-cyan-300">
-                        &lt;iframe
-                        src="https://calendar.google.com/calendar/embed?src=YOUR_CALENDAR_ID"&gt;&lt;/iframe&gt;
-                      </code>
-                    </div>
-                  </div>
-                </div>
+              {/* Google Calendar Embed */}
+              <div className="rounded-xl border-2 border-cyan-400/30 bg-white/5 p-4">
+                <iframe
+                  src="https://calendar.google.com/calendar/embed?src=dc4f966e363e9bc4a0128ecfb6c7df5876270d5c1a3611104b1f0dbd72bf1cb4%40group.calendar.google.com&ctz=America%2FNew_York"
+                  style={{ border: 0, width: "100%", height: "600px" }}
+                  frameBorder="0"
+                  scrolling="no"
+                  title="Mind & Method Club Calendar"
+                ></iframe>
               </div>
             </motion.div>
           </motion.div>
