@@ -23,7 +23,12 @@ export default function TopBar({ className = "" }: { className?: string }) {
   const [showOfficerModal, setShowOfficerModal] = useState(false);
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(null);
+  const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(() => {
+    if (typeof window !== "undefined") {
+      return localStorage.getItem("loggedInOfficer");
+    }
+    return null;
+  });
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,7 +127,12 @@ export default function TopBar({ className = "" }: { className?: string }) {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setLoggedInOfficer(null)}
+                    onClick={() => {
+                      setLoggedInOfficer(null);
+                      localStorage.removeItem("loggedInOfficer");
+                      // Dispatch custom event for same-tab updates
+                      window.dispatchEvent(new Event("loginStateChanged"));
+                    }}
                     className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm transition-all hover:bg-white/20 hover:text-white"
                   >
                     <i className="fas fa-sign-out-alt mr-1"></i>
@@ -353,6 +363,9 @@ export default function TopBar({ className = "" }: { className?: string }) {
                       onClick={() => {
                         console.log(`${officer.name} signed in successfully!`);
                         setLoggedInOfficer(officer.name);
+                        localStorage.setItem("loggedInOfficer", officer.name);
+                        // Dispatch custom event for same-tab updates
+                        window.dispatchEvent(new Event("loginStateChanged"));
                         setShowOfficerModal(false);
                       }}
                       className={`group relative w-full overflow-hidden rounded-xl border-2 border-white/30 bg-gradient-to-r ${officer.color} p-4 text-lg font-bold text-white shadow-lg transition-all hover:border-white/50 hover:shadow-xl focus:outline-none`}

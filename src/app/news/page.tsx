@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useState, useEffect } from "react";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -86,6 +87,149 @@ const getCategoryIcon = (category: string) => {
 };
 
 export default function NewsPage() {
+  const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(null);
+  const [showAddNewsModal, setShowAddNewsModal] = useState(false);
+  const [newNews, setNewNews] = useState({
+    title: "",
+    content: "",
+    category: "Announcement",
+    priority: "medium",
+    themeColor: "cyan",
+  });
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editingNews, setEditingNews] = useState<any>(null);
+  const [editingDraft, setEditingDraft] = useState<any>(null);
+  const [isSavingDraft, setIsSavingDraft] = useState(false);
+  const [showDrafts, setShowDrafts] = useState(false);
+
+  const [drafts, setDrafts] = useState<any[]>(() => {
+    if (typeof window !== "undefined") {
+      const savedDrafts = localStorage.getItem("newsDrafts");
+      return savedDrafts ? JSON.parse(savedDrafts) : [];
+    }
+    return [];
+  });
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
+    }
+
+    // Listen for changes to localStorage
+    const handleStorageChange = () => {
+      setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+
+    // Also listen for custom events (for same-tab updates)
+    const handleLoginChange = () => {
+      setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
+    };
+
+    window.addEventListener("loginStateChanged", handleLoginChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("loginStateChanged", handleLoginChange);
+    };
+  }, []);
+
+  const isBlogger = loggedInOfficer === "Blogger";
+
+  const handleSaveDraft = () => {
+    setIsSavingDraft(true);
+
+    // Simulate saving process
+    setTimeout(() => {
+      const draft = {
+        ...newNews,
+        id: Date.now(),
+        date: new Date().toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        }),
+        status: "draft",
+      };
+
+      const updatedDrafts = [...drafts, draft];
+      setDrafts(updatedDrafts);
+      localStorage.setItem("newsDrafts", JSON.stringify(updatedDrafts));
+      setShowAddNewsModal(false);
+      setIsSavingDraft(false);
+      setNewNews({
+        title: "",
+        content: "",
+        category: "Announcement",
+        priority: "medium",
+        themeColor: "cyan",
+      });
+    }, 2000); // 2 second delay to show "Saving draft..."
+  };
+
+  const handleEditNews = () => {
+    // Here you would typically update the database
+    console.log("Updating news:", editingNews);
+    setShowEditModal(false);
+    setEditingNews(null);
+  };
+
+  const handleEditDraft = () => {
+    // Update the draft in localStorage
+    const updatedDrafts = drafts.map((draft) =>
+      draft.id === editingDraft.id ? editingDraft : draft,
+    );
+    setDrafts(updatedDrafts);
+    localStorage.setItem("newsDrafts", JSON.stringify(updatedDrafts));
+    setShowEditModal(false);
+    setEditingDraft(null);
+  };
+
+  const getThemeButtonColor = (themeColor: string) => {
+    switch (themeColor) {
+      case "cyan":
+        return "from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500";
+      case "blue":
+        return "from-blue-500 to-blue-600 hover:from-blue-400 hover:to-blue-500";
+      case "green":
+        return "from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500";
+      case "purple":
+        return "from-purple-500 to-pink-600 hover:from-purple-400 hover:to-pink-500";
+      case "pink":
+        return "from-pink-500 to-rose-600 hover:from-pink-400 hover:to-rose-500";
+      case "orange":
+        return "from-orange-500 to-red-600 hover:from-orange-400 hover:to-red-500";
+      default:
+        return "from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500";
+    }
+  };
+
+  const getThemeColor = (themeColor: string) => {
+    switch (themeColor) {
+      case "cyan":
+        return "text-cyan-300 border-cyan-400 focus:border-cyan-400";
+      case "blue":
+        return "text-blue-300 border-blue-400 focus:border-blue-400";
+      case "green":
+        return "text-green-300 border-green-400 focus:border-green-400";
+      case "purple":
+        return "text-purple-300 border-purple-400 focus:border-purple-400";
+      case "pink":
+        return "text-pink-300 border-pink-400 focus:border-pink-400";
+      case "orange":
+        return "text-orange-300 border-orange-400 focus:border-orange-400";
+      default:
+        return "text-cyan-300 border-cyan-400 focus:border-cyan-400";
+    }
+  };
+
+  const deleteDraft = (draftId: number) => {
+    const updatedDrafts = drafts.filter((draft) => draft.id !== draftId);
+    setDrafts(updatedDrafts);
+    localStorage.setItem("newsDrafts", JSON.stringify(updatedDrafts));
+  };
+
   return (
     <>
       {/* Font Awesome CSS */}
@@ -121,21 +265,196 @@ export default function NewsPage() {
             </motion.p>
           </motion.div>
 
-          {/* News Grid */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
-            className="flex justify-center"
-          >
-            <div className="grid max-w-2xl gap-8 md:grid-cols-1 lg:grid-cols-1">
-              {announcements.map((announcement, index) => (
-                <Link href={`/news/${announcement.id}`} key={announcement.id}>
+          {/* Blogger Management Interface */}
+          {isBlogger && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-6 flex items-center justify-center space-x-3"
+            >
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowAddNewsModal(true)}
+                className="rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2 font-semibold text-white shadow-lg transition-all hover:from-cyan-400 hover:to-blue-500"
+              >
+                <i className="fas fa-plus mr-2"></i>
+                Add News
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setShowDrafts(!showDrafts)}
+                className={`rounded-full px-4 py-2 font-semibold text-white shadow-lg transition-all ${
+                  showDrafts
+                    ? "border-2 border-green-400 bg-white/10 backdrop-blur-sm hover:bg-white/20"
+                    : "bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500"
+                }`}
+              >
+                <i className="fas fa-drafting-compass mr-2"></i>
+                Drafts ({drafts.length})
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full bg-gradient-to-r from-purple-500 to-pink-600 px-4 py-2 font-semibold text-white shadow-lg transition-all hover:from-purple-400 hover:to-pink-500"
+              >
+                <i className="fas fa-chart-line mr-2"></i>
+                Analytics
+              </motion.button>
+
+              <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-full bg-gradient-to-r from-orange-500 to-red-600 px-4 py-2 font-semibold text-white shadow-lg transition-all hover:from-orange-400 hover:to-red-500"
+              >
+                <i className="fas fa-cog mr-2"></i>
+                Settings
+              </motion.button>
+            </motion.div>
+          )}
+
+          {/* Drafts Section */}
+          {isBlogger && showDrafts && drafts.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="mb-8"
+            >
+              <h3 className="mb-4 text-2xl font-bold text-white/70">
+                <i className="fas fa-drafting-compass mr-2"></i>
+                Drafts ({drafts.length})
+              </h3>
+              <div className="grid max-w-2xl gap-8 md:grid-cols-1 lg:grid-cols-1">
+                {drafts.map((draft) => (
                   <motion.div
+                    key={draft.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover="hover"
+                    className={`group relative overflow-hidden rounded-3xl border-4 ${getPriorityColor(draft.priority)} cursor-pointer p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30`}
+                    onClick={() => {
+                      // Navigate to full draft view
+                      window.location.href = `/news/draft/${draft.id}`;
+                    }}
+                  >
+                    {/* Priority indicator */}
+                    <div className="absolute top-4 right-4">
+                      <span
+                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
+                          draft.priority === "high"
+                            ? "bg-red-500 text-white"
+                            : draft.priority === "medium"
+                              ? "bg-yellow-500 text-white"
+                              : "bg-green-500 text-white"
+                        }`}
+                      >
+                        {draft.priority.toUpperCase()}
+                      </span>
+                    </div>
+
+                    {/* Category icon */}
+                    <div className="mb-4 text-3xl">
+                      {getCategoryIcon(draft.category)}
+                    </div>
+
+                    {/* Date */}
+                    <p className="mb-3 text-sm text-white/70">{draft.date}</p>
+
+                    {/* Title */}
+                    <h3 className="mb-4 text-xl font-bold text-white group-hover:text-cyan-300">
+                      {draft.title}
+                    </h3>
+
+                    {/* Edit button under title */}
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setEditingDraft(draft);
+                        setShowEditModal(true);
+                      }}
+                      onMouseDown={(e) => {
+                        e.stopPropagation();
+                      }}
+                      className="mb-4 rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-500/30"
+                    >
+                      <i className="fas fa-edit mr-1"></i>
+                      Edit
+                    </motion.button>
+
+                    {/* Content */}
+                    <p className="mb-4 text-sm leading-relaxed text-white/90">
+                      {draft.content}
+                    </p>
+
+                    {/* Category and actions */}
+                    <div className="flex items-center justify-between">
+                      <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
+                        {draft.category}
+                      </span>
+                      <div className="flex items-center space-x-2">
+                        <span className="rounded-full bg-gray-600 px-3 py-1 text-xs font-semibold text-white/70">
+                          DRAFT
+                        </span>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            deleteDraft(draft.id);
+                          }}
+                          onMouseDown={(e) => {
+                            e.stopPropagation();
+                          }}
+                          className="rounded-full bg-red-500/20 px-3 py-1 text-xs font-semibold text-red-300 transition-all hover:bg-red-500/30"
+                        >
+                          <i className="fas fa-trash mr-1"></i>
+                          Delete
+                        </motion.button>
+                        <div className="text-cyan-300">
+                          <i className="fas fa-arrow-right"></i>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Hover effect */}
+                    <motion.div
+                      className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {/* News Grid */}
+          {!showDrafts && (
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={containerVariants}
+              className="flex justify-center"
+            >
+              <div className="grid max-w-2xl gap-8 md:grid-cols-1 lg:grid-cols-1">
+                {announcements.map((announcement, index) => (
+                  <motion.div
+                    key={announcement.id}
                     variants={cardVariants}
                     whileHover="hover"
                     className={`group relative overflow-hidden rounded-3xl border-4 ${getPriorityColor(announcement.priority)} cursor-pointer p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30`}
+                    onClick={() => {
+                      // Navigate to full article view
+                      window.location.href = `/news/${announcement.id}`;
+                    }}
                   >
                     {/* Priority indicator */}
                     <div className="absolute top-4 right-4">
@@ -167,6 +486,24 @@ export default function NewsPage() {
                       {announcement.title}
                     </h3>
 
+                    {/* Edit button under title */}
+                    {isBlogger && !showDrafts && (
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          // Navigate to edit page
+                          window.location.href = `/news/${announcement.id}/edit`;
+                        }}
+                        className="mb-4 rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-500/30"
+                      >
+                        <i className="fas fa-edit mr-1"></i>
+                        Edit
+                      </motion.button>
+                    )}
+
                     {/* Content */}
                     <p className="mb-4 text-sm leading-relaxed text-white/90">
                       {announcement.content}
@@ -177,8 +514,10 @@ export default function NewsPage() {
                       <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
                         {announcement.category}
                       </span>
-                      <div className="text-cyan-300">
-                        <i className="fas fa-arrow-right"></i>
+                      <div className="flex items-center space-x-2">
+                        <div className="text-cyan-300">
+                          <i className="fas fa-arrow-right"></i>
+                        </div>
                       </div>
                     </div>
 
@@ -189,10 +528,10 @@ export default function NewsPage() {
                       whileHover={{ opacity: 1 }}
                     />
                   </motion.div>
-                </Link>
-              ))}
-            </div>
-          </motion.div>
+                ))}
+              </div>
+            </motion.div>
+          )}
 
           {/* Newsletter Signup */}
           <motion.div
@@ -240,6 +579,390 @@ export default function NewsPage() {
           </motion.div>
         </div>
       </div>
+
+      {/* Add News Modal */}
+      {showAddNewsModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => setShowAddNewsModal(false)}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            className={`relative w-full max-w-2xl rounded-3xl border-6 ${getThemeColor(newNews.themeColor).split(" ")[1]}/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl`}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setShowAddNewsModal(false)}
+              className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
+            >
+              <i className="fas fa-times text-xl"></i>
+            </button>
+
+            {/* Modal Content */}
+            <div className="text-center">
+              <div className="mb-6">
+                <i
+                  className={`fas fa-newspaper mb-4 text-4xl ${getThemeColor(newNews.themeColor).split(" ")[0]}`}
+                ></i>
+                <h2 className="mb-2 text-2xl font-bold text-white">
+                  Add News Article
+                </h2>
+                <p className="text-white/70">
+                  Create a new announcement or news article
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  handleSaveDraft();
+                }}
+              >
+                <div className="space-y-4">
+                  <div>
+                    <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      value={newNews.title}
+                      onChange={(e) =>
+                        setNewNews({ ...newNews, title: e.target.value })
+                      }
+                      className={`w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:outline-none ${getThemeColor(newNews.themeColor)?.split(" ")[2] || "focus:border-cyan-400"}`}
+                      placeholder="Enter article title"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                      Content
+                    </label>
+                    <textarea
+                      value={newNews.content}
+                      onChange={(e) =>
+                        setNewNews({ ...newNews, content: e.target.value })
+                      }
+                      rows={4}
+                      className={`w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:outline-none ${getThemeColor(newNews.themeColor)?.split(" ")[2] || "focus:border-cyan-400"}`}
+                      placeholder="Enter article content"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-3 gap-4">
+                    <div>
+                      <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                        Category
+                      </label>
+                      <select
+                        value={newNews.category}
+                        onChange={(e) =>
+                          setNewNews({ ...newNews, category: e.target.value })
+                        }
+                        className={`w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all focus:outline-none ${getThemeColor(newNews.themeColor)?.split(" ")[2] || "focus:border-cyan-400"}`}
+                      >
+                        <option value="Announcement">Announcement</option>
+                        <option value="Event">Event</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Opportunity">Opportunity</option>
+                        <option value="Recap">Recap</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                        Priority
+                      </label>
+                      <select
+                        value={newNews.priority}
+                        onChange={(e) =>
+                          setNewNews({ ...newNews, priority: e.target.value })
+                        }
+                        className={`w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all focus:outline-none ${getThemeColor(newNews.themeColor)?.split(" ")[2] || "focus:border-cyan-400"}`}
+                      >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                        Theme Color
+                      </label>
+                      <select
+                        value={newNews.themeColor}
+                        onChange={(e) =>
+                          setNewNews({ ...newNews, themeColor: e.target.value })
+                        }
+                        className={`w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all focus:outline-none ${getThemeColor(newNews.themeColor)?.split(" ")[2] || "focus:border-cyan-400"}`}
+                      >
+                        <option value="cyan">Cyan</option>
+                        <option value="blue">Blue</option>
+                        <option value="green">Green</option>
+                        <option value="purple">Purple</option>
+                        <option value="pink">Pink</option>
+                        <option value="orange">Orange</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex space-x-4">
+                  <motion.button
+                    type="button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowAddNewsModal(false)}
+                    className="flex-1 rounded-lg border-2 border-white/30 bg-white/10 px-6 py-3 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  >
+                    Cancel
+                  </motion.button>
+                  <motion.button
+                    type="submit"
+                    disabled={isSavingDraft}
+                    whileHover={{ scale: isSavingDraft ? 1 : 1.05 }}
+                    whileTap={{ scale: isSavingDraft ? 1 : 0.95 }}
+                    className={`flex-1 rounded-lg px-6 py-3 text-lg font-bold text-white shadow-xl transition-all focus:ring-2 focus:ring-cyan-300 focus:outline-none ${
+                      isSavingDraft
+                        ? "cursor-not-allowed bg-gray-500"
+                        : `bg-gradient-to-r ${getThemeButtonColor(newNews.themeColor)}`
+                    }`}
+                  >
+                    {isSavingDraft ? (
+                      <>
+                        <i className="fas fa-spinner fa-spin mr-2"></i>
+                        Saving Draft...
+                      </>
+                    ) : (
+                      <>
+                        <i className="fas fa-save mr-2"></i>
+                        Save Draft
+                      </>
+                    )}
+                  </motion.button>
+                </div>
+              </form>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+
+      {/* Edit News/Draft Modal */}
+      {showEditModal && (editingNews || editingDraft) && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm"
+          onClick={() => {
+            setShowEditModal(false);
+            setEditingNews(null);
+            setEditingDraft(null);
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-2xl rounded-3xl border-6 border-cyan-800/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => {
+                setShowEditModal(false);
+                setEditingNews(null);
+                setEditingDraft(null);
+              }}
+              className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
+            >
+              <i className="fas fa-times text-xl"></i>
+            </button>
+
+            {/* Modal Content */}
+            <div className="text-center">
+              <div className="mb-6">
+                <i className="fas fa-edit mb-4 text-4xl text-cyan-300"></i>
+                <h2 className="mb-2 text-2xl font-bold text-white">
+                  {editingDraft ? "Edit Draft" : "Edit News Article"}
+                </h2>
+                <p className="text-white/70">
+                  {editingDraft
+                    ? "Update the draft content"
+                    : "Update the existing article content"}
+                </p>
+              </div>
+
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  editingDraft ? handleEditDraft() : handleEditNews();
+                }}
+              >
+                <div className="space-y-4">
+                  <div>
+                    <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                      Title
+                    </label>
+                    <input
+                      type="text"
+                      value={
+                        editingDraft ? editingDraft.title : editingNews.title
+                      }
+                      onChange={(e) => {
+                        if (editingDraft) {
+                          setEditingDraft({
+                            ...editingDraft,
+                            title: e.target.value,
+                          });
+                        } else {
+                          setEditingNews({
+                            ...editingNews,
+                            title: e.target.value,
+                          });
+                        }
+                      }}
+                      className="w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:border-cyan-400 focus:outline-none"
+                      placeholder="Enter article title"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                      Content
+                    </label>
+                    <textarea
+                      value={
+                        editingDraft
+                          ? editingDraft.content
+                          : editingNews.content
+                      }
+                      onChange={(e) => {
+                        if (editingDraft) {
+                          setEditingDraft({
+                            ...editingDraft,
+                            content: e.target.value,
+                          });
+                        } else {
+                          setEditingNews({
+                            ...editingNews,
+                            content: e.target.value,
+                          });
+                        }
+                      }}
+                      rows={4}
+                      className="w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:border-cyan-400 focus:outline-none"
+                      placeholder="Enter article content"
+                      required
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                        Category
+                      </label>
+                      <select
+                        value={
+                          editingDraft
+                            ? editingDraft.category
+                            : editingNews.category
+                        }
+                        onChange={(e) => {
+                          if (editingDraft) {
+                            setEditingDraft({
+                              ...editingDraft,
+                              category: e.target.value,
+                            });
+                          } else {
+                            setEditingNews({
+                              ...editingNews,
+                              category: e.target.value,
+                            });
+                          }
+                        }}
+                        className="w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all focus:border-cyan-400 focus:outline-none"
+                      >
+                        <option value="Announcement">Announcement</option>
+                        <option value="Event">Event</option>
+                        <option value="Meeting">Meeting</option>
+                        <option value="Opportunity">Opportunity</option>
+                        <option value="Recap">Recap</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-left text-sm font-medium text-white/90">
+                        Priority
+                      </label>
+                      <select
+                        value={
+                          editingDraft
+                            ? editingDraft.priority
+                            : editingNews.priority
+                        }
+                        onChange={(e) => {
+                          if (editingDraft) {
+                            setEditingDraft({
+                              ...editingDraft,
+                              priority: e.target.value,
+                            });
+                          } else {
+                            setEditingNews({
+                              ...editingNews,
+                              priority: e.target.value,
+                            });
+                          }
+                        }}
+                        className="w-full rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white backdrop-blur-sm transition-all focus:border-cyan-400 focus:outline-none"
+                      >
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 flex space-x-4">
+                  <motion.button
+                    type="button"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => {
+                      setShowEditModal(false);
+                      setEditingNews(null);
+                      setEditingDraft(null);
+                    }}
+                    className="flex-1 rounded-lg border-2 border-white/30 bg-white/10 px-6 py-3 text-white backdrop-blur-sm transition-all hover:bg-white/20"
+                  >
+                    Cancel
+                  </motion.button>
+                  <motion.button
+                    type="submit"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="flex-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-6 py-3 text-lg font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-blue-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                  >
+                    <i className="fas fa-save mr-2"></i>
+                    Update Article
+                  </motion.button>
+                </div>
+              </form>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
     </>
   );
 }
