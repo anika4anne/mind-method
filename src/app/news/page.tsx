@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { useState, useEffect } from "react";
 
 const containerVariants = {
@@ -97,11 +96,14 @@ export default function NewsPage() {
     themeColor: "cyan",
   });
   const [showEditModal, setShowEditModal] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editingNews, setEditingNews] = useState<any>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [editingDraft, setEditingDraft] = useState<any>(null);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [drafts, setDrafts] = useState<any[]>(() => {
     if (typeof window !== "undefined") {
       const savedDrafts = localStorage.getItem("newsDrafts");
@@ -445,7 +447,7 @@ export default function NewsPage() {
               className="flex justify-center"
             >
               <div className="grid max-w-2xl gap-8 md:grid-cols-1 lg:grid-cols-1">
-                {announcements.map((announcement, index) => (
+                {announcements.map((announcement, _index) => (
                   <motion.div
                     key={announcement.id}
                     variants={cardVariants}
@@ -805,7 +807,11 @@ export default function NewsPage() {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  editingDraft ? handleEditDraft() : handleEditNews();
+                  if (editingDraft) {
+                    handleEditDraft();
+                  } else {
+                    handleEditNews();
+                  }
                 }}
               >
                 <div className="space-y-4">

@@ -289,7 +289,7 @@ export default function ContactUsPage() {
               </motion.h2>
 
               <div className="space-y-6">
-                {officers.map((officer, index) => (
+                {officers.map((officer, _index) => (
                   <motion.div
                     key={officer.name}
                     variants={cardVariants}
@@ -396,9 +396,9 @@ export default function ContactUsPage() {
                   link: "/interest",
                   icon: "🎭",
                 },
-              ].map((item, index) => (
+              ].map((item, _index) => (
                 <motion.div
-                  key={index}
+                  key={_index}
                   variants={cardVariants}
                   whileHover="hover"
                   className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"

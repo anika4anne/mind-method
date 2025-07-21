@@ -77,6 +77,17 @@ const delayedContainerVariants = {
   },
 };
 
+const meetingContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+      delayChildren: 1.5, // Longer delay to start after other sections
+    },
+  },
+};
+
 const itemVariants = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -216,9 +227,8 @@ export default function HomeContent() {
           {/* Meeting Information Section */}
           <motion.section
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={containerVariants}
+            animate="visible"
+            variants={meetingContainerVariants}
             className="mb-16"
           >
             <motion.div

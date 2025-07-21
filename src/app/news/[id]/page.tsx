@@ -3,6 +3,18 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import dynamic from "next/dynamic";
+
+// Dynamically import ReactQuill to avoid SSR issues
+const ReactQuill = dynamic(() => import("react-quill"), {
+  ssr: false,
+  loading: () => (
+    <div className="h-64 animate-pulse rounded-lg bg-white/10"></div>
+  ),
+});
+
+// Import Quill CSS
+import "react-quill/dist/quill.snow.css";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -77,8 +89,8 @@ const articles = [
   },
 ];
 
-export default function ArticlePage() {
-  const params = useParams();
+export default async function ArticlePage() {
+  const params = await useParams();
   const articleId = params.id as string;
   const article = articles.find((a) => a.id === articleId);
   const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(null);
@@ -92,7 +104,7 @@ export default function ArticlePage() {
     }
 
     // Set initial textarea value
-    setTextareaValue(getPlainText(article?.content || ""));
+    setTextareaValue(article?.content || "");
 
     // Listen for changes to localStorage
     const handleStorageChange = () => {
@@ -115,128 +127,6 @@ export default function ArticlePage() {
   }, [article]);
 
   const isBlogger = loggedInOfficer === "Blogger";
-
-  // Function to strip HTML tags and get plain text
-  const getPlainText = (html: string) => {
-    if (!html) return "";
-    return html.replace(/<[^>]*>/g, "");
-  };
-
-  // Function to convert plain text to HTML with proper formatting
-  const convertToHtml = (plainText: string) => {
-    if (!plainText) return "";
-
-    // Split by lines and process each line
-    const lines = plainText.split("\n");
-    const processedLines = lines.map((line: string) => {
-      let processedLine = line.trim();
-
-      // Handle headers
-      if (processedLine.startsWith("# ")) {
-        return `<h1 class="mb-4 text-2xl font-bold text-cyan-300">${processedLine.substring(2)}</h1>`;
-      }
-      if (processedLine.startsWith("## ")) {
-        return `<h2 class="mb-4 text-xl font-bold text-cyan-300">${processedLine.substring(3)}</h2>`;
-      }
-      if (processedLine.startsWith("### ")) {
-        return `<h3 class="mb-3 text-lg font-semibold text-cyan-300">${processedLine.substring(4)}</h3>`;
-      }
-
-      // Handle bullet points
-      if (processedLine.startsWith("• ")) {
-        return `<li class="mb-2 text-white/90">${processedLine.substring(2)}</li>`;
-      }
-
-      // Handle numbered lists
-      if (/^\d+\.\s/.test(processedLine)) {
-        return `<li class="mb-2 text-white/90">${processedLine.replace(/^\d+\.\s/, "")}</li>`;
-      }
-
-      // Handle color tags
-      processedLine = processedLine.replace(
-        /\[cyan\](.*?)\[\/color\]/g,
-        '<span class="text-cyan-300">$1</span>',
-      );
-      processedLine = processedLine.replace(
-        /\[yellow\](.*?)\[\/color\]/g,
-        '<span class="text-yellow-300">$1</span>',
-      );
-      processedLine = processedLine.replace(
-        /\[red\](.*?)\[\/color\]/g,
-        '<span class="text-red-300">$1</span>',
-      );
-      processedLine = processedLine.replace(
-        /\[green\](.*?)\[\/color\]/g,
-        '<span class="text-green-300">$1</span>',
-      );
-
-      // Handle bold, italic, and underline
-      processedLine = processedLine.replace(
-        /\*\*(.*?)\*\*/g,
-        '<strong class="font-bold">$1</strong>',
-      );
-      processedLine = processedLine.replace(
-        /\*(.*?)\*/g,
-        '<em class="italic">$1</em>',
-      );
-      processedLine = processedLine.replace(
-        /__(.*?)__/g,
-        '<u class="underline">$1</u>',
-      );
-
-      // Handle alignment
-      processedLine = processedLine.replace(
-        /\[align=center\](.*?)\[\/align\]/g,
-        '<div class="text-center">$1</div>',
-      );
-      processedLine = processedLine.replace(
-        /\[align=right\](.*?)\[\/align\]/g,
-        '<div class="text-right">$1</div>',
-      );
-      processedLine = processedLine.replace(
-        /\[align=left\](.*?)\[\/align\]/g,
-        '<div class="text-left">$1</div>',
-      );
-
-      // If line is empty, return a line break
-      if (processedLine === "") {
-        return "<br>";
-      }
-
-      // Regular paragraph
-      return `<p class="mb-4 text-lg leading-relaxed text-white/90">${processedLine}</p>`;
-    });
-
-    // Group consecutive list items
-    let result = "";
-    let inList = false;
-    let listType = "";
-
-    for (let i = 0; i < processedLines.length; i++) {
-      const line = processedLines[i]!;
-
-      if (line.includes("<li>")) {
-        if (!inList) {
-          listType = line.includes("•") ? "ul" : "ol";
-          result += `<${listType} class="mb-4 list-disc list-inside space-y-2 text-white/90">`;
-          inList = true;
-        }
-        result += line;
-      } else {
-        if (inList) {
-          result += `</${listType}>`;
-          inList = false;
-        }
-        result += line;
-      }
-    }
-
-    if (inList) {
-      result += `</${listType}>`;
-    }
-
-    return result;
-  };
 
   if (!article) {
     return (
@@ -288,13 +178,10 @@ export default function ArticlePage() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => {
-                        // Convert plain text back to HTML format
-                        const plainText = editedArticle?.content || "";
-                        const htmlContent = convertToHtml(plainText);
-
+                        // ReactQuill already provides HTML content, so we can use it directly
                         const updatedArticle = {
                           ...editedArticle!,
-                          content: htmlContent,
+                          content: textareaValue, // This is already HTML from ReactQuill
                         };
 
                         console.log("Saving changes:", updatedArticle);
@@ -930,18 +817,38 @@ export default function ArticlePage() {
                       </div>
                     </div>
 
-                    <textarea
+                    <ReactQuill
                       value={textareaValue}
-                      onChange={(e) => {
-                        setTextareaValue(e.target.value);
+                      onChange={(content) => {
+                        setTextareaValue(content);
                         setEditedArticle({
                           ...editedArticle!,
-                          content: e.target.value,
+                          content: content,
                         });
                       }}
-                      rows={20}
-                      className="w-full resize-none rounded-lg border-2 border-white/30 bg-white/10 p-4 text-white outline-none focus:border-cyan-400"
-                      placeholder="Write your article content here... Use the toolbar above for formatting!"
+                      modules={{
+                        toolbar: [
+                          [{ header: [1, 2, 3, false] }],
+                          ["bold", "italic", "underline"],
+                          [{ color: [] }, { background: [] }],
+                          [{ list: "ordered" }, { list: "bullet" }],
+                          ["link", "image"],
+                          ["clean"],
+                        ],
+                      }}
+                      formats={[
+                        "header",
+                        "bold",
+                        "italic",
+                        "underline",
+                        "color",
+                        "background",
+                        "list",
+                        "bullet",
+                        "link",
+                        "image",
+                      ]}
+                      className="quill-editor"
                     />
                   </div>
 
@@ -952,7 +859,7 @@ export default function ArticlePage() {
                     <div
                       className="text-sm text-white/90"
                       dangerouslySetInnerHTML={{
-                        __html: convertToHtml(textareaValue),
+                        __html: textareaValue,
                       }}
                     />
                   </div>

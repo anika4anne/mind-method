@@ -127,11 +127,6 @@ const cardVariants = {
   },
 };
 
-const flipVariants = {
-  front: { rotateY: 0 },
-  back: { rotateY: 180 },
-};
-
 // Social icon base class for white icons, with brand color on hover
 const instagramIconClass =
   "text-white hover:text-[#E1306C] text-2xl transition-colors";
@@ -200,7 +195,7 @@ export default function OfficersPage() {
               variants={containerVariants}
               className="grid grid-cols-1 gap-8 md:grid-cols-3"
             >
-              {leadershipTeam.map((officer, index) => (
+              {leadershipTeam.map((officer, _index) => (
                 <motion.div
                   key={officer.name}
                   variants={cardVariants}
@@ -307,7 +302,7 @@ export default function OfficersPage() {
               variants={containerVariants}
               className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
             >
-              {legendaryMembers.map((officer, index) => (
+              {legendaryMembers.map((officer, _index) => (
                 <motion.div
                   key={officer.name}
                   variants={cardVariants}
