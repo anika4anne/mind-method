@@ -5,7 +5,6 @@ import { useParams } from "next/navigation";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import ReactQuill to avoid SSR issues
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => (
@@ -13,7 +12,6 @@ const ReactQuill = dynamic(() => import("react-quill"), {
   ),
 });
 
-// Import Quill CSS
 import "react-quill/dist/quill.snow.css";
 
 const containerVariants = {
@@ -103,17 +101,14 @@ export default async function ArticlePage() {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     }
 
-    // Set initial textarea value
     setTextareaValue(article?.content || "");
 
-    // Listen for changes to localStorage
     const handleStorageChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Also listen for custom events (for same-tab updates)
     const handleLoginChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
@@ -145,18 +140,15 @@ export default async function ArticlePage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-4xl">
-          {/* Back Button and Edit Button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -178,10 +170,9 @@ export default async function ArticlePage() {
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                       onClick={() => {
-                        // ReactQuill already provides HTML content, so we can use it directly
                         const updatedArticle = {
                           ...editedArticle!,
-                          content: textareaValue, // This is already HTML from ReactQuill
+                          content: textareaValue,
                         };
 
                         console.log("Saving changes:", updatedArticle);
@@ -221,7 +212,6 @@ export default async function ArticlePage() {
             )}
           </motion.div>
 
-          {/* Article Header */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -279,7 +269,6 @@ export default async function ArticlePage() {
             </motion.div>
           </motion.div>
 
-          {/* Article Content */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -296,526 +285,6 @@ export default async function ArticlePage() {
                     <label className="mb-2 block text-sm font-medium text-white/70">
                       Article Content
                     </label>
-
-                    {/* Rich Text Toolbar */}
-                    <div className="mb-4 flex flex-wrap items-center gap-2 rounded-lg border-2 border-white/30 bg-white/10 p-3">
-                      {/* Text Style Buttons */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const formattedText = `**${selected}**`;
-                              const newValue = before + formattedText + after;
-                              textarea.value = newValue;
-                              setTextareaValue(newValue);
-                              textarea.setSelectionRange(
-                                start,
-                                start + formattedText.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-bold"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const formattedText = `*${selected}*`;
-                              const newValue = before + formattedText + after;
-                              textarea.value = newValue;
-                              setTextareaValue(newValue);
-                              textarea.setSelectionRange(
-                                start,
-                                start + formattedText.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-italic"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const formattedText = `__${selected}__`;
-                              const newValue = before + formattedText + after;
-                              textarea.value = newValue;
-                              setTextareaValue(newValue);
-                              textarea.setSelectionRange(
-                                start,
-                                start + formattedText.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-underline"></i>
-                        </button>
-                      </div>
-
-                      {/* Text Color */}
-                      <select
-                        className="rounded border-none bg-white/20 px-3 py-1 text-sm text-white outline-none"
-                        onChange={(e) => {
-                          const textarea = document.querySelector("textarea");
-                          if (textarea) {
-                            const start = textarea.selectionStart;
-                            const end = textarea.selectionEnd;
-                            const text = textarea.value;
-                            const before = text.substring(0, start);
-                            const selected = text.substring(start, end);
-                            const after = text.substring(end);
-
-                            let colorTag = "";
-                            switch (e.target.value) {
-                              case "cyan":
-                                colorTag = "[cyan]";
-                                break;
-                              case "yellow":
-                                colorTag = "[yellow]";
-                                break;
-                              case "red":
-                                colorTag = "[red]";
-                                break;
-                              case "green":
-                                colorTag = "[green]";
-                                break;
-                              default:
-                                colorTag = "";
-                            }
-
-                            const formattedText =
-                              colorTag +
-                              selected +
-                              (colorTag ? "[/color]" : "");
-                            textarea.value = before + formattedText + after;
-                            textarea.setSelectionRange(
-                              start,
-                              start + formattedText.length,
-                            );
-                            textarea.focus();
-                          }
-                        }}
-                      >
-                        <option value="white">White</option>
-                        <option value="cyan">Cyan</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                      </select>
-
-                      {/* Alignment */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=left]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 16,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-left"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=center]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 18,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-center"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=right]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 17,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-right"></i>
-                        </button>
-                      </div>
-
-                      {/* Lists */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const lines = selected.split("\n");
-                              const bulletedLines = lines
-                                .map((line) => `• ${line}`)
-                                .join("\n");
-
-                              textarea.value = before + bulletedLines + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + bulletedLines.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-list-ul"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const lines = selected.split("\n");
-                              const numberedLines = lines
-                                .map((line, index) => `${index + 1}. ${line}`)
-                                .join("\n");
-
-                              textarea.value = before + numberedLines + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + numberedLines.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-list-ol"></i>
-                        </button>
-                      </div>
-                      <select
-                        className="rounded border-none bg-white/20 px-3 py-1 text-sm text-white outline-none"
-                        onChange={(e) => {
-                          const textarea = document.querySelector("textarea");
-                          if (textarea) {
-                            const start = textarea.selectionStart;
-                            const end = textarea.selectionEnd;
-                            const text = textarea.value;
-                            const before = text.substring(0, start);
-                            const selected = text.substring(start, end);
-                            const after = text.substring(end);
-
-                            let colorTag = "";
-                            switch (e.target.value) {
-                              case "cyan":
-                                colorTag = "[cyan]";
-                                break;
-                              case "yellow":
-                                colorTag = "[yellow]";
-                                break;
-                              case "red":
-                                colorTag = "[red]";
-                                break;
-                              case "green":
-                                colorTag = "[green]";
-                                break;
-                              default:
-                                colorTag = "";
-                            }
-
-                            const formattedText =
-                              colorTag +
-                              selected +
-                              (colorTag ? "[/color]" : "");
-                            textarea.value = before + formattedText + after;
-                            textarea.setSelectionRange(
-                              start,
-                              start + formattedText.length,
-                            );
-                            textarea.focus();
-                          }
-                        }}
-                      >
-                        <option value="white">White</option>
-                        <option value="cyan">Cyan</option>
-                        <option value="yellow">Yellow</option>
-                        <option value="red">Red</option>
-                        <option value="green">Green</option>
-                      </select>
-
-                      {/* Alignment */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=left]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 16,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-left"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=center]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 18,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-center"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before +
-                                `[align=right]${selected}[/align]` +
-                                after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 17,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-align-right"></i>
-                        </button>
-                      </div>
-
-                      {/* Lists */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const lines = selected.split("\n");
-                              const bulletedLines = lines
-                                .map((line) => `• ${line}`)
-                                .join("\n");
-
-                              textarea.value = before + bulletedLines + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + bulletedLines.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-list-ul"></i>
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              const lines = selected.split("\n");
-                              const numberedLines = lines
-                                .map((line, index) => `${index + 1}. ${line}`)
-                                .join("\n");
-
-                              textarea.value = before + numberedLines + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + numberedLines.length,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          <i className="fas fa-list-ol"></i>
-                        </button>
-                      </div>
-
-                      {/* Headers */}
-                      <div className="flex items-center gap-1">
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value = before + `# ${selected}` + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 2,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          H1
-                        </button>
-                        <button
-                          className="rounded bg-white/20 px-2 py-1 text-sm text-white hover:bg-white/30"
-                          onClick={() => {
-                            const textarea = document.querySelector("textarea");
-                            if (textarea) {
-                              const start = textarea.selectionStart;
-                              const end = textarea.selectionEnd;
-                              const text = textarea.value;
-                              const before = text.substring(0, start);
-                              const selected = text.substring(start, end);
-                              const after = text.substring(end);
-
-                              textarea.value =
-                                before + `## ${selected}` + after;
-                              textarea.setSelectionRange(
-                                start,
-                                start + selected.length + 3,
-                              );
-                              textarea.focus();
-                            }
-                          }}
-                        >
-                          H2
-                        </button>
-                      </div>
-                    </div>
 
                     <ReactQuill
                       value={textareaValue}
@@ -875,7 +344,6 @@ export default async function ArticlePage() {
             </motion.div>
           </motion.div>
 
-          {/* Share Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

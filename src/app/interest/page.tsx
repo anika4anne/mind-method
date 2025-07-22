@@ -105,6 +105,9 @@ export default function InterestPage() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [scores, setScores] = useState<number[]>([]);
   const [showResults, setShowResults] = useState(false);
+  const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleQuizAnswer = (score: number) => {
     const newScores = [...scores, score];
@@ -144,14 +147,25 @@ export default function InterestPage() {
     setShowQuiz(false);
   };
 
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (email.trim()) {
+      setIsSubmitted(true);
+
+      console.log("Subscribed email:", email);
+      setTimeout(() => {
+        setShowSubscriptionModal(false);
+        setEmail("");
+        setIsSubmitted(false);
+      }, 2000);
+    }
+  };
+
   return (
     <>
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
-
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -172,7 +186,6 @@ export default function InterestPage() {
               that will serve you for life.
             </motion.p>
 
-            {/* Prominent Interest Form Section */}
             <motion.div
               variants={itemVariants}
               className="mt-12 flex flex-col items-center"
@@ -207,7 +220,6 @@ export default function InterestPage() {
                 whileTap={{ scale: 0.95 }}
                 className="group hover:shadow-3xl relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-purple-600 to-pink-600 px-10 py-5 text-xl font-bold text-white shadow-2xl transition-all duration-300"
               >
-                {/* White glowing border */}
                 <div className="absolute inset-0 rounded-full bg-white/30 blur-sm" />
                 <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-purple-600 to-pink-600" />
 
@@ -227,7 +239,6 @@ export default function InterestPage() {
             </motion.div>
           </motion.div>
 
-          {/* Meeting Information Section */}
           <motion.section
             initial="hidden"
             whileInView="visible"
@@ -284,7 +295,6 @@ export default function InterestPage() {
             </motion.div>
           </motion.section>
 
-          {/* What We Do Section */}
           <motion.section
             initial="hidden"
             whileInView="visible"
@@ -346,7 +356,58 @@ export default function InterestPage() {
             </motion.div>
           </motion.section>
 
-          {/* Gallery Section */}
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-12 flex justify-center"
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative flex w-full max-w-5xl flex-col items-center justify-between gap-8 rounded-3xl border-4 border-cyan-300/40 bg-gradient-to-br from-cyan-400/20 to-teal-400/20 p-8 text-center shadow-2xl backdrop-blur-xl md:flex-row md:text-left"
+            >
+              <div className="flex w-full items-center gap-6 md:w-auto">
+                <div className="mb-4 text-5xl md:mb-0 md:text-6xl">🧠</div>
+                <div>
+                  <h3 className="mb-2 text-2xl font-bold text-cyan-300">
+                    Take the Anxiety Quiz
+                  </h3>
+                  <p className="mb-0 text-lg text-white/90 md:mb-2">
+                    Curious about your stress or anxiety levels? Take our quick
+                    quiz to get personalized feedback and tips!
+                  </p>
+                </div>
+              </div>
+              <motion.button
+                onClick={() => setShowQuiz(true)}
+                whileHover={{
+                  scale: 1.07,
+                  y: -2,
+                  boxShadow: "0 10px 24px rgba(34,211,238,0.25)",
+                }}
+                whileTap={{ scale: 0.96 }}
+                className="group relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-10 py-5 text-lg font-bold text-white shadow-xl transition-all duration-300"
+              >
+                <div className="absolute inset-0 rounded-full bg-cyan-300/30 blur-sm" />
+                <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500" />
+                <span className="relative z-10 flex items-center gap-3">
+                  Take the Quiz
+                  <motion.span
+                    animate={{ x: [0, 3, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity }}
+                    className="text-sm"
+                  >
+                    →
+                  </motion.span>
+                </span>
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-teal-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
+              </motion.button>
+            </motion.div>
+          </motion.section>
+
           <motion.section
             initial="hidden"
             whileInView="visible"
@@ -410,10 +471,66 @@ export default function InterestPage() {
               ))}
             </motion.div>
           </motion.section>
+
+          <motion.section
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={containerVariants}
+            className="mb-12 flex justify-center"
+          >
+            <motion.div
+              variants={cardVariants}
+              whileHover="hover"
+              className="relative max-w-xl rounded-3xl border-4 border-pink-300/40 bg-gradient-to-br from-pink-400/20 to-purple-400/20 p-8 text-center shadow-2xl backdrop-blur-xl"
+            >
+              <div className="mb-4 text-4xl">🌟</div>
+              <h3 className="mb-2 text-2xl font-bold text-pink-300">
+                Quote of the Day
+              </h3>
+              <p className="text-lg text-white/90 italic">
+                "The mind is not a vessel to be filled, but a fire to be
+                kindled."
+                <br />
+                <span className="mt-2 block text-pink-200">— Plutarch</span>
+              </p>
+            </motion.div>
+          </motion.section>
         </div>
+
+        <motion.div
+          variants={itemVariants}
+          className="mt-16 flex flex-col items-center"
+        >
+          <motion.button
+            onClick={() => setShowSubscriptionModal(true)}
+            whileHover={{
+              scale: 1.05,
+              y: -2,
+              boxShadow: "0 15px 30px rgba(64, 224, 208, 0.4)",
+            }}
+            whileTap={{ scale: 0.95 }}
+            className="group relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-cyan-500 to-teal-500 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300"
+          >
+            <div className="absolute inset-0 rounded-full bg-cyan-300/30 blur-sm" />
+            <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-teal-500" />
+
+            <span className="relative z-10 flex items-center gap-3">
+              📧 Subscribe to Updates
+              <motion.span
+                animate={{ x: [0, 3, 0] }}
+                transition={{ duration: 1.5, repeat: Infinity }}
+                className="text-sm"
+              >
+                →
+              </motion.span>
+            </span>
+            <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-teal-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
+          </motion.button>
+        </motion.div>
       </div>
 
-      {/* Quiz Modal */}
       {showQuiz && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -498,6 +615,97 @@ export default function InterestPage() {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={resetQuiz}
+                className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors hover:bg-gray-300 hover:text-gray-800"
+              >
+                ✕
+              </motion.button>
+            </motion.div>
+          </div>
+        </motion.div>
+      )}
+
+      {showSubscriptionModal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm"
+        >
+          <div
+            className="animate-gradient-x rounded-3xl bg-gradient-to-r from-cyan-400 via-teal-400 to-cyan-400 bg-[length:200%_200%] p-4 shadow-2xl"
+            style={{ backgroundSize: "400% 400%" }}
+          >
+            <motion.div
+              variants={modalVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="relative w-full max-w-md rounded-2xl bg-white/95 p-8 shadow-2xl"
+            >
+              {!isSubmitted ? (
+                <>
+                  <h3 className="mb-6 bg-gradient-to-r from-cyan-400 to-teal-500 bg-clip-text text-2xl font-extrabold text-transparent">
+                    📧 Subscribe to Updates
+                  </h3>
+                  <p className="mb-6 text-lg text-gray-700">
+                    Stay in the loop! Get notified when we post new content and
+                    updates.
+                  </p>
+                  <form onSubmit={handleSubscribe} className="space-y-4">
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="mb-2 block text-sm font-medium text-gray-700"
+                      >
+                        Email Address
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Enter your email address"
+                        required
+                        className="w-full rounded-lg border-2 border-gray-300 bg-white px-4 py-3 text-gray-900 placeholder-gray-500 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                      />
+                    </div>
+                    <motion.button
+                      type="submit"
+                      whileHover={{
+                        scale: 1.03,
+                        boxShadow:
+                          "0 0 0 4px #67e8f9, 0 8px 32px rgba(34,211,238,0.15)",
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 px-6 py-3 font-bold text-white shadow-md transition-all duration-200 hover:from-cyan-400 hover:to-teal-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                    >
+                      Subscribe
+                    </motion.button>
+                  </form>
+                </>
+              ) : (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center"
+                >
+                  <div className="mb-4 text-6xl">✅</div>
+                  <h3 className="mb-4 text-2xl font-bold text-gray-800">
+                    Submitted!
+                  </h3>
+                  <p className="text-lg text-gray-700">
+                    We'll notify you when a new post comes out!
+                  </p>
+                </motion.div>
+              )}
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.9 }}
+                onClick={() => {
+                  setShowSubscriptionModal(false);
+                  setEmail("");
+                  setIsSubmitted(false);
+                }}
                 className="absolute top-4 right-4 flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-gray-600 transition-colors hover:bg-gray-300 hover:text-gray-800"
               >
                 ✕

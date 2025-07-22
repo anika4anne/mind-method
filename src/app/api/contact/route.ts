@@ -1,10 +1,10 @@
 import { type NextRequest, NextResponse } from "next/server";
+import nodemailer from "nodemailer";
 
 export async function POST(request: NextRequest) {
   try {
     const { name, grade, subject, message } = await request.json();
 
-    // Validate required fields
     if (!name || !grade || !subject || !message) {
       return NextResponse.json(
         { error: "All fields are required" },
@@ -12,24 +12,36 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Log the contact form submission
-    console.log("📧 Contact Form Submission:", {
-      name,
-      grade,
-      subject,
-      message,
-      timestamp: new Date().toISOString(),
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT) || 465,
+      secure: true,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
     });
 
-    // Return success response
+    await transporter.sendMail({
+      from: process.env.SMTP_USER,
+      to: "anikaanne2010pal@gmail.com, anika4dev@gmail.com",
+      subject: `New Contact Form Message from ${name}`,
+      html: `
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Grade:</strong> ${grade}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong><br/>${message}</p>
+      `,
+    });
+
     return NextResponse.json(
-      { message: "Message received successfully! We'll get back to you soon." },
+      { message: "Message sent successfully" },
       { status: 200 },
     );
   } catch (error) {
-    console.error("Error processing contact form:", error);
+    console.error(error);
     return NextResponse.json(
-      { error: "Internal server error" },
+      { message: "Something went wrong" },
       { status: 500 },
     );
   }

@@ -48,6 +48,7 @@ const officers = [
     name: "Ava Davis",
     position: "President",
     email: "ava.davis@k12.wcsdny.org",
+    extraEmail: "avad313@gmail.com",
     instagram: "https://www.instagram.com/bestfriend_of_kasia/",
   },
   {
@@ -65,6 +66,7 @@ export default function ContactUsPage() {
     subject: "",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,8 +86,9 @@ export default function ContactUsPage() {
       });
 
       if (response.ok) {
-        alert("Thank you for your message! We'll get back to you soon.");
         setFormData({ name: "", grade: "", subject: "", message: "" });
+        setSubmitted(true);
+        setTimeout(() => setSubmitted(false), 2000);
       } else {
         alert("There was an error sending your message. Please try again.");
       }
@@ -108,18 +111,15 @@ export default function ContactUsPage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -141,7 +141,6 @@ export default function ContactUsPage() {
           </motion.div>
 
           <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Form */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -267,14 +266,14 @@ export default function ContactUsPage() {
                     whileTap={{ scale: 0.95 }}
                     type="submit"
                     className="w-full rounded-xl bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-xl font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                    disabled={submitted}
                   >
-                    Send Message 🚀
+                    {submitted ? "Submitted!" : "Send Message 🚀"}
                   </motion.button>
                 </form>
               </motion.div>
             </motion.div>
 
-            {/* Contact Information */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -306,7 +305,7 @@ export default function ContactUsPage() {
                         </p>
                         <div className="space-y-2">
                           <a
-                            href={officer.email}
+                            href={`mailto:${officer.email}`}
                             className="flex items-center gap-2 text-white/90 transition-colors hover:text-cyan-300"
                           >
                             <i className="fas fa-envelope text-cyan-400"></i>
@@ -314,6 +313,18 @@ export default function ContactUsPage() {
                               {officer.email.replace("mailto:", "")}
                             </span>
                           </a>
+                          {/* Add extra email for Ava Davis */}
+                          {officer.extraEmail && (
+                            <a
+                              href={`mailto:${officer.extraEmail}`}
+                              className="flex items-center gap-2 text-white/90 transition-colors hover:text-cyan-300"
+                            >
+                              <i className="fas fa-envelope text-cyan-400"></i>
+                              <span className="text-sm">
+                                {officer.extraEmail.replace("mailto:", "")}
+                              </span>
+                            </a>
+                          )}
                           {officer.instagram && (
                             <a
                               href={officer.instagram}
@@ -332,7 +343,6 @@ export default function ContactUsPage() {
                 ))}
               </div>
 
-              {/* General Contact Info */}
               <motion.div
                 variants={cardVariants}
                 whileHover="hover"
@@ -359,7 +369,6 @@ export default function ContactUsPage() {
             </motion.div>
           </div>
 
-          {/* Quick Links */}
           <motion.div
             initial="hidden"
             whileInView="visible"

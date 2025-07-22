@@ -68,7 +68,7 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
+
     console.log("Form submitted:", formData);
     alert("Thank you for your message! We'll get back to you soon.");
     setFormData({ name: "", email: "", subject: "", message: "" });
@@ -87,18 +87,14 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background with confetti and sparkles */}
       <div className="pointer-events-none fixed inset-0 -z-10 overflow-hidden">
-        {/* Gradient background */}
         <div className="to-turquoise-500 absolute inset-0 bg-gradient-to-br from-teal-400 via-cyan-500" />
 
-        {/* Sparkles */}
         {[...Array(15)].map((_, i) => (
           <motion.div
             key={`sparkle-${i}`}
@@ -122,7 +118,6 @@ export default function ContactPage() {
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -145,7 +140,6 @@ export default function ContactPage() {
           </motion.div>
 
           <div className="grid gap-12 lg:grid-cols-2">
-            {/* Contact Form */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -274,7 +268,6 @@ export default function ContactPage() {
               </motion.div>
             </motion.div>
 
-            {/* Contact Information */}
             <motion.div
               initial="hidden"
               whileInView="visible"
@@ -332,7 +325,6 @@ export default function ContactPage() {
                 ))}
               </div>
 
-              {/* General Contact Info */}
               <motion.div
                 variants={cardVariants}
                 whileHover="hover"
@@ -359,7 +351,6 @@ export default function ContactPage() {
             </motion.div>
           </div>
 
-          {/* Quick Links */}
           <motion.div
             initial="hidden"
             whileInView="visible"

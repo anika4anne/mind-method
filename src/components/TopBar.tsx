@@ -40,7 +40,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -57,7 +56,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-center">
-            {/* Logo */}
             <div className="-ml-4 flex items-center space-x-3">
               <div className="relative">
                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 p-0.5">
@@ -74,7 +72,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
               </div>
             </div>
 
-            {/* Desktop Navigation */}
             <nav className="ml-8 hidden items-center space-x-1 md:flex">
               {links.map(({ label, href, icon }) => (
                 <Link
@@ -94,7 +91,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
               ))}
             </nav>
 
-            {/* Sign In Button or Welcome Message */}
             <div className="ml-8 hidden md:block">
               {loggedInOfficer ? (
                 <motion.div
@@ -130,7 +126,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
                     onClick={() => {
                       setLoggedInOfficer(null);
                       localStorage.removeItem("loggedInOfficer");
-                      // Dispatch custom event for same-tab updates
                       window.dispatchEvent(new Event("loginStateChanged"));
                     }}
                     className="rounded-full bg-white/10 px-3 py-1 text-xs font-medium text-white/80 backdrop-blur-sm transition-all hover:bg-white/20 hover:text-white"
@@ -150,7 +145,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
               )}
             </div>
 
-            {/* Mobile Menu Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="absolute right-4 rounded-lg bg-white/5 p-2 transition-colors duration-200 hover:bg-white/10 md:hidden"
@@ -178,7 +172,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
             </button>
           </div>
 
-          {/* Mobile Menu */}
           <div
             className={clsx(
               "overflow-hidden transition-all duration-300 ease-out md:hidden",
@@ -205,7 +198,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
         </div>
       </header>
 
-      {/* Login Modal */}
       <AnimatePresence>
         {showLoginModal && (
           <motion.div
@@ -222,7 +214,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-md rounded-3xl border-6 border-purple-800/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
             >
-              {/* Close Button */}
               <button
                 onClick={() => setShowLoginModal(false)}
                 className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
@@ -230,7 +221,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
                 <i className="fas fa-times text-xl"></i>
               </button>
 
-              {/* Modal Content */}
               <div className="text-center">
                 <div className="mb-6">
                   <i className="fas fa-user-shield mb-4 text-4xl text-purple-300"></i>
@@ -296,7 +286,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
         )}
       </AnimatePresence>
 
-      {/* Officer Selection Modal */}
       <AnimatePresence>
         {showOfficerModal && (
           <motion.div
@@ -313,7 +302,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
               onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-md rounded-3xl border-6 border-purple-800/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
             >
-              {/* Close Button */}
               <button
                 onClick={() => setShowOfficerModal(false)}
                 className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
@@ -321,7 +309,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
                 <i className="fas fa-times text-xl"></i>
               </button>
 
-              {/* Modal Content */}
               <div className="text-center">
                 <div className="mb-6">
                   <i className="fas fa-users mb-4 text-4xl text-purple-300"></i>
@@ -364,7 +351,6 @@ export default function TopBar({ className = "" }: { className?: string }) {
                         console.log(`${officer.name} signed in successfully!`);
                         setLoggedInOfficer(officer.name);
                         localStorage.setItem("loggedInOfficer", officer.name);
-                        // Dispatch custom event for same-tab updates
                         window.dispatchEvent(new Event("loginStateChanged"));
                         setShowOfficerModal(false);
                       }}

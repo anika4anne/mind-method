@@ -46,18 +46,14 @@ const cardVariants = {
 export default function EventsPage() {
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
-
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -79,7 +75,6 @@ export default function EventsPage() {
             </motion.p>
           </motion.div>
 
-          {/* Calendar Section */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -92,7 +87,6 @@ export default function EventsPage() {
               whileHover="hover"
               className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
             >
-              {/* Google Calendar Embed */}
               <div className="rounded-xl border-2 border-cyan-400/30 bg-white/5 p-4">
                 <iframe
                   src="https://calendar.google.com/calendar/embed?src=dc4f966e363e9bc4a0128ecfb6c7df5876270d5c1a3611104b1f0dbd72bf1cb4%40group.calendar.google.com&ctz=America%2FNew_York"
@@ -105,7 +99,6 @@ export default function EventsPage() {
             </motion.div>
           </motion.div>
 
-          {/* Quick Event Info */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -177,7 +170,6 @@ export default function EventsPage() {
             </motion.div>
           </motion.div>
 
-          {/* Contact Section */}
           <motion.div
             initial="hidden"
             whileInView="visible"

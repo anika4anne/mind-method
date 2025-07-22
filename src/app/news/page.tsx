@@ -96,14 +96,13 @@ export default function NewsPage() {
     themeColor: "cyan",
   });
   const [showEditModal, setShowEditModal] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const [editingNews, setEditingNews] = useState<any>(null);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+
   const [editingDraft, setEditingDraft] = useState<any>(null);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [drafts, setDrafts] = useState<any[]>(() => {
     if (typeof window !== "undefined") {
       const savedDrafts = localStorage.getItem("newsDrafts");
@@ -117,14 +116,12 @@ export default function NewsPage() {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     }
 
-    // Listen for changes to localStorage
     const handleStorageChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Also listen for custom events (for same-tab updates)
     const handleLoginChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
@@ -142,7 +139,6 @@ export default function NewsPage() {
   const handleSaveDraft = () => {
     setIsSavingDraft(true);
 
-    // Simulate saving process
     setTimeout(() => {
       const draft = {
         ...newNews,
@@ -167,18 +163,16 @@ export default function NewsPage() {
         priority: "medium",
         themeColor: "cyan",
       });
-    }, 2000); // 2 second delay to show "Saving draft..."
+    }, 2000);
   };
 
   const handleEditNews = () => {
-    // Here you would typically update the database
     console.log("Updating news:", editingNews);
     setShowEditModal(false);
     setEditingNews(null);
   };
 
   const handleEditDraft = () => {
-    // Update the draft in localStorage
     const updatedDrafts = drafts.map((draft) =>
       draft.id === editingDraft.id ? editingDraft : draft,
     );
@@ -234,18 +228,15 @@ export default function NewsPage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -267,7 +258,6 @@ export default function NewsPage() {
             </motion.p>
           </motion.div>
 
-          {/* Blogger Management Interface */}
           {isBlogger && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -318,7 +308,6 @@ export default function NewsPage() {
             </motion.div>
           )}
 
-          {/* Drafts Section */}
           {isBlogger && showDrafts && drafts.length > 0 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -338,11 +327,9 @@ export default function NewsPage() {
                     whileHover="hover"
                     className={`group relative overflow-hidden rounded-3xl border-4 ${getPriorityColor(draft.priority)} cursor-pointer p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30`}
                     onClick={() => {
-                      // Navigate to full draft view
                       window.location.href = `/news/draft/${draft.id}`;
                     }}
                   >
-                    {/* Priority indicator */}
                     <div className="absolute top-4 right-4">
                       <span
                         className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
@@ -356,21 +343,16 @@ export default function NewsPage() {
                         {draft.priority.toUpperCase()}
                       </span>
                     </div>
-
-                    {/* Category icon */}
                     <div className="mb-4 text-3xl">
                       {getCategoryIcon(draft.category)}
                     </div>
 
-                    {/* Date */}
                     <p className="mb-3 text-sm text-white/70">{draft.date}</p>
 
-                    {/* Title */}
                     <h3 className="mb-4 text-xl font-bold text-white group-hover:text-cyan-300">
                       {draft.title}
                     </h3>
 
-                    {/* Edit button under title */}
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
@@ -389,12 +371,10 @@ export default function NewsPage() {
                       Edit
                     </motion.button>
 
-                    {/* Content */}
                     <p className="mb-4 text-sm leading-relaxed text-white/90">
                       {draft.content}
                     </p>
 
-                    {/* Category and actions */}
                     <div className="flex items-center justify-between">
                       <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
                         {draft.category}
@@ -425,7 +405,6 @@ export default function NewsPage() {
                       </div>
                     </div>
 
-                    {/* Hover effect */}
                     <motion.div
                       className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
                       initial={{ opacity: 0 }}
@@ -437,7 +416,6 @@ export default function NewsPage() {
             </motion.div>
           )}
 
-          {/* News Grid */}
           {!showDrafts && (
             <motion.div
               initial="hidden"
@@ -454,11 +432,9 @@ export default function NewsPage() {
                     whileHover="hover"
                     className={`group relative overflow-hidden rounded-3xl border-4 ${getPriorityColor(announcement.priority)} cursor-pointer p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30`}
                     onClick={() => {
-                      // Navigate to full article view
                       window.location.href = `/news/${announcement.id}`;
                     }}
                   >
-                    {/* Priority indicator */}
                     <div className="absolute top-4 right-4">
                       <span
                         className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
@@ -473,22 +449,18 @@ export default function NewsPage() {
                       </span>
                     </div>
 
-                    {/* Category icon */}
                     <div className="mb-4 text-3xl">
                       {getCategoryIcon(announcement.category)}
                     </div>
 
-                    {/* Date */}
                     <p className="mb-3 text-sm text-white/70">
                       {announcement.date}
                     </p>
 
-                    {/* Title */}
                     <h3 className="mb-4 text-xl font-bold text-white group-hover:text-cyan-300">
                       {announcement.title}
                     </h3>
 
-                    {/* Edit button under title */}
                     {isBlogger && !showDrafts && (
                       <motion.button
                         whileHover={{ scale: 1.05 }}
@@ -496,7 +468,6 @@ export default function NewsPage() {
                         onClick={(e) => {
                           e.preventDefault();
                           e.stopPropagation();
-                          // Navigate to edit page
                           window.location.href = `/news/${announcement.id}/edit`;
                         }}
                         className="mb-4 rounded-full bg-cyan-500/20 px-3 py-1 text-xs font-semibold text-cyan-300 transition-all hover:bg-cyan-500/30"
@@ -506,12 +477,10 @@ export default function NewsPage() {
                       </motion.button>
                     )}
 
-                    {/* Content */}
                     <p className="mb-4 text-sm leading-relaxed text-white/90">
                       {announcement.content}
                     </p>
 
-                    {/* Category */}
                     <div className="flex items-center justify-between">
                       <span className="inline-block rounded-full bg-white/20 px-3 py-1 text-xs font-semibold text-white">
                         {announcement.category}
@@ -523,7 +492,6 @@ export default function NewsPage() {
                       </div>
                     </div>
 
-                    {/* Hover effect */}
                     <motion.div
                       className="absolute inset-0 rounded-3xl bg-gradient-to-r from-cyan-400/20 to-teal-500/20 opacity-0 transition-opacity group-hover:opacity-100"
                       initial={{ opacity: 0 }}
@@ -535,7 +503,6 @@ export default function NewsPage() {
             </motion.div>
           )}
 
-          {/* Newsletter Signup */}
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -582,7 +549,6 @@ export default function NewsPage() {
         </div>
       </div>
 
-      {/* Add News Modal */}
       {showAddNewsModal && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -598,7 +564,6 @@ export default function NewsPage() {
             onClick={(e) => e.stopPropagation()}
             className={`relative w-full max-w-2xl rounded-3xl border-6 ${getThemeColor(newNews.themeColor).split(" ")[1]}/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl`}
           >
-            {/* Close Button */}
             <button
               onClick={() => setShowAddNewsModal(false)}
               className="absolute top-4 right-4 text-white/70 transition-colors hover:text-white"
@@ -606,7 +571,6 @@ export default function NewsPage() {
               <i className="fas fa-times text-xl"></i>
             </button>
 
-            {/* Modal Content */}
             <div className="text-center">
               <div className="mb-6">
                 <i
@@ -758,7 +722,6 @@ export default function NewsPage() {
         </motion.div>
       )}
 
-      {/* Edit News/Draft Modal */}
       {showEditModal && (editingNews || editingDraft) && (
         <motion.div
           initial={{ opacity: 0 }}
@@ -778,7 +741,6 @@ export default function NewsPage() {
             onClick={(e) => e.stopPropagation()}
             className="relative w-full max-w-2xl rounded-3xl border-6 border-cyan-800/70 bg-gradient-to-br from-white/40 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
           >
-            {/* Close Button */}
             <button
               onClick={() => {
                 setShowEditModal(false);
@@ -790,7 +752,6 @@ export default function NewsPage() {
               <i className="fas fa-times text-xl"></i>
             </button>
 
-            {/* Modal Content */}
             <div className="text-center">
               <div className="mb-6">
                 <i className="fas fa-edit mb-4 text-4xl text-cyan-300"></i>

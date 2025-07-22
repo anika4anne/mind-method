@@ -23,7 +23,7 @@ const TypewriterText = ({
       } else {
         setIsTypingComplete(true);
       }
-    }, 150); // Speed of typing
+    }, 150);
 
     return () => clearTimeout(timer);
   }, [currentIndex, text]);
@@ -72,7 +72,7 @@ const delayedContainerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-      delayChildren: 0.8, // Delay to start after hero animation
+      delayChildren: 0.8,
     },
   },
 };
@@ -83,7 +83,7 @@ const meetingContainerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.2,
-      delayChildren: 1.5, // Longer delay to start after other sections
+      delayChildren: 1.5,
     },
   },
 };
@@ -121,18 +121,15 @@ const cardVariants = {
 export default function HomeContent() {
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <main className="flex min-h-screen flex-col items-center justify-start px-6 text-white">
         <div className="container mt-6 flex flex-col items-center gap-16 px-4 py-16">
-          {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -224,7 +221,6 @@ export default function HomeContent() {
             </motion.div>
           </motion.div>
 
-          {/* Meeting Information Section */}
           <motion.section
             initial="hidden"
             animate="visible"
@@ -287,7 +283,6 @@ export default function HomeContent() {
             </motion.div>
           </motion.section>
 
-          {/* Quick Highlights */}
           <motion.section
             initial="hidden"
             animate="visible"
@@ -341,7 +336,81 @@ export default function HomeContent() {
             </motion.div>
           </motion.section>
         </div>
+
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          variants={delayedContainerVariants}
+          className="mt-20 mb-10 w-full max-w-4xl"
+        >
+          <motion.h2
+            variants={itemVariants}
+            className="mb-8 text-center text-4xl font-extrabold text-cyan-300 drop-shadow"
+          >
+            Cool Psychology Facts 🤩
+          </motion.h2>
+          <motion.div
+            variants={containerVariants}
+            className="relative mx-auto flex max-w-2xl flex-col items-center gap-8"
+          >
+            <AnimatedFactCarousel />
+            <div className="mt-6 flex flex-wrap justify-center gap-6">
+              <span className="text-3xl">🧠</span>
+              <span className="text-3xl">🎉</span>
+              <span className="text-3xl">💡</span>
+              <span className="text-3xl">🤔</span>
+              <span className="text-3xl">🌈</span>
+            </div>
+            <motion.div
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.95 }}
+              className="mt-8"
+            >
+              <Link
+                href="/news"
+                className="rounded-full bg-gradient-to-r from-pink-500 to-purple-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all hover:from-pink-400 hover:to-purple-500 focus:ring-2 focus:ring-pink-300 focus:outline-none"
+              >
+                See the Latest Mind & Method News!
+              </Link>
+            </motion.div>
+          </motion.div>
+        </motion.section>
       </main>
     </>
+  );
+}
+
+const funFacts = [
+  "Your brain is sometimes more active when you're asleep than when you're awake!",
+  "The human brain has about 86 billion neurons.",
+  "Smiling can trick your brain into feeling happier.",
+  "You can't actually multitask—your brain just switches quickly between tasks.",
+  "Memories are reconstructed, not replayed, every time you remember them.",
+  "Yawning is contagious—even thinking about yawning can make you yawn!",
+  "Color can affect your mood and behavior.",
+  "Music can boost memory and learning.",
+];
+
+function AnimatedFactCarousel() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIndex((prev) => (prev + 1) % funFacts.length);
+    }, 4000);
+    return () => clearTimeout(timer);
+  }, [index]);
+  return (
+    <motion.div
+      key={index}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.7 }}
+      className="min-h-[80px] rounded-2xl border-2 border-cyan-300/30 bg-white/20 px-8 py-6 text-center text-xl font-semibold text-white shadow-lg backdrop-blur-md"
+    >
+      <span className="text-cyan-200">Did you know?</span>
+      <br />
+      <span className="text-white">{funFacts[index]}</span>
+    </motion.div>
   );
 }

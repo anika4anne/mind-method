@@ -55,7 +55,6 @@
   pointer-events: none;
 }
 
-/* Additional floating snowflakes */
 .snow-bg::before {
   content: "";
   position: absolute;
@@ -78,7 +77,6 @@
   }
 }
 
-/* Floating snowflakes with different patterns */
 .snow-bg::after {
   content: "";
   position: absolute;
@@ -92,7 +90,6 @@
   pointer-events: none;
 }
 
-/* Winter color palette */
 .winter-text {
   color: #ffffff;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);

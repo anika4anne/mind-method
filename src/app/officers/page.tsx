@@ -92,7 +92,7 @@ const bioContainerVariants = {
     opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.8, // Delay to start after title animation
+      delayChildren: 0.8,
     },
   },
 };
@@ -127,7 +127,6 @@ const cardVariants = {
   },
 };
 
-// Social icon base class for white icons, with brand color on hover
 const instagramIconClass =
   "text-white hover:text-[#E1306C] text-2xl transition-colors";
 const linkedinIconClass =
@@ -145,13 +144,11 @@ export default function OfficersPage() {
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background with confetti and sparkles */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
@@ -178,7 +175,6 @@ export default function OfficersPage() {
             </motion.p>
           </motion.div>
 
-          {/* Leadership Team Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -207,7 +203,6 @@ export default function OfficersPage() {
                     whileHover={{ rotateY: 180 }}
                     transition={{ duration: 0.6 }}
                   >
-                    {/* Front of card - Image */}
                     <div className="absolute inset-0 backface-hidden">
                       <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 shadow-2xl backdrop-blur-sm">
                         <Image
@@ -217,7 +212,6 @@ export default function OfficersPage() {
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        {/* Overlay with name and position */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute right-0 bottom-0 left-0 p-6 text-white">
                           <h3 className="mb-2 text-2xl font-bold drop-shadow">
@@ -230,7 +224,6 @@ export default function OfficersPage() {
                       </div>
                     </div>
 
-                    {/* Back of card - Bio */}
                     <div className="absolute inset-0 rotate-y-180 backface-hidden">
                       <div className="flex h-full w-full flex-col justify-center rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm">
                         <div className="text-center">
@@ -285,7 +278,6 @@ export default function OfficersPage() {
             </motion.div>
           </motion.div>
 
-          {/* Legendary Members Section */}
           <motion.div
             initial="hidden"
             animate="visible"
@@ -314,7 +306,6 @@ export default function OfficersPage() {
                     whileHover={{ rotateY: 180 }}
                     transition={{ duration: 0.6 }}
                   >
-                    {/* Front of card - Image */}
                     <div className="absolute inset-0 backface-hidden">
                       <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-white/30 bg-white/20 shadow-2xl backdrop-blur-sm">
                         <Image
@@ -324,7 +315,6 @@ export default function OfficersPage() {
                           className="object-cover"
                           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                         />
-                        {/* Overlay with name and position */}
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
                         <div className="absolute right-0 bottom-0 left-0 p-6 text-white">
                           <h3 className="mb-2 text-2xl font-bold drop-shadow">
@@ -337,7 +327,6 @@ export default function OfficersPage() {
                       </div>
                     </div>
 
-                    {/* Back of card - Bio */}
                     <div className="absolute inset-0 rotate-y-180 backface-hidden">
                       <div className="flex h-full w-full flex-col justify-center rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm">
                         <div className="text-center">
@@ -392,7 +381,6 @@ export default function OfficersPage() {
             </motion.div>
           </motion.div>
 
-          {/* Join the Team Section */}
           <motion.div
             initial="hidden"
             animate="visible"
