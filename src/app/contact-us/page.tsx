@@ -326,7 +326,6 @@ export default function ContactUsPage() {
                               {officer.email.replace("mailto:", "")}
                             </span>
                           </a>
-                          {/* Add extra email for Ava Davis */}
                           {officer.extraEmail && (
                             <a
                               href={`mailto:${officer.extraEmail}`}
