@@ -85,6 +85,30 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
+// Define a type for news/draft objects
+interface NewsDraft {
+  id?: number;
+  title: string;
+  content: string;
+  category: string;
+  priority: string;
+  themeColor: string;
+  date?: string;
+  status?: string;
+}
+
+function isNewsDraft(d: unknown): d is NewsDraft {
+  if (typeof d !== "object" || d === null) return false;
+  const obj = d as Record<string, unknown>;
+  return (
+    typeof obj.title === "string" &&
+    typeof obj.content === "string" &&
+    typeof obj.category === "string" &&
+    typeof obj.priority === "string" &&
+    typeof obj.themeColor === "string"
+  );
+}
+
 export default function NewsPage() {
   const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(null);
   const [showAddNewsModal, setShowAddNewsModal] = useState(false);
@@ -97,16 +121,18 @@ export default function NewsPage() {
   });
   const [showEditModal, setShowEditModal] = useState(false);
 
-  const [editingNews, setEditingNews] = useState<any>(null);
+  const [editingNews, setEditingNews] = useState<NewsDraft | null>(null);
 
-  const [editingDraft, setEditingDraft] = useState<any>(null);
+  const [editingDraft, setEditingDraft] = useState<NewsDraft | null>(null);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
 
-  const [drafts, setDrafts] = useState<any[]>(() => {
+  const [drafts, setDrafts] = useState<NewsDraft[]>(() => {
     if (typeof window !== "undefined") {
       const savedDrafts = localStorage.getItem("newsDrafts");
-      return savedDrafts ? JSON.parse(savedDrafts) : [];
+      const parsed = savedDrafts ? JSON.parse(savedDrafts) : [];
+      // Filter out nulls and ensure all required fields are present
+      return parsed.filter(isNewsDraft);
     }
     return [];
   });
@@ -174,7 +200,7 @@ export default function NewsPage() {
 
   const handleEditDraft = () => {
     const updatedDrafts = drafts.map((draft) =>
-      draft.id === editingDraft.id ? editingDraft : draft,
+      draft.id === editingDraft?.id ? (editingDraft as NewsDraft) : draft,
     );
     setDrafts(updatedDrafts);
     localStorage.setItem("newsDrafts", JSON.stringify(updatedDrafts));
@@ -389,7 +415,7 @@ export default function NewsPage() {
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            deleteDraft(draft.id);
+                            deleteDraft(draft.id || 0);
                           }}
                           onMouseDown={(e) => {
                             e.stopPropagation();
@@ -783,18 +809,32 @@ export default function NewsPage() {
                     <input
                       type="text"
                       value={
-                        editingDraft ? editingDraft.title : editingNews.title
+                        editingDraft ? editingDraft.title : editingNews?.title
                       }
                       onChange={(e) => {
                         if (editingDraft) {
                           setEditingDraft({
                             ...editingDraft,
-                            title: e.target.value,
+                            title: e.target.value || editingDraft?.title || "",
+                            content: editingDraft?.content || "",
+                            category: editingDraft?.category || "",
+                            priority: editingDraft?.priority || "",
+                            themeColor: editingDraft?.themeColor || "",
+                            date: editingDraft?.date,
+                            status: editingDraft?.status,
+                            id: editingDraft?.id,
                           });
                         } else {
                           setEditingNews({
                             ...editingNews,
-                            title: e.target.value,
+                            title: e.target.value || editingNews?.title || "",
+                            content: editingNews?.content || "",
+                            category: editingNews?.category || "",
+                            priority: editingNews?.priority || "",
+                            themeColor: editingNews?.themeColor || "",
+                            date: editingNews?.date,
+                            status: editingNews?.status,
+                            id: editingNews?.id,
                           });
                         }
                       }}
@@ -812,18 +852,34 @@ export default function NewsPage() {
                       value={
                         editingDraft
                           ? editingDraft.content
-                          : editingNews.content
+                          : editingNews?.content
                       }
                       onChange={(e) => {
                         if (editingDraft) {
                           setEditingDraft({
                             ...editingDraft,
-                            content: e.target.value,
+                            title: editingDraft?.title || "",
+                            content:
+                              e.target.value || editingDraft?.content || "",
+                            category: editingDraft?.category || "",
+                            priority: editingDraft?.priority || "",
+                            themeColor: editingDraft?.themeColor || "",
+                            date: editingDraft?.date,
+                            status: editingDraft?.status,
+                            id: editingDraft?.id,
                           });
                         } else {
                           setEditingNews({
                             ...editingNews,
-                            content: e.target.value,
+                            title: editingNews?.title || "",
+                            content:
+                              e.target.value || editingNews?.content || "",
+                            category: editingNews?.category || "",
+                            priority: editingNews?.priority || "",
+                            themeColor: editingNews?.themeColor || "",
+                            date: editingNews?.date,
+                            status: editingNews?.status,
+                            id: editingNews?.id,
                           });
                         }
                       }}
@@ -843,18 +899,34 @@ export default function NewsPage() {
                         value={
                           editingDraft
                             ? editingDraft.category
-                            : editingNews.category
+                            : editingNews?.category
                         }
                         onChange={(e) => {
                           if (editingDraft) {
                             setEditingDraft({
                               ...editingDraft,
-                              category: e.target.value,
+                              title: editingDraft?.title || "",
+                              content: editingDraft?.content || "",
+                              category:
+                                e.target.value || editingDraft?.category || "",
+                              priority: editingDraft?.priority || "",
+                              themeColor: editingDraft?.themeColor || "",
+                              date: editingDraft?.date,
+                              status: editingDraft?.status,
+                              id: editingDraft?.id,
                             });
                           } else {
                             setEditingNews({
                               ...editingNews,
-                              category: e.target.value,
+                              title: editingNews?.title || "",
+                              content: editingNews?.content || "",
+                              category:
+                                e.target.value || editingNews?.category || "",
+                              priority: editingNews?.priority || "",
+                              themeColor: editingNews?.themeColor || "",
+                              date: editingNews?.date,
+                              status: editingNews?.status,
+                              id: editingNews?.id,
                             });
                           }
                         }}
@@ -876,18 +948,34 @@ export default function NewsPage() {
                         value={
                           editingDraft
                             ? editingDraft.priority
-                            : editingNews.priority
+                            : editingNews?.priority
                         }
                         onChange={(e) => {
                           if (editingDraft) {
                             setEditingDraft({
                               ...editingDraft,
-                              priority: e.target.value,
+                              title: editingDraft?.title || "",
+                              content: editingDraft?.content || "",
+                              category: editingDraft?.category || "",
+                              priority:
+                                e.target.value || editingDraft?.priority || "",
+                              themeColor: editingDraft?.themeColor || "",
+                              date: editingDraft?.date,
+                              status: editingDraft?.status,
+                              id: editingDraft?.id,
                             });
                           } else {
                             setEditingNews({
                               ...editingNews,
-                              priority: e.target.value,
+                              title: editingNews?.title || "",
+                              content: editingNews?.content || "",
+                              category: editingNews?.category || "",
+                              priority:
+                                e.target.value || editingNews?.priority || "",
+                              themeColor: editingNews?.themeColor || "",
+                              date: editingNews?.date,
+                              status: editingNews?.status,
+                              id: editingNews?.id,
                             });
                           }
                         }}

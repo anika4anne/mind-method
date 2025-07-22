@@ -134,18 +134,29 @@ export default function ContactUsPage() {
             </motion.h1>
             <motion.p
               variants={itemVariants}
+              custom={1}
+              transition={{ delay: 0.5, duration: 0.6 }}
               className="mx-auto max-w-3xl text-2xl font-semibold text-white"
             >
               Have questions about Mind & Method? Let us know!
             </motion.p>
           </motion.div>
 
-          <div className="grid gap-12 lg:grid-cols-2">
+          <motion.div
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
+            custom={2}
+            transition={{ delay: 1.0, duration: 0.6 }}
+            className="grid gap-12 lg:grid-cols-2"
+          >
             <motion.div
+              variants={itemVariants}
+              custom={2}
+              transition={{ delay: 1.0, duration: 0.6 }}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              variants={containerVariants}
             >
               <motion.h2
                 variants={itemVariants}
@@ -275,10 +286,12 @@ export default function ContactUsPage() {
             </motion.div>
 
             <motion.div
+              variants={itemVariants}
+              custom={3}
+              transition={{ delay: 1.5, duration: 0.6 }}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.3 }}
-              variants={containerVariants}
             >
               <motion.h2
                 variants={itemVariants}
@@ -367,13 +380,14 @@ export default function ContactUsPage() {
                 </div>
               </motion.div>
             </motion.div>
-          </div>
+          </motion.div>
 
           <motion.div
             initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
+            animate="visible"
             variants={containerVariants}
+            custom={4}
+            transition={{ delay: 2.0, duration: 0.6 }}
             className="mt-20"
           >
             <motion.h2

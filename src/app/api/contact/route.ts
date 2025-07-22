@@ -23,8 +23,8 @@ export async function POST(request: NextRequest) {
     });
 
     await transporter.sendMail({
-      from: process.env.SMTP_USER,
-      to: "anikaanne2010pal@gmail.com, anika4dev@gmail.com",
+      from: "mindmethodjjhs@gmail.com",
+      to: "anikaanne2010pal@gmail.com, anika4dev@gmail.com, avad313@gmail.com",
       subject: `New Contact Form Message from ${name}`,
       html: `
         <p><strong>Name:</strong> ${name}</p>

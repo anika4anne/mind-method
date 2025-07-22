@@ -72,3 +72,9 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+model Subscriber {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+}
