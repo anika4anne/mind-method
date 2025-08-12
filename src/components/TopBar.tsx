@@ -237,7 +237,7 @@ export default function TopBar({ className = "" }: { className?: string }) {
                     e.preventDefault();
                     setLoginError("");
 
-                    if (password === "mindnmethod2025") {
+                    if (password === "mindnmethod2025!") {
                       console.log("Login successful!");
                       setShowLoginModal(false);
                       setShowOfficerModal(true);
