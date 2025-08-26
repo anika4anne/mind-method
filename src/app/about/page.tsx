@@ -118,7 +118,7 @@ export default function EventsPage() {
                 Regular Meetings
               </h3>
               <p className="mb-4 text-sm leading-relaxed text-white/90">
-                Join us every alternate Monday at 3:30 PM in Room 171 for our
+                Join us every alternate Monday at 3:30 PM in Room 143 for our
                 weekly club meetings.
               </p>
               <div className="flex items-center text-cyan-300">

@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -49,7 +50,7 @@ const announcements = [
     date: "December 15, 2024",
     title: "🎉 Welcome to Mind & Method!",
     content:
-      "We're excited to announce the launch of our psychology club! Join us for our first meeting this Monday in Room 171. Come explore the fascinating world of psychology with us!",
+      "We're excited to announce the launch of our psychology club! Join us for our first meeting this Monday in Room 143. Come explore the fascinating world of psychology with us!",
     category: "Announcement",
     priority: "high",
   },
@@ -85,7 +86,6 @@ const getCategoryIcon = (category: string) => {
   }
 };
 
-// Define a type for news/draft objects
 interface NewsDraft {
   id?: number;
   title: string;
@@ -131,7 +131,6 @@ export default function NewsPage() {
     if (typeof window !== "undefined") {
       const savedDrafts = localStorage.getItem("newsDrafts");
       const parsed = savedDrafts ? JSON.parse(savedDrafts) : [];
-      // Filter out nulls and ensure all required fields are present
       return parsed.filter(isNewsDraft);
     }
     return [];
@@ -512,9 +511,18 @@ export default function NewsPage() {
                         {announcement.category}
                       </span>
                       <div className="flex items-center space-x-2">
-                        <div className="text-cyan-300">
-                          <i className="fas fa-arrow-right"></i>
-                        </div>
+                        <Link
+                          href={`/news/${announcement.id}`}
+                          passHref
+                          legacyBehavior
+                        >
+                          <a
+                            className="text-cyan-300"
+                            aria-label="Read full article"
+                          >
+                            <i className="fas fa-arrow-right"></i>
+                          </a>
+                        </Link>
                       </div>
                     </div>
 

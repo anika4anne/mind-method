@@ -6,7 +6,6 @@
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
-/* Enhanced Snow Theme Styles */
 .snow-bg {
   background:
     linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%),
@@ -110,7 +109,7 @@
   );
 }
 
-/* 3D Flip Card Styles */
+
 .perspective-1000 {
   perspective: 1000px;
 }
@@ -141,7 +140,7 @@
   animation: gradient-x 6s ease-in-out infinite;
 }
 
-/* Custom Quill Editor Styles for Dark Theme */
+
 .quill-editor .ql-container {
   background: rgba(255, 255, 255, 0.1);
   border: 2px solid rgba(255, 255, 255, 0.3);
@@ -270,7 +269,6 @@
   color: white;
 }
 
-/* Focus states */
 .quill-editor .ql-container.ql-focused {
   border-color: #40e0d0;
   box-shadow: 0 0 0 2px rgba(64, 224, 208, 0.2);

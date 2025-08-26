@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 
-// Dynamically import ReactQuill to avoid SSR issues
+
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => (
@@ -12,7 +12,7 @@ const ReactQuill = dynamic(() => import("react-quill"), {
   ),
 });
 
-// Import Quill CSS
+
 import "react-quill/dist/quill.snow.css";
 
 const containerVariants = {
@@ -93,7 +93,7 @@ export default async function DraftDetailPage({
     if (typeof window !== "undefined") {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
 
-      // Get drafts from localStorage
+
       const savedDrafts = localStorage.getItem("newsDrafts");
       if (savedDrafts) {
         const drafts = JSON.parse(savedDrafts);
@@ -106,14 +106,12 @@ export default async function DraftDetailPage({
       }
     }
 
-    // Listen for changes to localStorage
     const handleStorageChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
 
     window.addEventListener("storage", handleStorageChange);
 
-    // Also listen for custom events (for same-tab updates)
     const handleLoginChange = () => {
       setLoggedInOfficer(localStorage.getItem("loggedInOfficer"));
     };
@@ -129,13 +127,11 @@ export default async function DraftDetailPage({
   const isBlogger = loggedInOfficer === "Blogger";
 
   const handleSaveChanges = () => {
-    // ReactQuill already provides HTML content, so we can use it directly
     const updatedDraft = {
       ...editedDraft!,
-      content: textareaValue, // This is already HTML from ReactQuill
+      content: textareaValue, 
     };
 
-    // Update the draft in localStorage
     const savedDrafts = localStorage.getItem("newsDrafts");
     if (savedDrafts) {
       const drafts = JSON.parse(savedDrafts);
@@ -166,18 +162,15 @@ export default async function DraftDetailPage({
 
   return (
     <>
-      {/* Font Awesome CSS */}
       <link
         rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      {/* Animated background */}
       <div className="snow-bg fixed inset-0 -z-10"></div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-4xl">
-          {/* Back Button and Edit Button */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
@@ -232,7 +225,7 @@ export default async function DraftDetailPage({
             )}
           </motion.div>
 
-          {/* Draft Content */}
+
           <motion.div
             initial="hidden"
             animate="visible"
@@ -243,7 +236,7 @@ export default async function DraftDetailPage({
               variants={itemVariants}
               className={`relative overflow-hidden rounded-3xl border-4 ${getPriorityColor(draft.priority)} p-8 shadow-2xl backdrop-blur-sm`}
             >
-              {/* Priority indicator */}
+
               <div className="absolute top-6 right-6">
                 <span
                   className={`inline-block rounded-full px-4 py-2 text-sm font-semibold ${
@@ -258,15 +251,15 @@ export default async function DraftDetailPage({
                 </span>
               </div>
 
-              {/* Category icon */}
+
               <div className="mb-6 text-4xl">
                 {getCategoryIcon(draft.category)}
               </div>
 
-              {/* Date */}
+
               <p className="mb-4 text-sm text-white/70">{draft.date}</p>
 
-              {/* Title */}
+
               {isEditing ? (
                 <input
                   type="text"
@@ -285,7 +278,7 @@ export default async function DraftDetailPage({
                 </h1>
               )}
 
-              {/* Content */}
+
               <div className="mb-8">
                 {isEditing ? (
                   <div className="space-y-4">
@@ -351,7 +344,7 @@ export default async function DraftDetailPage({
                 )}
               </div>
 
-              {/* Category */}
+
               <div className="flex items-center justify-between">
                 <span className="inline-block rounded-full bg-white/20 px-4 py-2 text-sm font-semibold text-white">
                   {draft.category}
@@ -371,7 +364,7 @@ export default async function DraftDetailPage({
             </motion.div>
           </motion.div>
 
-          {/* Related Actions */}
+
           {isBlogger && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}

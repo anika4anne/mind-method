@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
         { status: 400 },
       );
     }
-    // Add email if not already present
+
     const existing = await prisma.subscriber.findUnique({ where: { email } });
     if (existing) {
       return NextResponse.json(
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
     }
     await prisma.subscriber.create({ data: { email } });
 
-    // Send confirmation email with confetti animation
+
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 465,

@@ -3,7 +3,7 @@ import { SessionProvider } from "next-auth/react";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import TopBar from "../components/TopBar";
-import ReactQueryProvider from "../components/ReactQueryProvider"; // ⬅️ New
+import ReactQueryProvider from "../components/ReactQueryProvider";  
 
 export const metadata: Metadata = {
   title: "Mind & Method",

@@ -274,10 +274,10 @@ export default function InterestPage() {
                   <div className="grid gap-6 md:grid-cols-2">
                     <div className="text-center">
                       <h3 className="mb-4 text-3xl font-bold text-white">
-                        📍 Room 171
+                        📍 Room 143
                       </h3>
                       <p className="text-lg text-white/90">
-                        Join us in Room 171 for all our exciting psychology
+                        Join us in Room 143 for all our exciting psychology
                         activities!
                       </p>
                     </div>
