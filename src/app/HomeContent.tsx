@@ -126,7 +126,17 @@ export default function HomeContent() {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      <div className="snow-bg fixed inset-0 -z-10"></div>
+      <div className="fixed inset-0 -z-10">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: "url(/2.svg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      </div>
 
       <main className="flex min-h-screen flex-col items-center justify-start px-6 text-white">
         <div className="container mt-6 flex flex-col items-center gap-16 px-4 py-16">
@@ -171,7 +181,7 @@ export default function HomeContent() {
               variants={itemVariants}
               className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
             >
-              Welcome to <TypewriterText text="Mind & Method" delay={0.5} />! 🎉
+              Welcome to <span className="text-cyan-400">Mind & Method</span>!
             </motion.h1>
 
             <motion.p

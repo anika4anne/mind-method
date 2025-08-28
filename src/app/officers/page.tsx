@@ -149,7 +149,17 @@ export default function OfficersPage() {
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
       />
 
-      <div className="snow-bg fixed inset-0 -z-10"></div>
+      <div className="fixed inset-0 -z-10">
+        <div
+          className="h-full w-full"
+          style={{
+            backgroundImage: "url(/2.svg)",
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+          }}
+        />
+      </div>
 
       <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-7xl">
