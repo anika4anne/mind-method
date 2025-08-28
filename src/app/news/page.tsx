@@ -47,7 +47,7 @@ const cardVariants = {
 const announcements = [
   {
     id: 1,
-    date: "December 15, 2024",
+    date: "August 28, 2025",
     title: "🎉 Welcome to Mind & Method!",
     content:
       "We're excited to announce the launch of our psychology club! Join us for our first meeting this Monday in Room 143. Come explore the fascinating world of psychology with us!",
