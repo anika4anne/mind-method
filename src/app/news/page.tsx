@@ -126,6 +126,17 @@ export default function NewsPage() {
   const [editingDraft, setEditingDraft] = useState<NewsDraft | null>(null);
   const [isSavingDraft, setIsSavingDraft] = useState(false);
   const [showDrafts, setShowDrafts] = useState(false);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [email, setEmail] = useState("");
+  const [subscribers, setSubscribers] = useState<string[]>(() => {
+    if (typeof window !== "undefined") {
+      const savedSubscribers = localStorage.getItem("newsSubscribers");
+      return savedSubscribers ? JSON.parse(savedSubscribers) : [];
+    }
+    return [];
+  });
+  const [showUnsubscribeForm, setShowUnsubscribeForm] = useState(false);
+  const [unsubscribeEmail, setUnsubscribeEmail] = useState("");
 
   const [drafts, setDrafts] = useState<NewsDraft[]>(() => {
     if (typeof window !== "undefined") {
@@ -205,6 +216,57 @@ export default function NewsPage() {
     localStorage.setItem("newsDrafts", JSON.stringify(updatedDrafts));
     setShowEditModal(false);
     setEditingDraft(null);
+  };
+
+  const handleSubscribe = (email: string) => {
+    if (email && !subscribers.includes(email)) {
+      const updatedSubscribers = [...subscribers, email];
+      setSubscribers(updatedSubscribers);
+      localStorage.setItem(
+        "newsSubscribers",
+        JSON.stringify(updatedSubscribers),
+      );
+      alert(`Thank you! You've been subscribed with: ${email}`);
+      setEmail("");
+      setShowEmailForm(false);
+    } else if (subscribers.includes(email)) {
+      alert("You're already subscribed with this email!");
+    }
+  };
+
+  const sendNewsletterToSubscribers = (
+    articleTitle: string,
+    articleContent: string,
+  ) => {
+    if (subscribers.length > 0) {
+      // In a real app, you'd send actual emails here
+      console.log(
+        `Sending newsletter to ${subscribers.length} subscribers about: ${articleTitle}`,
+      );
+      console.log("Subscribers:", subscribers);
+      console.log("Article content:", articleContent);
+
+      // For demo purposes, show an alert
+      alert(
+        `Newsletter sent to ${subscribers.length} subscribers about: ${articleTitle}`,
+      );
+    }
+  };
+
+  const handleUnsubscribe = (email: string) => {
+    if (email && subscribers.includes(email)) {
+      const updatedSubscribers = subscribers.filter((sub) => sub !== email);
+      setSubscribers(updatedSubscribers);
+      localStorage.setItem(
+        "newsSubscribers",
+        JSON.stringify(updatedSubscribers),
+      );
+      alert(`You've been unsubscribed from: ${email}`);
+      setUnsubscribeEmail("");
+      setShowUnsubscribeForm(false);
+    } else if (email && !subscribers.includes(email)) {
+      alert("This email is not in our subscriber list.");
+    }
   };
 
   const getThemeButtonColor = (themeColor: string) => {
@@ -580,13 +642,106 @@ export default function NewsPage() {
                   Get notified about new announcements, events, and club
                   activities.
                 </p>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
-                >
-                  Subscribe to Updates 🚀
-                </motion.button>
+                <p className="mb-4 text-sm text-white/70">
+                  Current subscribers: {subscribers.length}
+                </p>
+                {!showEmailForm ? (
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={() => setShowEmailForm(true)}
+                    className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                  >
+                    Subscribe to Updates 🚀
+                  </motion.button>
+                ) : (
+                  <div className="space-y-4">
+                    <input
+                      type="email"
+                      placeholder="Enter your email here"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full max-w-md rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:border-cyan-400 focus:outline-none"
+                    />
+                    <div className="flex justify-center space-x-3">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          if (email) {
+                            handleSubscribe(email);
+                          }
+                        }}
+                        className="rounded-full bg-gradient-to-r from-green-500 to-emerald-600 px-6 py-2 font-bold text-white shadow-lg transition-all hover:from-green-400 hover:to-emerald-500"
+                      >
+                        Subscribe
+                      </motion.button>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => {
+                          setShowEmailForm(false);
+                          setEmail("");
+                        }}
+                        className="rounded-full bg-gradient-to-r from-gray-500 to-gray-600 px-6 py-2 font-bold text-white shadow-lg transition-all hover:from-gray-400 hover:to-gray-500"
+                      >
+                        Cancel
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Unsubscribe Form */}
+                <div className="mt-6 border-t border-white/20 pt-6">
+                  <p className="mb-4 text-sm text-white/70">
+                    Need to unsubscribe? Enter your email below:
+                  </p>
+                  {!showUnsubscribeForm ? (
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setShowUnsubscribeForm(true)}
+                      className="rounded-full bg-gradient-to-r from-red-500 to-pink-600 px-6 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-red-400 hover:to-pink-500"
+                    >
+                      Unsubscribe
+                    </motion.button>
+                  ) : (
+                    <div className="space-y-4">
+                      <input
+                        type="email"
+                        placeholder="Enter your email to unsubscribe"
+                        value={unsubscribeEmail}
+                        onChange={(e) => setUnsubscribeEmail(e.target.value)}
+                        className="w-full max-w-md rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:border-red-400 focus:outline-none"
+                      />
+                      <div className="flex justify-center space-x-3">
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => {
+                            if (unsubscribeEmail) {
+                              handleUnsubscribe(unsubscribeEmail);
+                            }
+                          }}
+                          className="rounded-full bg-gradient-to-r from-red-500 to-pink-600 px-4 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-red-400 hover:to-pink-500"
+                        >
+                          Unsubscribe
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                          onClick={() => {
+                            setShowUnsubscribeForm(false);
+                            setUnsubscribeEmail("");
+                          }}
+                          className="rounded-full bg-gradient-to-r from-gray-500 to-gray-600 px-4 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-gray-400 hover:to-gray-500"
+                        >
+                          Cancel
+                        </motion.button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </motion.div>
           </motion.div>

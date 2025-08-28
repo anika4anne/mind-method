@@ -61,17 +61,34 @@ const officers = [
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    grade: "",
     subject: "",
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("Form submitted:", formData);
-    alert("Thank you for your message! We'll get back to you soon.");
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        alert("Thank you for your message! We'll get back to you soon.");
+        setFormData({ name: "", grade: "", subject: "", message: "" });
+      } else {
+        const errorData = await response.json();
+        alert(`Error: ${errorData.error || "Something went wrong"}`);
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      alert("An error occurred while sending your message. Please try again.");
+    }
   };
 
   const handleChange = (
@@ -196,21 +213,25 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <label
-                        htmlFor="email"
+                        htmlFor="grade"
                         className="mb-2 block text-sm font-semibold text-white"
                       >
-                        Email *
+                        Grade *
                       </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
+                      <select
+                        id="grade"
+                        name="grade"
+                        value={formData.grade}
                         onChange={handleChange}
                         required
-                        className="w-full rounded-xl border-2 border-white/30 bg-white/20 px-4 py-3 text-white placeholder-white/60 backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
-                        placeholder="your.email@example.com"
-                      />
+                        className="w-full rounded-xl border-2 border-white/30 bg-white/20 px-4 py-3 text-white backdrop-blur-sm focus:border-cyan-400 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
+                      >
+                        <option value="">Select your grade</option>
+                        <option value="9">9th Grade</option>
+                        <option value="10">10th Grade</option>
+                        <option value="11">11th Grade</option>
+                        <option value="12">12th Grade</option>
+                      </select>
                     </div>
                   </div>
 
