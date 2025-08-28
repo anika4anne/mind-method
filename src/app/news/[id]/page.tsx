@@ -39,12 +39,12 @@ const itemVariants = {
 const articles = [
   {
     id: "1",
-    date: "December 15, 2024",
+    date: "August 28, 2025",
     title: "🎉 Welcome to Mind & Method!",
     content: `
       <p class="mb-6 text-lg leading-relaxed text-white/90">
-        We're thrilled to announce the official launch of Mind & Method, JJHS psychology club! 
-        After months of planning and preparation, we're finally ready to explore the fascinating world of psychology together.
+        We're excited to announce the launch of our psychology club! Join us for our first meeting this Monday in Room 143. 
+        Come explore the fascinating world of psychology with us!
       </p>
       
       <h2 class="mb-4 text-2xl font-bold text-cyan-300">What We'll Be Doing</h2>
@@ -56,12 +56,12 @@ const articles = [
         <li>Guest speakers from the psychology field</li>
         <li>Movie nights for club bonding</li>
         <li>Study sessions for psychology courses</li>
-        <li>Field trips including an Escape Room</li>
+
       </ul>
       
       <h2 class="mb-4 text-2xl font-bold text-cyan-300">First Meeting Details</h2>
       <p class="mb-6 text-lg leading-relaxed text-white/90">
-        Join us for our first meeting on this Monday in Room 143 at 3:30 PM. 
+        Join us for our first meeting on this Monday in Room 143 at 2:30 PM. 
         We'll be introducing our officers, discussing upcoming events, and getting to know each other.
       </p>
       
@@ -87,8 +87,8 @@ const articles = [
   },
 ];
 
-export default async function ArticlePage() {
-  const params = await useParams();
+export default function ArticlePage() {
+  const params = useParams();
   const articleId = params.id as string;
   const article = articles.find((a) => a.id === articleId);
   const [loggedInOfficer, setLoggedInOfficer] = useState<string | null>(null);
