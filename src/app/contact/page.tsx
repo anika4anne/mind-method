@@ -79,7 +79,8 @@ export default function ContactPage() {
       });
 
       if (response.ok) {
-        alert("Thank you for your message! We'll get back to you soon.");
+        const responseData = await response.json();
+        alert(responseData.message + (responseData.note ? `\n\n${responseData.note}` : ""));
         setFormData({ name: "", grade: "", subject: "", message: "" });
       } else {
         const errorData = await response.json();

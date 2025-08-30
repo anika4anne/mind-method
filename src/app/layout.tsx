@@ -2,8 +2,9 @@ import "~/styles/globals.css";
 import { SessionProvider } from "next-auth/react";
 import { type Metadata } from "next";
 import { Geist } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import TopBar from "../components/TopBar";
-import ReactQueryProvider from "../components/ReactQueryProvider";  
+import ReactQueryProvider from "../components/ReactQueryProvider";
 
 export const metadata: Metadata = {
   title: "Mind & Method",
@@ -35,6 +36,7 @@ export default function RootLayout({
             </footer>
           </ReactQueryProvider>
         </SessionProvider>
+        <Analytics />
       </body>
     </html>
   );
