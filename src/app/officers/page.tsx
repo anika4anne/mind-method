@@ -21,7 +21,7 @@ const officers: Officer[] = [
     name: "Ava Davis",
     position: "President",
     bio: "Ava is passionate about making psychology accessible to all students. She leads the club with enthusiasm and creativity, ensuring every member feels welcome and engaged.",
-    image: "/officers/ava2.png",
+    image: "/avapookie.png",
     section: "Leadership Team",
     socials: {
       instagram: "https://www.instagram.com/bestfriend_of_kasia/",
