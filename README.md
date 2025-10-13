@@ -1,5 +1,4 @@
 # Psychology Mind and Method Website
-<img width="1000" height="500" alt="image" src="https://github.com/user-attachments/assets/9b073204-ce68-4c7b-8b04-08fa36dcf527" />
 
 This is a [T3 Stack](https://create.t3.gg/) project created with `create-t3-app`.
 
