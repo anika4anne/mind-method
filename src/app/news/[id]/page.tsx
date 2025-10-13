@@ -343,28 +343,6 @@ export default function ArticlePage() {
               )}
             </motion.div>
           </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5 }}
-            className="mt-12 text-center"
-          >
-            <h3 className="mb-4 text-xl font-semibold text-white">
-              Share this article
-            </h3>
-            <div className="flex justify-center space-x-4">
-              <button className="rounded-full bg-white/10 p-3 transition-colors hover:bg-white/20">
-                <i className="fab fa-twitter text-cyan-300"></i>
-              </button>
-              <button className="rounded-full bg-white/10 p-3 transition-colors hover:bg-white/20">
-                <i className="fab fa-facebook text-cyan-300"></i>
-              </button>
-              <button className="rounded-full bg-white/10 p-3 transition-colors hover:bg-white/20">
-                <i className="fas fa-envelope text-cyan-300"></i>
-              </button>
-            </div>
-          </motion.div>
         </div>
       </div>
     </>

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 const links = [
   { label: "Home", href: "/", icon: "fas fa-home" },
@@ -60,7 +61,13 @@ export default function TopBar({ className = "" }: { className?: string }) {
               <div className="relative">
                 <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 p-0.5">
                   <div className="flex h-full w-full items-center justify-center rounded-[10px] bg-black/90">
-                    <i className="fas fa-brain text-lg text-white"></i>
+                    <Image
+                      src="/new.png"
+                      alt="Mind & Method Logo"
+                      width={24}
+                      height={24}
+                      className="h-6 w-6 object-contain"
+                    />
                   </div>
                 </div>
                 <div className="absolute -inset-1 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 opacity-20 blur-sm" />

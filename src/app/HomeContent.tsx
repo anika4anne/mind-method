@@ -146,37 +146,6 @@ export default function HomeContent() {
             variants={containerVariants}
             className="text-center"
           >
-            <motion.div
-              variants={itemVariants}
-              className="mb-8 flex justify-center"
-            >
-              <div className="relative">
-                <motion.div
-                  animate={{
-                    rotate: [0, 360],
-                    scale: [1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 15,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  className="to-turquoise-500 absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 opacity-70 blur-xl"
-                />
-                <div className="to-turquoise-500 relative rounded-full bg-gradient-to-r from-cyan-400 via-teal-500 p-2">
-                  <div className="rounded-full bg-white p-8">
-                    <Image
-                      src="/trans.png"
-                      alt="Mind & Method Logo"
-                      width={96}
-                      height={96}
-                      className="h-24 w-24 object-contain"
-                    />
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-
             <motion.h1
               variants={itemVariants}
               className="mb-6 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
@@ -258,6 +227,22 @@ export default function HomeContent() {
                 <h2 className="mb-6 text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]">
                   📅 Meeting Information
                 </h2>
+
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 }}
+                  className="mb-6 rounded-2xl border-2 border-yellow-400/50 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 p-6 shadow-lg backdrop-blur-sm"
+                >
+                  <h3 className="mb-2 text-2xl font-bold text-yellow-300">
+                    🎉 First Meeting: October 20th!
+                  </h3>
+                  <p className="text-white/90">
+                    Don't miss our very first meeting! Come join us and be part
+                    of something amazing from the very beginning!
+                  </p>
+                </motion.div>
+
                 <div className="mb-8 grid gap-6 md:grid-cols-2">
                   <div className="text-center">
                     <h3 className="mb-2 text-2xl font-bold text-white">

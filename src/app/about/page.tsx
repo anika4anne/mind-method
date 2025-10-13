@@ -99,12 +99,16 @@ export default function EventsPage() {
             >
               <div className="rounded-xl border-2 border-cyan-400/30 bg-white/5 p-4">
                 <iframe
-                  src="https://calendar.google.com/calendar/embed?src=dc4f966e363e9bc4a0128ecfb6c7df5876270d5c1a3611104b1f0dbd72bf1cb4%40group.calendar.google.com&ctz=America%2FNew_York"
-                  style={{ border: 0, width: "100%", height: "600px" }}
+                  src="https://calendar.google.com/calendar/embed?src=c_classroom0a274d8b%40group.calendar.google.com&ctz=America%2FNew_York"
+                  style={{ border: 0 }}
+                  width="1040"
+                  height="600"
                   frameBorder="0"
                   scrolling="no"
                   title="Mind & Method Club Calendar"
-                ></iframe>
+                >
+                  Loading…
+                </iframe>
               </div>
             </motion.div>
           </motion.div>
@@ -128,12 +132,12 @@ export default function EventsPage() {
                 Regular Meetings
               </h3>
               <p className="mb-4 text-sm leading-relaxed text-white/90">
-                Join us every alternate Monday at 3:30 PM in Room 143 for our
+                Join us every alternate Monday at 2:30 PM in Room 143 for our
                 weekly club meetings.
               </p>
               <div className="flex items-center text-cyan-300">
                 <i className="fas fa-clock mr-2"></i>
-                <span className="text-sm">Every alternate Monday, 3:30 PM</span>
+                <span className="text-sm">Every alternate Monday, 2:30 PM</span>
               </div>
             </motion.div>
 

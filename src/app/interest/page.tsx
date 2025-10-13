@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 interface QuizQuestion {
   id: number;
@@ -446,7 +447,7 @@ export default function InterestPage() {
 
         <motion.div
           variants={itemVariants}
-          className="mt-16 flex flex-col items-center"
+          className="mt-16 flex flex-col items-center gap-6"
         >
           <motion.button
             onClick={() => setShowSubscriptionModal(true)}
@@ -474,6 +475,34 @@ export default function InterestPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-teal-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
           </motion.button>
+
+          <Link href="/contact">
+            <motion.button
+              whileHover={{
+                scale: 1.05,
+                y: -2,
+                boxShadow: "0 15px 30px rgba(168, 85, 247, 0.4)",
+              }}
+              whileTap={{ scale: 0.95 }}
+              className="group relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300"
+            >
+              <div className="absolute inset-0 rounded-full bg-purple-300/30 blur-sm" />
+              <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
+
+              <span className="relative z-10 flex items-center gap-3">
+                👥 Contact Us About Leadership
+                <motion.span
+                  animate={{ x: [0, 3, 0] }}
+                  transition={{ duration: 1.5, repeat: Infinity }}
+                  className="text-sm"
+                >
+                  →
+                </motion.span>
+              </span>
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
+            </motion.button>
+          </Link>
         </motion.div>
       </div>
 

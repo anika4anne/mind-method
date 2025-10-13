@@ -239,14 +239,12 @@ export default function NewsPage() {
     articleContent: string,
   ) => {
     if (subscribers.length > 0) {
-      // In a real app, you'd send actual emails here
       console.log(
         `Sending newsletter to ${subscribers.length} subscribers about: ${articleTitle}`,
       );
       console.log("Subscribers:", subscribers);
       console.log("Article content:", articleContent);
 
-      // For demo purposes, show an alert
       alert(
         `Newsletter sent to ${subscribers.length} subscribers about: ${articleTitle}`,
       );
@@ -585,15 +583,10 @@ export default function NewsPage() {
                       <div className="flex items-center space-x-2">
                         <Link
                           href={`/news/${announcement.id}`}
-                          passHref
-                          legacyBehavior
+                          className="text-cyan-300"
+                          aria-label="Read full article"
                         >
-                          <a
-                            className="text-cyan-300"
-                            aria-label="Read full article"
-                          >
-                            <i className="fas fa-arrow-right"></i>
-                          </a>
+                          <i className="fas fa-arrow-right"></i>
                         </Link>
                       </div>
                     </div>
@@ -691,7 +684,6 @@ export default function NewsPage() {
                   </div>
                 )}
 
-                {/* Unsubscribe Form */}
                 <div className="mt-6 border-t border-white/20 pt-6">
                   <p className="mb-4 text-sm text-white/70">
                     Need to unsubscribe? Enter your email below:
