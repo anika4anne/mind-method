@@ -612,7 +612,7 @@ export default function NewsPage() {
             <motion.div
               variants={cardVariants}
               whileHover="hover"
-              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl"
+              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-xl"
             >
               <motion.div
                 animate={{
@@ -634,9 +634,6 @@ export default function NewsPage() {
                 <p className="mb-6 text-white/90">
                   Get notified about new announcements, events, and club
                   activities.
-                </p>
-                <p className="mb-4 text-sm text-white/70">
-                  Current subscribers: {subscribers.length}
                 </p>
                 {!showEmailForm ? (
                   <motion.button
@@ -683,57 +680,6 @@ export default function NewsPage() {
                     </div>
                   </div>
                 )}
-
-                <div className="mt-6 border-t border-white/20 pt-6">
-                  <p className="mb-4 text-sm text-white/70">
-                    Need to unsubscribe? Enter your email below:
-                  </p>
-                  {!showUnsubscribeForm ? (
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => setShowUnsubscribeForm(true)}
-                      className="rounded-full bg-gradient-to-r from-red-500 to-pink-600 px-6 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-red-400 hover:to-pink-500"
-                    >
-                      Unsubscribe
-                    </motion.button>
-                  ) : (
-                    <div className="space-y-4">
-                      <input
-                        type="email"
-                        placeholder="Enter your email to unsubscribe"
-                        value={unsubscribeEmail}
-                        onChange={(e) => setUnsubscribeEmail(e.target.value)}
-                        className="w-full max-w-md rounded-lg border-2 border-white/30 bg-white/10 px-4 py-3 text-white placeholder-white/50 backdrop-blur-sm transition-all focus:border-red-400 focus:outline-none"
-                      />
-                      <div className="flex justify-center space-x-3">
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => {
-                            if (unsubscribeEmail) {
-                              handleUnsubscribe(unsubscribeEmail);
-                            }
-                          }}
-                          className="rounded-full bg-gradient-to-r from-red-500 to-pink-600 px-4 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-red-400 hover:to-pink-500"
-                        >
-                          Unsubscribe
-                        </motion.button>
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={() => {
-                            setShowUnsubscribeForm(false);
-                            setUnsubscribeEmail("");
-                          }}
-                          className="rounded-full bg-gradient-to-r from-gray-500 to-gray-600 px-4 py-2 text-sm font-bold text-white shadow-lg transition-all hover:from-gray-400 hover:to-gray-500"
-                        >
-                          Cancel
-                        </motion.button>
-                      </div>
-                    </div>
-                  )}
-                </div>
               </div>
             </motion.div>
           </motion.div>

@@ -31,18 +31,20 @@ export default function RootLayout({
           <ReactQueryProvider>
             <TopBar />
             <main className="min-h-full w-full pt-16">{children}</main>
-            <footer className="mt-auto py-12">
+            <footer className="mt-2 py-6">
               <div className="container mx-auto text-center">
-                <h3 className="mb-8 text-xl font-bold text-white">Follow Us</h3>
-                <div className="flex justify-center gap-6">
+                <h3 className="mb-6 text-2xl font-bold text-white">
+                  Our Socials
+                </h3>
+                <div className="mb-8 flex justify-center gap-6">
                   <a
                     href="https://www.instagram.com/mindmethodjjhs/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 text-cyan-400 transition-colors hover:bg-cyan-400 hover:text-white"
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-cyan-400 transition-all duration-300 hover:scale-105 hover:bg-cyan-400 hover:text-white"
                   >
                     <svg
-                      className="h-6 w-6"
+                      className="h-7 w-7"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -51,10 +53,10 @@ export default function RootLayout({
                   </a>
                   <a
                     href="mailto:mindmethodjjhs@gmail.com"
-                    className="flex h-12 w-12 items-center justify-center rounded-full bg-gray-800 text-cyan-400 transition-colors hover:bg-cyan-400 hover:text-white"
+                    className="flex h-14 w-14 items-center justify-center rounded-full bg-white/10 text-cyan-400 transition-all duration-300 hover:scale-105 hover:bg-cyan-400 hover:text-white"
                   >
                     <svg
-                      className="h-6 w-6"
+                      className="h-7 w-7"
                       fill="currentColor"
                       viewBox="0 0 24 24"
                     >
@@ -62,11 +64,13 @@ export default function RootLayout({
                     </svg>
                   </a>
                 </div>
-                <p className="mt-8 text-sm text-white/80">
-                  © Copyright 2025 Anika Anne. All rights reserved.
-                </p>
               </div>
             </footer>
+            <div className="fixed right-4 bottom-4">
+              <p className="text-sm text-white/80">
+                © Copyright 2025 Anika Anne. All rights reserved.
+              </p>
+            </div>
           </ReactQueryProvider>
         </SessionProvider>
         <Analytics />

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import nodemailer from "nodemailer";
+import { GoogleSpreadsheet } from "google-spreadsheet";
 
 const prisma = new PrismaClient();
 
@@ -24,6 +25,29 @@ export async function POST(request: NextRequest) {
     }
     await prisma.subscriber.create({ data: { email } });
 
+    // Save to Google Sheet
+    try {
+      const doc = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID!);
+
+      await doc.useServiceAccountAuth({
+        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL!,
+        private_key: process.env.GOOGLE_PRIVATE_KEY!.replace(/\\n/g, "\n"),
+      });
+
+      await doc.loadInfo();
+      const sheet = doc.sheetsByIndex[0];
+
+      if (sheet) {
+        await sheet.addRow({
+          email: email,
+          subscribedAt: new Date().toISOString(),
+          source: "website",
+        });
+      }
+    } catch (sheetError) {
+      console.error("Google Sheets error:", sheetError);
+      // Don't fail the entire request if Google Sheets fails
+    }
 
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,

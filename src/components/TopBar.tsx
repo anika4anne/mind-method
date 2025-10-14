@@ -12,7 +12,7 @@ const links = [
   { label: "Officers", href: "/officers", icon: "fas fa-users" },
   //{ label: "Media", href: "/media", icon: "fas fa-photo-video" },
   { label: "News", href: "/news", icon: "fas fa-newspaper" },
-  { label: "Events", href: "/about", icon: "fas fa-calendar-alt" },
+  { label: "Events", href: "/upcoming-events", icon: "fas fa-calendar-alt" },
   { label: "Contact", href: "/contact-us", icon: "fas fa-envelope" },
 ];
 

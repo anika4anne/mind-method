@@ -42,7 +42,7 @@ const cardVariants = {
   },
 };
 
-export default function AttendancePage() {
+export default function UpcomingEventsPage() {
   return (
     <>
       <link
@@ -62,7 +62,7 @@ export default function AttendancePage() {
         />
       </div>
 
-      <div className="min-h-screen px-6 py-4">
+      <div className="min-h-screen px-6 py-16">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial="hidden"
@@ -74,7 +74,7 @@ export default function AttendancePage() {
               variants={itemVariants}
               className="mb-2 text-6xl font-black tracking-tight text-white drop-shadow-[0_4px_32px_rgba(64,224,208,0.7)] sm:text-[6rem]"
             >
-              Attendance
+              Upcoming Events
             </motion.h1>
           </motion.div>
 
@@ -83,7 +83,7 @@ export default function AttendancePage() {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             variants={containerVariants}
-            className="mb-8 flex justify-center"
+            className="mt-8 mb-1 flex justify-center"
           >
             <motion.div
               variants={cardVariants}
@@ -119,14 +119,14 @@ export default function AttendancePage() {
 
               <div className="relative z-10 rounded-xl border-2 border-cyan-400/30 bg-white/5 p-2">
                 <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSfUacAKaMOGUIqt2aSJM9tk0BOBU6Q42Ot-OAipjdYQLmdgEQ/viewform?embedded=true"
-                  width="640"
-                  height="500"
+                  src="https://calendar.google.com/calendar/embed?src=c_classroom0a274d8b%40group.calendar.google.com&ctz=America%2FNew_York"
+                  width="1000"
+                  height="600"
                   frameBorder="0"
-                  marginHeight={0}
-                  marginWidth={0}
-                  title="Mind & Method Club Attendance Form"
+                  scrolling="no"
+                  title="Mind & Method Club Calendar"
                   className="rounded-lg"
+                  style={{ border: 0 }}
                 >
                   Loading…
                 </iframe>

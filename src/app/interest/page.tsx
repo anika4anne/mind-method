@@ -109,6 +109,7 @@ export default function InterestPage() {
   const [showSubscriptionModal, setShowSubscriptionModal] = useState(false);
   const [email, setEmail] = useState("");
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
 
   const handleQuizAnswer = (score: number) => {
     const newScores = [...scores, score];
@@ -261,7 +262,7 @@ export default function InterestPage() {
               variants={itemVariants}
               className="mb-8 text-center text-5xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]"
             >
-              Meeting Information 📅
+              Meeting Information
             </motion.h2>
             <motion.div
               variants={cardVariants}
@@ -282,7 +283,7 @@ export default function InterestPage() {
                   className="absolute inset-0 bg-gradient-to-r from-cyan-400/30 to-teal-500/30"
                 />
                 <div className="relative z-10">
-                  <div className="grid gap-6 md:grid-cols-2">
+                  <div className="grid gap-6 md:grid-cols-3">
                     <div className="text-center">
                       <h3 className="mb-4 text-3xl font-bold text-white">
                         📍 Room 143
@@ -299,6 +300,47 @@ export default function InterestPage() {
                       <p className="text-lg text-white/90">
                         Meetings held every alternate Monday after school
                       </p>
+                    </div>
+                    <div className="text-center">
+                      <h3 className="mb-4 text-3xl font-bold text-white">
+                        <img
+                          src="/other/classroom.png"
+                          alt="Google Classroom"
+                          className="mr-2 inline-block h-8 w-8"
+                        />
+                        Google Classroom
+                      </h3>
+                      <p className="mb-2 text-lg text-white/90">
+                        Join our online classroom for updates and resources
+                      </p>
+                      <div className="flex items-center justify-center gap-3">
+                        <div
+                          className="ml-4 inline-block cursor-pointer rounded-lg bg-white/20 px-4 py-2 backdrop-blur-sm transition-all hover:scale-105 hover:bg-white/30"
+                          onClick={() => {
+                            navigator.clipboard.writeText("fvo47ubg");
+                            setIsCopied(true);
+                            setTimeout(() => setIsCopied(false), 2000);
+                          }}
+                        >
+                          <span className="font-mono text-2xl font-bold text-cyan-300">
+                            fvo47ubg
+                          </span>
+                        </div>
+                        <button
+                          className={`cursor-pointer rounded-lg px-4 py-2 text-sm font-bold text-white transition-all hover:scale-105 ${
+                            isCopied
+                              ? "bg-green-500 hover:bg-green-400"
+                              : "bg-cyan-500 hover:bg-cyan-400"
+                          }`}
+                          onClick={() => {
+                            navigator.clipboard.writeText("fvo47ubg");
+                            setIsCopied(true);
+                            setTimeout(() => setIsCopied(false), 2000);
+                          }}
+                        >
+                          {isCopied ? "Copied!" : "Copy"}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -475,34 +517,6 @@ export default function InterestPage() {
             <div className="absolute inset-0 bg-gradient-to-r from-cyan-600 to-teal-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400 to-teal-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
           </motion.button>
-
-          <Link href="/contact">
-            <motion.button
-              whileHover={{
-                scale: 1.05,
-                y: -2,
-                boxShadow: "0 15px 30px rgba(168, 85, 247, 0.4)",
-              }}
-              whileTap={{ scale: 0.95 }}
-              className="group relative inline-block overflow-hidden rounded-full bg-gradient-to-r from-purple-500 to-pink-500 px-8 py-4 text-lg font-bold text-white shadow-xl transition-all duration-300"
-            >
-              <div className="absolute inset-0 rounded-full bg-purple-300/30 blur-sm" />
-              <div className="absolute inset-0.5 rounded-full bg-gradient-to-r from-purple-500 to-pink-500" />
-
-              <span className="relative z-10 flex items-center gap-3">
-                👥 Contact Us About Leadership
-                <motion.span
-                  animate={{ x: [0, 3, 0] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="text-sm"
-                >
-                  →
-                </motion.span>
-              </span>
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-50" />
-            </motion.button>
-          </Link>
         </motion.div>
       </div>
 

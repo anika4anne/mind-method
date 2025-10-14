@@ -225,7 +225,7 @@ export default function HomeContent() {
               />
               <div className="relative z-10 text-center">
                 <h2 className="mb-6 text-4xl font-bold text-white drop-shadow-[0_2px_16px_rgba(64,224,208,0.5)]">
-                  📅 Meeting Information
+                  Meeting Information
                 </h2>
 
                 <motion.div
