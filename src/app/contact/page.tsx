@@ -80,7 +80,10 @@ export default function ContactPage() {
 
       if (response.ok) {
         const responseData = await response.json();
-        alert(responseData.message + (responseData.note ? `\n\n${responseData.note}` : ""));
+        alert(
+          responseData.message +
+            (responseData.note ? `\n\n${responseData.note}` : ""),
+        );
         setFormData({ name: "", grade: "", subject: "", message: "" });
       } else {
         const errorData = await response.json();
@@ -353,7 +356,7 @@ export default function ContactPage() {
                 className="group relative mt-8 overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
               >
                 <h3 className="mb-4 text-xl font-bold text-white group-hover:text-cyan-300">
-                  General Information 📋
+                  General Information
                 </h3>
                 <div className="space-y-3 text-white/90">
                   <p className="flex items-center gap-2">
@@ -395,19 +398,16 @@ export default function ContactPage() {
                   title: "Join Our Club",
                   description: "Ready to start your psychology adventure?",
                   link: "/interest",
-                  icon: "🚀",
                 },
                 {
                   title: "Meet Our Team",
                   description: "Learn about our amazing leadership team",
                   link: "/officers",
-                  icon: "👥",
                 },
                 {
                   title: "Club Activities",
                   description: "See what exciting things we do",
                   link: "/interest",
-                  icon: "🎭",
                 },
               ].map((item, _index) => (
                 <motion.div
@@ -417,7 +417,6 @@ export default function ContactPage() {
                   className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm transition-all hover:border-cyan-400/50 hover:bg-white/30"
                 >
                   <a href={item.link} className="block">
-                    <div className="mb-4 text-4xl">{item.icon}</div>
                     <h3 className="mb-2 text-xl font-bold text-white group-hover:text-cyan-300">
                       {item.title}
                     </h3>
