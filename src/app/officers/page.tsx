@@ -145,60 +145,52 @@ const positionQualifications: Record<string, string[]> = {
     "Previous leadership experience preferred",
   ],
   "Vice President": [
-    "Excellent organizational and planning skills",
     "Ability to support and assist the President",
+    "Fills in for any absent officers (secretary, treasurer)",
     "Strong interpersonal and communication skills",
-    "Experience in team coordination",
-    "Interest in psychology and club activities",
     "Reliable and responsible work ethic",
   ],
   "Chief Technology Officer": [
     "Technical skills in web development or digital tools",
     "Experience with social media platforms",
     "Ability to manage club's online presence",
-    "Basic understanding of website maintenance",
-    "Interest in psychology and technology integration",
-    "Creative problem-solving abilities",
+    "Mainting club website",
+    "In charge of Google Sheets & Forms",
+    "Works closely with president & other officers to update website",
   ],
   Treasurer: [
     "Strong mathematical and organizational skills",
     "Experience with budgeting or financial planning",
-    "Attention to detail and accuracy",
-    "Trustworthiness and integrity",
     "Basic understanding of financial management",
     "Ability to track and report expenses",
+    "Budgets funds for events",
   ],
   Secretary: [
-    "Excellent written and verbal communication skills",
-    "Strong organizational and time management abilities",
-    "Experience with note-taking and documentation",
-    "Proficiency in digital tools (Google Docs, etc.)",
-    "Attention to detail and accuracy",
-    "Reliable attendance and punctuality",
+    "Takes meeting minutes",
+    "Documents club Progress",
+    "Keeps track of attendance",
+    "Responsible for posting club agenda",
+    "Responsible for emailing meeting minutes (if applicable)",
   ],
   "Media Manager": [
     "Creative design and visual communication skills",
     "Experience with graphic design tools (Canva, Photoshop, etc.)",
     "Social media management experience",
     "Photography or videography skills preferred",
-    "Understanding of brand consistency",
     "Ability to create engaging content",
   ],
   "Outreach Coordinator": [
+    "Documents Outreach Events",
     "Strong communication and networking skills",
     "Experience in community engagement or volunteer work",
     "Ability to build relationships with other organizations",
     "Public speaking or presentation skills",
     "Passion for spreading awareness about mental health",
-    "Creative thinking for outreach strategies",
   ],
   Blogger: [
+    "Responsible for taking photos & videos of club projects/outreach",
+    "Works closely with the media manager to create content",
     "Excellent writing and storytelling skills",
-    "Passion for psychology and mental health topics",
-    "Experience with content creation and blogging",
-    "Research and fact-checking abilities",
-    "Understanding of SEO and digital content",
-    "Ability to meet deadlines consistently",
   ],
 };
 
@@ -370,8 +362,48 @@ export default function OfficersPage() {
                       </motion.div>
                     </motion.div>
                   );
+                } else {
+                  return (
+                    <motion.div
+                      key={position}
+                      variants={cardVariants}
+                      whileHover="hover"
+                      className="group h-88 w-full"
+                    >
+                      <div className="relative h-full w-full overflow-hidden rounded-3xl border-4 border-dashed border-white/30 bg-white/10 shadow-2xl backdrop-blur-sm">
+                        <div className="flex h-full flex-col items-center justify-center p-6 text-center">
+                          <div className="mb-4 text-6xl opacity-50">📋</div>
+                          <h3 className="mb-4 text-2xl font-bold text-white drop-shadow">
+                            {position}
+                          </h3>
+                          <p className="mb-6 text-white/70">
+                            Position Available
+                          </p>
+                          <div className="flex flex-col gap-3">
+                            <motion.button
+                              onClick={() => setSelectedPosition(position)}
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="rounded-full bg-gradient-to-r from-purple-500 to-pink-600 px-6 py-3 text-sm font-bold text-white shadow-xl transition hover:from-purple-400 hover:to-pink-500"
+                            >
+                              View Qualifications
+                            </motion.button>
+                            <motion.a
+                              href="https://forms.gle/tAQ8QwvrvFN52f3k9"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              whileHover={{ scale: 1.05 }}
+                              whileTap={{ scale: 0.95 }}
+                              className="rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-6 py-3 text-sm font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-teal-500"
+                            >
+                              Apply Here
+                            </motion.a>
+                          </div>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
                 }
-                return null;
               })}
             </motion.div>
           </motion.div>
@@ -410,19 +442,21 @@ export default function OfficersPage() {
                   difference in our school community, we'd love to hear from
                   you.
                 </p>
-                <motion.button
+                <motion.a
+                  href="/contact-us"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="inline-block rounded-full bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-lg font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-teal-500 focus:ring-2 focus:ring-cyan-300 focus:outline-none"
                 >
                   Contact Us About Leadership
-                </motion.button>
+                </motion.a>
               </div>
             </motion.div>
           </motion.div>
         </div>
       </div>
 
+      {/* Qualifications Modal */}
       {selectedPosition && (
         <motion.div
           initial={{ opacity: 0 }}
