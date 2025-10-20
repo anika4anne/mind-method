@@ -62,7 +62,7 @@ export default function AttendancePage() {
         />
       </div>
 
-      <div className="min-h-screen px-6 py-4">
+      <div className="min-h-screen px-4 py-4 sm:px-6">
         <div className="container mx-auto max-w-6xl">
           <motion.div
             initial="hidden"
@@ -88,7 +88,7 @@ export default function AttendancePage() {
             <motion.div
               variants={cardVariants}
               whileHover="hover"
-              className="relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-xl"
+              className="relative w-full max-w-4xl overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-3 shadow-2xl backdrop-blur-xl sm:p-6"
             >
               <motion.div
                 animate={{
@@ -118,18 +118,21 @@ export default function AttendancePage() {
               />
 
               <div className="relative z-10 rounded-xl border-2 border-cyan-400/30 bg-white/5 p-2">
-                <iframe
-                  src="https://docs.google.com/forms/d/e/1FAIpQLSfUacAKaMOGUIqt2aSJM9tk0BOBU6Q42Ot-OAipjdYQLmdgEQ/viewform?embedded=true"
-                  width="640"
-                  height="500"
-                  frameBorder="0"
-                  marginHeight={0}
-                  marginWidth={0}
-                  title="Mind & Method Club Attendance Form"
-                  className="rounded-lg"
-                >
-                  Loading…
-                </iframe>
+                <div className="w-full overflow-hidden rounded-lg">
+                  <iframe
+                    src="https://docs.google.com/forms/d/e/1FAIpQLSfUacAKaMOGUIqt2aSJM9tk0BOBU6Q42Ot-OAipjdYQLmdgEQ/viewform?embedded=true"
+                    width="100%"
+                    height="600"
+                    frameBorder="0"
+                    marginHeight={0}
+                    marginWidth={0}
+                    title="Mind & Method Club Attendance Form"
+                    className="h-[500px] w-full sm:h-[600px] lg:h-[700px]"
+                    style={{ minHeight: "500px" }}
+                  >
+                    Loading…
+                  </iframe>
+                </div>
               </div>
             </motion.div>
           </motion.div>
