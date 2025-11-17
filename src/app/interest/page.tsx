@@ -169,7 +169,7 @@ export default function InterestPage() {
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: "url(/6.svg)",
+            backgroundImage: "url(/bg/6.svg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

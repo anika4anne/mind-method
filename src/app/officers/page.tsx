@@ -22,7 +22,7 @@ const officers: Officer[] = [
     name: "Ava Davis",
     position: "President",
     bio: "Ava is passionate about making psychology accessible to all students. She leads the club with enthusiasm and creativity, ensuring every member feels welcome and engaged.",
-    image: "/avapookie.png",
+    image: "/bio/ava3.jpg",
     section: "Leadership Team",
     socials: {
       instagram: "https://www.instagram.com/bestfriend_of_kasia/",
@@ -40,15 +40,23 @@ const officers: Officer[] = [
   },*/
   {
     name: "Anika Anne",
-    position: "Chief Technology Officer",
+    position: "Vice President",
     bio: "Anika is a rising sophmore who loves coding & technology, she recently found an interest in psycology. She plays for the JV volleyball team, and is part of the Robotics and Scioly club",
     image: "/officers/anika.jpg",
     section: "Leadership Team",
     socials: {
       instagram: "https://www.instagram.com/anika.anne28/",
-      //linkedin: "https://linkedin.com/in/anikaanne",
+      linkedin: "https://linkedin.com/in/anikaanne",
       email: "mailto:anika.anne@k12.wcsdny.org",
     },
+  },
+  {
+    name: "Francesca",
+    position: "Outreach Coordinator",
+    bio: "Francesca is a junior who is interested in the field of forensic science and psychology. She is an active member in multiple clubs and honors societies.",
+    image: "/bio/francesca.jpg",
+    section: "Leadership Team",
+    socials: {},
   },
   /* {
     name: "unknown",
@@ -144,12 +152,6 @@ const positionQualifications: Record<string, string[]> = {
     "Commitment to the club's mission and values",
     "Previous leadership experience preferred",
   ],
-  "Vice President": [
-    "Ability to support and assist the President",
-    "Fills in for any absent officers (secretary, treasurer)",
-    "Strong interpersonal and communication skills",
-    "Reliable and responsible work ethic",
-  ],
   "Chief Technology Officer": [
     "Technical skills in web development or digital tools",
     "Experience with social media platforms",
@@ -203,7 +205,7 @@ export default function OfficersPage() {
 
   const orderedPositions = [
     "President",
-    "Chief Technology Officer",
+    //"Chief Technology Officer",
     "Vice President",
     "Treasurer",
     "Secretary",
@@ -223,7 +225,7 @@ export default function OfficersPage() {
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: "url(/2.svg)",
+            backgroundImage: "url(/bg/2.svg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",

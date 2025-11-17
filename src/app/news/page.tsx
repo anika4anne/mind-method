@@ -322,7 +322,7 @@ export default function NewsPage() {
         <div
           className="h-full w-full"
           style={{
-            backgroundImage: "url(/2.svg)",
+            backgroundImage: "url(/bg/2.svg)",
             backgroundSize: "cover",
             backgroundPosition: "center",
             backgroundRepeat: "no-repeat",
