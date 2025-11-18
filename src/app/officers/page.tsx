@@ -58,6 +58,16 @@ const officers: Officer[] = [
     section: "Leadership Team",
     socials: {},
   },
+  {
+    name: "Malak Aly",
+    position: "Blogger",
+    bio: "Malak is a junior who love writing and reading, they are going into a career in psychology and are a member of proscenium and other theatre programs",
+    image: "/bio/malak.jpg",
+    section: "Leadership Team",
+    socials: {
+      instagram: "https://www.instagram.com/malaknasseraly",
+    },
+  },
   /* {
     name: "unknown",
     position: "Treasurer",
