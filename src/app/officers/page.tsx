@@ -68,6 +68,14 @@ const officers: Officer[] = [
       instagram: "https://www.instagram.com/malaknasseraly",
     },
   },
+  {
+    name: "Sara",
+    position: "Secretary",
+    bio: "Bio coming soon",
+    image: "/bio/sara.webp",
+    section: "Leadership Team",
+    socials: {},
+  },
   /* {
     name: "unknown",
     position: "Treasurer",
