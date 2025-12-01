@@ -8,14 +8,14 @@ export default function CodePage() {
   const [isCorrect, setIsCorrect] = useState(false);
 
   const handleCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value.toUpperCase().slice(0, 6);
+    const value = e.target.value.toUpperCase().slice(0, 13);
     setCode(value);
     setMessage("");
   };
 
   const handleSubmit = () => {
-    if (code.length === 6) {
-      if (code === "M8MD13") {
+    if (code.length === 13) {
+      if (code === "GPPDBSOEAABAN") {
         setMessage("🎉 Congratulations! You got it!");
         setIsCorrect(true);
       } else {
@@ -23,7 +23,7 @@ export default function CodePage() {
         setIsCorrect(false);
       }
     } else {
-      setMessage("Please enter a 6-character code");
+      setMessage("Please enter a 13-character code");
       setIsCorrect(false);
     }
   };
@@ -91,7 +91,7 @@ export default function CodePage() {
                   transition={{ delay: 0.7, duration: 0.6 }}
                   className="mb-8 text-lg text-white/90"
                 >
-                  Enter the 6-character code to unlock the secret
+                  Enter the 13-character code to unlock the secret
                 </motion.p>
 
                 <motion.div
@@ -106,8 +106,8 @@ export default function CodePage() {
                     onChange={handleCodeChange}
                     onKeyPress={handleKeyPress}
                     placeholder="Enter code"
-                    maxLength={6}
-                    className="w-full rounded-2xl border-4 border-white/30 bg-white/20 px-6 py-4 text-center font-mono text-3xl font-bold text-white placeholder-white/50 backdrop-blur-sm focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 focus:outline-none"
+                    maxLength={13}
+                    className="w-full rounded-2xl border-4 border-white/30 bg-white/20 px-6 py-4 text-center font-mono text-2xl font-bold text-white placeholder-white/50 backdrop-blur-sm focus:border-cyan-400 focus:ring-4 focus:ring-cyan-400/30 focus:outline-none"
                   />
                 </motion.div>
 
@@ -119,7 +119,7 @@ export default function CodePage() {
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={handleSubmit}
-                    disabled={code.length !== 6}
+                    disabled={code.length !== 13}
                     className="w-full rounded-2xl bg-gradient-to-r from-cyan-500 to-teal-600 px-8 py-4 text-xl font-bold text-white shadow-xl transition hover:from-cyan-400 hover:to-teal-500 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:scale-100"
                   >
                     Submit Code

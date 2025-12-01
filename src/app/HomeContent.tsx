@@ -235,11 +235,11 @@ export default function HomeContent() {
                   className="mb-6 rounded-2xl border-2 border-yellow-400/50 bg-gradient-to-r from-yellow-400/20 to-orange-400/20 p-6 shadow-lg backdrop-blur-sm"
                 >
                   <h3 className="mb-2 text-2xl font-bold text-yellow-300">
-                    🎉 First Meeting: October 20th!
+                    🎉 Next Meeting: Dec 1st!
                   </h3>
                   <p className="text-white/90">
-                    Don't miss our very first meeting! Come join us and be part
-                    of something amazing from the very beginning!
+                    Don't miss our very next meeting! Come join us and be part
+                    of the fun!
                   </p>
                 </motion.div>
 
