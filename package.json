@@ -34,7 +34,7 @@
     "framer-motion": "^12.23.6",
     "google-auth-library": "^10.4.0",
     "google-spreadsheet": "^5.0.2",
-    "next": "^15.2.3",
+    "next": "15.2.8",
     "next-auth": "5.0.0-beta.25",
     "nodemailer": "^7.0.5",
     "react": "^19.0.0",
