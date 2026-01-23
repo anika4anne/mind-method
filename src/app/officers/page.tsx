@@ -21,7 +21,7 @@ const officers: Officer[] = [
   {
     name: "Ava Davis",
     position: "President",
-    bio: "Ava is passionate about making psychology accessible to all students. She leads the club with enthusiasm and creativity, ensuring every member feels welcome and engaged.",
+    bio: "Ava is passionate about making psychology accessible to all students. She leads the club with enthusiasm, creativity, and ensuring every member feels welcome and engaged.",
     image: "/bio/ava3.jpg",
     section: "Leadership Team",
     socials: {
@@ -41,7 +41,7 @@ const officers: Officer[] = [
   {
     name: "Anika Anne",
     position: "Vice President",
-    bio: "Anika is a rising sophmore who loves coding & technology, she recently found an interest in psycology. She plays for the JV volleyball team, and is part of the Robotics and Scioly club",
+    bio: "Anika is a rising sophomore who loves coding & technology. She recently found an interest in psychology. She plays for the JV volleyball team, and is part of the Robotics and Scioly club",
     image: "/officers/anika.jpg",
     section: "Leadership Team",
     socials: {
@@ -333,7 +333,6 @@ export default function OfficersPage() {
                         <div className="absolute inset-0 rotate-y-180 backface-hidden">
                           <div
                             className="flex h-full w-full flex-col justify-center rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-6 shadow-2xl backdrop-blur-sm"
-                            style={{ transform: "scaleX(-1)" }}
                           >
                             <div className="text-center">
                               <h3 className="mb-4 text-2xl font-bold text-white drop-shadow">
