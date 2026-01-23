@@ -56,7 +56,9 @@ const officers: Officer[] = [
     bio: "Francesca is a junior who is interested in the field of forensic science and psychology. She is an active member in multiple clubs and honors societies.",
     image: "/bio/francesca.jpg",
     section: "Leadership Team",
-    socials: {},
+    socials: {
+      instagram: "https://www.instagram.com/francesca_b3nnett/",
+    },
   },
   {
     name: "Malak Aly",
@@ -76,14 +78,16 @@ const officers: Officer[] = [
     section: "Leadership Team",
     socials: {},
   },
-  /* {
-    name: "unknown",
+  {
+    name: "Aubrey",
     position: "Treasurer",
-    bio: "bio goes here",
-    image: "/officers/unknown.jpg",
-    section: "Legendary Members",
-    socials: {},
-  },*/
+    bio: "Aubrey is a junior at John Jay this year and super excited to join the Mind and Method team! She has always enjoyed learning about the brain and can't wait to plan events for the club.",
+    image: "/bio/aubrey.jpeg",
+    section: "Leadership Team",
+    socials: {
+      instagram: "https://www.instagram.com/aubrey_j3de/",
+    },
+  },
   /*{
     name: "unknown",
     position: "Event Coordinator",
