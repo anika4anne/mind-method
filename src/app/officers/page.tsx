@@ -88,6 +88,14 @@ const officers: Officer[] = [
       instagram: "https://www.instagram.com/aubrey_j3de/",
     },
   },
+  {
+    name: "Madison",
+    position: "Media Manager",
+    bio: "Madison is a junior and John Jay and she enjoys participating in John Jay's clubs! She is a part of Book Club and Proscenium and is now very excited to join the Mind & Method crew! Make sure to check out our club social platforms to see the lovely posts she makes!",
+    image: "/bio/madison.JPEG",
+    section: "Leadership Team",
+    socials: {},
+  },
   /*{
     name: "unknown",
     position: "Event Coordinator",
