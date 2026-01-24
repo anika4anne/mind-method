@@ -164,6 +164,34 @@ export default function MediaPage() {
                   </Link>
                 </motion.div>
               </motion.div>
+
+              <motion.div
+                variants={cardVariants}
+                whileHover="hover"
+                className="group relative overflow-hidden rounded-3xl border-4 border-white/30 bg-gradient-to-br from-white/30 to-white/20 p-8 shadow-2xl backdrop-blur-xl transition-all hover:border-cyan-400/50 hover:bg-white/30"
+              >
+                <div className="mb-6 flex justify-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-black to-gray-800 text-4xl">
+                    <i className="fab fa-tiktok text-white"></i>
+                  </div>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-white">TikTok</h3>
+                <p className="mb-6 text-white/80">
+                  Watch our fun videos, club highlights, and psychology content on
+                  TikTok!
+                </p>
+                <motion.a
+                  href="https://www.tiktok.com/@mind.method6?lang=en"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="inline-block rounded-xl bg-gradient-to-r from-black to-gray-800 px-6 py-3 font-semibold text-white shadow-lg transition-all hover:shadow-xl"
+                >
+                  Follow Us
+                  <i className="fas fa-arrow-right ml-2"></i>
+                </motion.a>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -184,9 +212,9 @@ export default function MediaPage() {
                 className="mx-auto max-w-3xl text-lg text-white/80"
               >
                 Join our community and be part of the Mind & Method family!
-                Follow us on Instagram for daily updates, subscribe to our
-                newsletter for exclusive content, and don't forget to check out
-                our latest news and events.
+                Follow us on Instagram and TikTok for daily updates, subscribe to
+                our newsletter for exclusive content, and don't forget to check
+                out our latest news and events.
               </motion.p>
             </motion.div>
           </motion.div>

@@ -51,7 +51,7 @@ const officers: Officer[] = [
     },
   },
   {
-    name: "Francesca",
+    name: "Francesca B.",
     position: "Outreach Coordinator",
     bio: "Francesca is a junior who is interested in the field of forensic science and psychology. She is an active member in multiple clubs and honors societies.",
     image: "/bio/francesca.jpg",
@@ -71,7 +71,7 @@ const officers: Officer[] = [
     },
   },
   {
-    name: "Sara",
+    name: "Sara T.",
     position: "Secretary",
     bio: "Sara is a sophomore and is so excited to be a part of Mind and Method this year. She has always enjoyed psychology and finds the club to be a great place to explore it alongside others.",
     image: "/bio/sara.webp",
@@ -79,7 +79,7 @@ const officers: Officer[] = [
     socials: {},
   },
   {
-    name: "Aubrey",
+    name: "Aubrey S.",
     position: "Treasurer",
     bio: "Aubrey is a junior at John Jay this year and super excited to join the Mind and Method team! She has always enjoyed learning about the brain and can't wait to plan events for the club.",
     image: "/bio/aubrey.jpeg",
@@ -89,7 +89,7 @@ const officers: Officer[] = [
     },
   },
   {
-    name: "Madison",
+    name: "Madison O.",
     position: "Media Manager",
     bio: "Madison is a junior and John Jay and she enjoys participating in John Jay's clubs! She is a part of Book Club and Proscenium and is now very excited to join the Mind & Method crew! Make sure to check out our club social platforms to see the lovely posts she makes!",
     image: "/bio/madison.JPEG",
